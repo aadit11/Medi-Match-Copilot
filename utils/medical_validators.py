@@ -155,3 +155,25 @@ def sanitize_patient_data(patient_data: Dict[str, Any]) -> Dict[str, Any]:
     
     return sanitized_data
 
+def is_urgent_symptom(symptoms: List[str]) -> Tuple[bool, List[str]]:
+   
+    urgent_keywords = [
+        'severe', 'intense', 'excruciating', 'worst', 
+        'chest pain', 'difficulty breathing', 'shortness of breath',
+        'stroke', 'heart attack', 'unconscious', 'unresponsive',
+        'seizure', 'convulsion', 'paralysis', 'sudden numbness',
+        'severe bleeding', 'coughing blood', 'vomiting blood',
+        'sudden vision loss', 'sudden severe headache',
+        'suicide', 'self-harm', 'overdose'
+    ]
+    
+    urgent_symptoms = []
+    
+    for symptom in symptoms:
+        symptom_lower = symptom.lower()
+        for keyword in urgent_keywords:
+            if keyword in symptom_lower:
+                urgent_symptoms.append(symptom)
+                break
+    
+    return bool(urgent_symptoms), urgent_symptoms
