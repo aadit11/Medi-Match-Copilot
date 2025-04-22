@@ -14,8 +14,8 @@ MEDICAL_KB_DIR.mkdir(parents=True, exist_ok=True)
 
 # Ollama settings
 OLLAMA_HOST = "http://localhost:11434"
-OLLAMA_TEXT_MODEL = "llama3:latest"
-OLLAMA_VISION_MODEL = "llava:latest"
+OLLAMA_TEXT_MODEL = "llama3.1:8b"
+OLLAMA_VISION_MODEL = "llama3.2-vision"
 
 # Vector database settings
 VECTOR_DB_PATH = str(EMBEDDINGS_DIR / "vector_db")
