@@ -5,7 +5,6 @@ from typing import List, Dict, Any, Optional, Union, Tuple
 from pathlib import Path
 import numpy as np
 from tqdm import tqdm
-
 from sentence_transformers import SentenceTransformer
 
 from core.config import (
@@ -169,12 +168,6 @@ class DocumentIndexer:
         logger.info(f"Reindex complete: {docs_indexed} documents, {chunks_indexed} chunks")
     
     def get_index_stats(self) -> Dict[str, Any]:
-        """
-        Get statistics about the current index.
-        
-        Returns:
-            Dictionary with index statistics
-        """
         return self.vector_store.get_stats()
 
 def create_indexer(
