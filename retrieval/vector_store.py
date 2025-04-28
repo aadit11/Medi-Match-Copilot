@@ -157,4 +157,11 @@ class VectorStore:
             if doc_id:
                 document_ids.add(doc_id)
         
+        stats = {
+            "document_count": len(document_ids),
+            "chunk_count": len(self.metadata),
+            "last_updated": datetime.now().isoformat(),
+            "embedding_dimension": self.embeddings.shape[1] if self.embeddings.size > 0 else 0
+        }
         
+        return stats    
