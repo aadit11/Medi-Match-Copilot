@@ -1,7 +1,6 @@
 import logging
 from typing import Dict, List, Any, Optional, Tuple, Union
 from pathlib import Path
-
 from core.diagnosis_engine import DiagnosisEngine, create_diagnosis_engine
 from core.image_processor import ImageProcessor, create_image_processor
 from utils.medical_validators import sanitize_patient_data
