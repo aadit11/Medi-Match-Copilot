@@ -3,18 +3,20 @@ from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 import json
 import re
+import requests
 
-from core.config import OLLAMA_TEXT_MODEL
-from models.ollama_client import OllamaClient, create_ollama_client
+from core.config import OLLAMA_HOST, OLLAMA_TEXT_MODEL
 
 logger = logging.getLogger(__name__)
 
 class TextModelClient:
     def __init__(
         self,
-        client: Optional[OllamaClient] = None
+        host: str = OLLAMA_HOST,
+        text_model: str = OLLAMA_TEXT_MODEL
     ):
-        self.client = client or create_ollama_client()
+        self.host = host.rstrip('/')
+        self.text_model = text_model
     
     def generate_text(
         self,
@@ -25,13 +27,34 @@ class TextModelClient:
         stop: Optional[List[str]] = None
     ) -> str:
         try:
-            return self.client.generate_text(
-                prompt=prompt,
-                system_prompt=system_prompt,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                stop=stop
+            payload = {
+                "model": self.text_model,
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "temperature": temperature
+                }
+            }
+            
+            if system_prompt:
+                payload["system"] = system_prompt
+            
+            if max_tokens:
+                payload["options"]["num_predict"] = max_tokens
+            
+            if stop:
+                payload["options"]["stop"] = stop
+            
+            response = requests.post(
+                f"{self.host}/api/generate",
+                json=payload,
+                timeout=30
             )
+            response.raise_for_status()
+            
+            result = response.json()
+            return result.get("response", "")
+        
         except Exception as e:
             logger.error(f"Error generating text: {e}")
             raise

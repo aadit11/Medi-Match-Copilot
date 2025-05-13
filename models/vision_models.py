@@ -3,18 +3,20 @@ from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 import json
 import base64
+import requests
 
-from core.config import OLLAMA_VISION_MODEL
-from models.ollama_client import OllamaClient, create_ollama_client
+from core.config import OLLAMA_HOST, OLLAMA_VISION_MODEL
 
 logger = logging.getLogger(__name__)
 
 class VisionModelClient:
     def __init__(
         self,
-        client: Optional[OllamaClient] = None
+        host: str = OLLAMA_HOST,
+        vision_model: str = OLLAMA_VISION_MODEL
     ):
-        self.client = client or create_ollama_client()
+        self.host = host.rstrip('/')
+        self.vision_model = vision_model
     
     def analyze_image(
         self,
@@ -25,13 +27,60 @@ class VisionModelClient:
         max_tokens: Optional[int] = None
     ) -> str:
         try:
-            return self.client.generate_image_analysis(
-                image_path=image_path,
-                prompt=prompt,
-                system_prompt=system_prompt,
-                temperature=temperature,
-                max_tokens=max_tokens
+            if isinstance(image_path, str):
+                image_path = Path(image_path)
+            
+            if not image_path.exists():
+                raise FileNotFoundError(f"Image file not found: {image_path}")
+            
+            with open(image_path, 'rb') as f:
+                image_data = f.read()
+            
+            image_base64 = base64.b64encode(image_data).decode('utf-8')
+            
+            messages = []
+            if system_prompt:
+                messages.append({
+                    "role": "system",
+                    "content": system_prompt
+                })
+            
+            messages.append({
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "image": image_base64
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt
+                    }
+                ]
+            })
+            
+            payload = {
+                "model": self.vision_model,
+                "messages": messages,
+                "stream": False,
+                "options": {
+                    "temperature": temperature
+                }
+            }
+            
+            if max_tokens:
+                payload["options"]["num_predict"] = max_tokens
+            
+            response = requests.post(
+                f"{self.host}/api/chat",
+                json=payload,
+                timeout=60
             )
+            response.raise_for_status()
+            
+            result = response.json()
+            return result.get("message", {}).get("content", "")
+        
         except Exception as e:
             logger.error(f"Error analyzing image: {e}")
             raise
