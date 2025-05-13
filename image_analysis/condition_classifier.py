@@ -20,7 +20,6 @@ class ConditionClassifier:
         self.conditions_db = self._load_conditions_database()
     
     def _load_conditions_database(self) -> Dict[str, Any]:
-        """Load the conditions database from JSON file."""
         try:
             if self.conditions_db_path.exists():
                 with open(self.conditions_db_path, 'r', encoding='utf-8') as f:
@@ -36,37 +35,22 @@ class ConditionClassifier:
         body_area: Optional[str] = None,
         min_confidence: float = 0.4
     ) -> List[Dict[str, Any]]:
-        """
-        Classify medical conditions based on image features.
         
-        Args:
-            image_features: Dictionary of extracted image features
-            body_area: Optional body area for context
-            min_confidence: Minimum confidence threshold
-            
-        Returns:
-            List of classified conditions with confidence scores
-        """
         try:
             if not image_features:
                 return []
             
-            # Prepare feature description
             feature_desc = self._format_features(image_features)
             
-            # Create classification prompt
             prompt = self._create_classification_prompt(feature_desc, body_area)
             
-            # Get model response
             response = self.model_client.generate_text(
                 system_prompt=self._get_system_prompt(),
                 user_prompt=prompt
             )
             
-            # Extract classifications
             classifications = self._extract_classifications(response)
             
-            # Filter by confidence
             filtered_classifications = [
                 c for c in classifications
                 if c.get("confidence", 0) >= min_confidence
@@ -79,10 +63,8 @@ class ConditionClassifier:
             return []
     
     def _format_features(self, features: Dict[str, Any]) -> str:
-        """Format image features into a readable description."""
         feature_parts = []
         
-        # Texture features
         if any(k.startswith('texture_') for k in features):
             texture_desc = "Texture characteristics:\n"
             for k, v in features.items():
@@ -90,7 +72,6 @@ class ConditionClassifier:
                     texture_desc += f"- {k.replace('texture_', '')}: {v:.3f}\n"
             feature_parts.append(texture_desc)
         
-        # Shape features
         if any(k in ['area', 'perimeter', 'circularity', 'aspect_ratio'] for k in features):
             shape_desc = "Shape characteristics:\n"
             for k in ['area', 'perimeter', 'circularity', 'aspect_ratio']:
@@ -98,7 +79,6 @@ class ConditionClassifier:
                     shape_desc += f"- {k}: {features[k]:.3f}\n"
             feature_parts.append(shape_desc)
         
-        # Color features
         if any(k.startswith(('red_', 'green_', 'blue_')) for k in features):
             color_desc = "Color characteristics:\n"
             for color in ['red', 'green', 'blue']:
@@ -114,7 +94,6 @@ class ConditionClassifier:
         feature_desc: str,
         body_area: Optional[str]
     ) -> str:
-        """Create prompt for condition classification."""
         prompt = "Based on the following image features, identify possible medical conditions:\n\n"
         prompt += feature_desc
         
@@ -129,7 +108,6 @@ class ConditionClassifier:
         return prompt
     
     def _get_system_prompt(self) -> str:
-        """Get system prompt for classification."""
         return """
         You are a medical image analysis expert. Analyze the provided image features
         and identify possible medical conditions. Consider both the visual characteristics
@@ -138,7 +116,6 @@ class ConditionClassifier:
         """
     
     def _extract_classifications(self, response: str) -> List[Dict[str, Any]]:
-        """Extract structured classifications from model response."""
         try:
             system_prompt = """
             Extract the medical conditions from the analysis text.
@@ -183,5 +160,4 @@ class ConditionClassifier:
             return []
 
 def create_condition_classifier() -> ConditionClassifier:
-    """Create a new ConditionClassifier instance."""
     return ConditionClassifier()
