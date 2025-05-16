@@ -161,3 +161,19 @@ class ConditionClassifier:
 
 def create_condition_classifier() -> ConditionClassifier:
     return ConditionClassifier()
+
+def classify_condition(
+    image_features: Dict[str, Any],
+    body_area: Optional[str] = None,
+    min_confidence: float = 0.4
+) -> List[Dict[str, Any]]:
+    """
+    Standalone function to classify conditions from image features.
+    This is a convenience wrapper around ConditionClassifier.classify_condition.
+    """
+    classifier = create_condition_classifier()
+    return classifier.classify_condition(
+        image_features=image_features,
+        body_area=body_area,
+        min_confidence=min_confidence
+    )
