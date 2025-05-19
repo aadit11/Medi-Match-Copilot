@@ -12,7 +12,7 @@ PATIENT_INFO = {
     "height": 175.0,  
     "weight": 75.0,   
     "contact_info": {
-        "email": "john.doe@example.com",
+        "email": "john.smith@example.com",
         "phone": "123-456-7890",
         "address": "Los Angeles, CA, USA",
         "emergency_contact": {
@@ -43,7 +43,7 @@ SYMPTOM_DURATION_DAYS = 3
 
 # Medical Image Information (if available)
 IMAGE_INFO = {
-    "image_path": "path/to/medical/image.jpg",  
+    "image_path": "D:/CodeExperimentation/PersonalProjects/Medi-Match_Copilot/Medi-Match-Copilot/data/xray.png",  
     "body_area": "chest",
     "image_type": "X-ray"  
 }

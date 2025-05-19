@@ -9,6 +9,7 @@ from core.diagnosis_engine import DiagnosisEngine, create_diagnosis_engine
 from core.image_processor import ImageProcessor, create_image_processor
 from utils.medical_validators import sanitize_patient_data
 from patient_details import get_patient_data
+from retrieval.indexing import create_indexer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -114,15 +115,31 @@ def save_assessment_to_file(assessment_text: str, patient_name: str) -> str:
         logger.error(f"Error saving assessment to file: {e}")
         raise
 
+def initialize_system():
+    """Initialize the system components and load necessary data."""
+    try:
+        # Initialize and index medical knowledge
+        indexer = create_indexer()
+        medical_kb_dir = str(Path(__file__).parent / "data" / "medical_kb")
+        doc_count, chunk_count = indexer.index_directory(medical_kb_dir)
+        logger.info(f"Indexed {doc_count} medical knowledge documents with {chunk_count} chunks")
+        
+        # Create system components
+        analyzer = create_system_analyzer()
+        return analyzer
+    except Exception as e:
+        logger.error(f"Error initializing system: {e}")
+        raise
+
 def main():
     try:
-        system_analyzer = create_system_analyzer()
+        analyzer = initialize_system()
         
         patient_data = get_patient_data()
         
         sanitized_patient_info = sanitize_patient_data(patient_data["patient_info"])
         
-        result = system_analyzer.analyze_case(
+        result = analyzer.analyze_case(
             primary_symptom=patient_data["symptoms"]["primary"],
             secondary_symptoms=patient_data["symptoms"]["secondary"],
             patient_info=sanitized_patient_info,

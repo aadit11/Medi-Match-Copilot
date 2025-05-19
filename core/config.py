@@ -13,7 +13,6 @@ EMBEDDINGS_DIR.mkdir(parents=True, exist_ok=True)
 MEDICAL_KB_DIR.mkdir(parents=True, exist_ok=True)
 
 # Ollama settings
-OLLAMA_HOST = "http://localhost:11434"
 OLLAMA_TEXT_MODEL = "llama3.1:8b"
 OLLAMA_VISION_MODEL = "llama3.2-vision"
 
@@ -60,7 +59,6 @@ def get_config() -> Dict[str, Any]:
 def get_model_config() -> Dict[str, Any]:
     """Return model-specific configuration parameters."""
     return {
-        "ollama_host": OLLAMA_HOST,
         "text_model": OLLAMA_TEXT_MODEL,
         "vision_model": OLLAMA_VISION_MODEL,
         "embedding_model": EMBEDDING_MODEL,

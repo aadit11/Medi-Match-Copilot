@@ -1,0 +1,139 @@
+{
+    "conditions": {
+        "common_cold": {
+            "name": "Common Cold",
+            "description": "A viral infection of the upper respiratory tract",
+            "symptoms": [
+                "Runny nose",
+                "Sore throat",
+                "Cough",
+                "Congestion",
+                "Sneezing",
+                "Mild fever",
+                "Body aches"
+            ],
+            "duration": "7-10 days",
+            "treatment": {
+                "self_care": [
+                    "Rest",
+                    "Stay hydrated",
+                    "Over-the-counter pain relievers",
+                    "Saline nasal drops",
+                    "Warm liquids"
+                ],
+                "medical_treatment": [
+                    "Antiviral medications (in some cases)",
+                    "Prescription decongestants (if severe)"
+                ]
+            },
+            "prevention": [
+                "Frequent hand washing",
+                "Avoid close contact with sick people",
+                "Don't touch face with unwashed hands",
+                "Maintain good immune system health"
+            ],
+            "complications": [
+                "Sinus infection",
+                "Ear infection",
+                "Bronchitis",
+                "Pneumonia (rare)"
+            ]
+        },
+        "influenza": {
+            "name": "Influenza (Flu)",
+            "description": "A contagious respiratory illness caused by influenza viruses",
+            "symptoms": [
+                "High fever",
+                "Severe body aches",
+                "Fatigue",
+                "Dry cough",
+                "Sore throat",
+                "Headache",
+                "Chills"
+            ],
+            "duration": "1-2 weeks",
+            "treatment": {
+                "self_care": [
+                    "Rest",
+                    "Stay hydrated",
+                    "Over-the-counter pain relievers",
+                    "Antiviral medications (if prescribed)"
+                ],
+                "medical_treatment": [
+                    "Antiviral medications (within 48 hours of symptoms)",
+                    "Hospitalization (in severe cases)"
+                ]
+            },
+            "prevention": [
+                "Annual flu vaccination",
+                "Frequent hand washing",
+                "Avoid close contact with sick people",
+                "Stay home when sick"
+            ],
+            "complications": [
+                "Pneumonia",
+                "Bronchitis",
+                "Sinus infections",
+                "Ear infections",
+                "Worsening of chronic conditions"
+            ],
+            "urgent_warning_signs": [
+                "Difficulty breathing",
+                "Chest pain",
+                "Sudden dizziness",
+                "Severe vomiting",
+                "Confusion"
+            ]
+        },
+        "hypertension": {
+            "name": "Hypertension (High Blood Pressure)",
+            "description": "A condition where the force of blood against artery walls is too high",
+            "symptoms": [
+                "Usually asymptomatic",
+                "Headaches (in some cases)",
+                "Shortness of breath",
+                "Nosebleeds (rare)"
+            ],
+            "diagnosis": {
+                "normal": "Less than 120/80 mmHg",
+                "elevated": "120-129/<80 mmHg",
+                "stage1": "130-139/80-89 mmHg",
+                "stage2": "140 or higher/90 or higher mmHg",
+                "crisis": "Higher than 180/Higher than 120 mmHg"
+            },
+            "treatment": {
+                "lifestyle_changes": [
+                    "Healthy diet (DASH diet)",
+                    "Regular exercise",
+                    "Weight management",
+                    "Limit alcohol",
+                    "Quit smoking",
+                    "Reduce sodium intake"
+                ],
+                "medications": [
+                    "Diuretics",
+                    "ACE inhibitors",
+                    "ARBs",
+                    "Calcium channel blockers",
+                    "Beta blockers"
+                ]
+            },
+            "risk_factors": [
+                "Age",
+                "Family history",
+                "Obesity",
+                "Physical inactivity",
+                "High sodium diet",
+                "Excessive alcohol consumption",
+                "Stress"
+            ],
+            "complications": [
+                "Heart attack",
+                "Stroke",
+                "Heart failure",
+                "Kidney disease",
+                "Vision loss"
+            ]
+        }
+    }
+} 

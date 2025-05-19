@@ -126,7 +126,7 @@ class ImageProcessor:
             
             extraction_result = self.vision_model.model_client.generate_text(
                 system_prompt=system_prompt,
-                user_prompt=user_prompt
+                prompt=user_prompt
             )
             
             import re
@@ -208,7 +208,7 @@ class ImageProcessor:
             
             combined_assessment = self.vision_model.model_client.generate_text(
                 system_prompt=system_prompt,
-                user_prompt=user_prompt
+                prompt=user_prompt
             )
             
             return {

@@ -1,0 +1,112 @@
+{
+    "medications": {
+        "acetaminophen": {
+            "name": "Acetaminophen (Tylenol)",
+            "type": "Analgesic, Antipyretic",
+            "uses": [
+                "Pain relief",
+                "Fever reduction"
+            ],
+            "dosage": {
+                "adults": "325-650mg every 4-6 hours, max 4000mg per day",
+                "children": "10-15mg/kg every 4-6 hours, max 5 doses per day"
+            },
+            "side_effects": [
+                "Rare at therapeutic doses",
+                "Nausea",
+                "Liver damage (in overdose)",
+                "Allergic reactions (rare)"
+            ],
+            "contraindications": [
+                "Severe liver disease",
+                "Known allergy to acetaminophen"
+            ],
+            "interactions": [
+                "Alcohol (increases risk of liver damage)",
+                "Warfarin (may increase bleeding risk)"
+            ],
+            "precautions": [
+                "Check other medications for acetaminophen content",
+                "Avoid alcohol while taking",
+                "Don't exceed maximum daily dose"
+            ]
+        },
+        "ibuprofen": {
+            "name": "Ibuprofen (Advil, Motrin)",
+            "type": "NSAID (Non-Steroidal Anti-Inflammatory Drug)",
+            "uses": [
+                "Pain relief",
+                "Fever reduction",
+                "Inflammation reduction"
+            ],
+            "dosage": {
+                "adults": "200-400mg every 4-6 hours, max 1200mg per day",
+                "children": "5-10mg/kg every 6-8 hours, max 40mg/kg per day"
+            },
+            "side_effects": [
+                "Stomach upset",
+                "Heartburn",
+                "Dizziness",
+                "Increased blood pressure",
+                "Kidney problems (with long-term use)",
+                "Increased risk of heart attack/stroke"
+            ],
+            "contraindications": [
+                "Active stomach ulcers",
+                "Severe heart failure",
+                "Kidney disease",
+                "Known allergy to NSAIDs"
+            ],
+            "interactions": [
+                "Aspirin (increases bleeding risk)",
+                "Blood pressure medications",
+                "Diuretics",
+                "Lithium"
+            ],
+            "precautions": [
+                "Take with food",
+                "Avoid alcohol",
+                "Monitor for signs of bleeding",
+                "Use lowest effective dose"
+            ]
+        },
+        "amoxicillin": {
+            "name": "Amoxicillin",
+            "type": "Antibiotic (Penicillin class)",
+            "uses": [
+                "Bacterial infections",
+                "Ear infections",
+                "Sinus infections",
+                "Pneumonia",
+                "Urinary tract infections"
+            ],
+            "dosage": {
+                "adults": "250-500mg every 8 hours",
+                "children": "20-40mg/kg per day divided into 3 doses"
+            },
+            "side_effects": [
+                "Diarrhea",
+                "Nausea",
+                "Rash",
+                "Allergic reactions",
+                "Yeast infections"
+            ],
+            "contraindications": [
+                "Known allergy to penicillin",
+                "Active mononucleosis"
+            ],
+            "interactions": [
+                "Probenecid (increases amoxicillin levels)",
+                "Allopurinol (increases risk of rash)",
+                "Oral contraceptives (may reduce effectiveness)"
+            ],
+            "precautions": [
+                "Complete full course of antibiotics",
+                "Take with or without food",
+                "Report any signs of allergic reaction",
+                "Store in refrigerator (for liquid form)"
+            ],
+            "resistance_warning": "Overuse can lead to antibiotic resistance"
+        }
+    }
+} 

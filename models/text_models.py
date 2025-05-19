@@ -3,19 +3,18 @@ from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 import json
 import re
-import requests
 
-from core.config import OLLAMA_HOST, OLLAMA_TEXT_MODEL
+import ollama  
+
+from core.config import OLLAMA_TEXT_MODEL
 
 logger = logging.getLogger(__name__)
 
 class TextModelClient:
     def __init__(
         self,
-        host: str = OLLAMA_HOST,
         text_model: str = OLLAMA_TEXT_MODEL
     ):
-        self.host = host.rstrip('/')
         self.text_model = text_model
     
     def generate_text(
@@ -27,38 +26,30 @@ class TextModelClient:
         stop: Optional[List[str]] = None
     ) -> str:
         try:
-            payload = {
-                "model": self.text_model,
-                "prompt": prompt,
-                "stream": False,
-                "options": {
-                    "temperature": temperature
-                }
-            }
-            
+            # Compose the full prompt
             if system_prompt:
-                payload["system"] = system_prompt
-            
+                full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
+            else:
+                full_prompt = prompt
+
+            # Prepare Ollama options
+            options = {"temperature": temperature}
             if max_tokens:
-                payload["options"]["num_predict"] = max_tokens
-            
+                options["num_predict"] = max_tokens
             if stop:
-                payload["options"]["stop"] = stop
-            
-            response = requests.post(
-                f"{self.host}/api/generate",
-                json=payload,
-                timeout=30
+                options["stop"] = stop
+
+            # Call Ollama via Python package
+            response = ollama.generate(
+                model=self.text_model,
+                prompt=full_prompt,
+                options=options
             )
-            response.raise_for_status()
-            
-            result = response.json()
-            return result.get("response", "")
-        
+            return response.get("response", "")
         except Exception as e:
             logger.error(f"Error generating text: {e}")
             raise
-    
+
     def generate_structured_response(
         self,
         prompt: str,
@@ -83,17 +74,15 @@ class TextModelClient:
             if json_match:
                 json_str = json_match.group(1)
                 return json.loads(json_str)
-            
             try:
                 return json.loads(response)
             except json.JSONDecodeError:
                 logger.warning("Could not parse response as JSON, returning as text")
                 return {"text": response}
-        
         except Exception as e:
             logger.error(f"Error generating structured response: {e}")
             raise
-    
+
     def generate_medical_assessment(
         self,
         symptoms: List[str],
@@ -104,22 +93,17 @@ class TextModelClient:
     ) -> Dict[str, Any]:
         try:
             prompt_parts = ["Medical assessment for the following symptoms:"]
-            
             for symptom in symptoms:
                 prompt_parts.append(f"- {symptom}")
-            
             if patient_info:
                 prompt_parts.append("\nPatient Information:")
                 for key, value in patient_info.items():
                     prompt_parts.append(f"- {key}: {value}")
-            
             if medical_history:
                 prompt_parts.append("\nMedical History:")
                 for condition in medical_history:
                     prompt_parts.append(f"- {condition}")
-            
             prompt = "\n".join(prompt_parts)
-            
             response_format = {
                 "assessment": "Overall assessment of the case",
                 "likely_diagnoses": [
@@ -134,18 +118,16 @@ class TextModelClient:
                 "recommended_next_steps": ["Step 1", "Step 2"],
                 "additional_notes": "Any additional important information"
             }
-            
             return self.generate_structured_response(
                 prompt=prompt,
                 system_prompt=system_prompt,
                 temperature=temperature,
                 response_format=response_format
             )
-        
         except Exception as e:
             logger.error(f"Error generating medical assessment: {e}")
             raise
-    
+
     def generate_symptom_questions(
         self,
         symptom: str,
@@ -155,12 +137,10 @@ class TextModelClient:
     ) -> List[Dict[str, Any]]:
         try:
             prompt = f"Generate relevant follow-up questions for the symptom: {symptom}"
-            
             if context:
                 prompt += "\nContext:\n"
                 for key, value in context.items():
                     prompt += f"- {key}: {value}\n"
-            
             response_format = {
                 "questions": [
                     {
@@ -171,16 +151,13 @@ class TextModelClient:
                     }
                 ]
             }
-            
             response = self.generate_structured_response(
                 prompt=prompt,
                 system_prompt=system_prompt,
                 temperature=temperature,
                 response_format=response_format
             )
-            
             return response.get("questions", [])
-        
         except Exception as e:
             logger.error(f"Error generating symptom questions: {e}")
             raise

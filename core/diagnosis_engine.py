@@ -108,7 +108,7 @@ class DiagnosisEngine:
         try:
             response = self.model_client.generate_text(
                 system_prompt=prompt_data["system"],
-                user_prompt=prompt_data["user"]
+                prompt=prompt_data["user"]
             )
         except Exception as e:
             logger.error(f"Error generating diagnostic assessment: {e}")
@@ -172,7 +172,7 @@ class DiagnosisEngine:
             
             extraction_result = self.model_client.generate_text(
                 system_prompt=system_prompt,
-                user_prompt=f"Extract diagnoses from this assessment:\n\n{text}"
+                prompt=f"Extract diagnoses from this assessment:\n\n{text}"
             )
             
             import re
@@ -278,7 +278,7 @@ class DiagnosisEngine:
             
             response = self.model_client.generate_text(
                 system_prompt=system_prompt,
-                user_prompt=user_prompt
+                prompt=user_prompt
             )
             
             return {
@@ -314,7 +314,7 @@ class DiagnosisEngine:
             
             response = self.model_client.generate_text(
                 system_prompt=prompt_data["system"],
-                user_prompt=prompt_data["user"]
+                prompt=prompt_data["user"]
             )
             
             return {
