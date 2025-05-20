@@ -180,6 +180,176 @@ def create_indexer(
         vector_db_path=vector_db_path
     )
 
+def convert_medical_kb_to_documents(kb_dir: Path) -> List[Dict[str, Any]]:
+    """Convert medical knowledge base JSON files into indexable documents."""
+    documents = []
+    
+    conditions_path = kb_dir / "conditions_database.json"
+    if conditions_path.exists():
+        try:
+            with open(conditions_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                for condition_id, condition in data.get("conditions", {}).items():
+                    text_parts = [
+                        f"Condition: {condition['name']}",
+                        f"Description: {condition.get('description', '')}",
+                        "\nSymptoms:",
+                        *[f"- {symptom}" for symptom in condition.get('symptoms', [])],
+                        f"\nDuration: {condition.get('duration', 'N/A')}"
+                    ]
+                    
+                    treatment = condition.get('treatment', {})
+                    if treatment:
+                        text_parts.append("\nTreatment:")
+                        if 'self_care' in treatment:
+                            text_parts.append("Self-care measures:")
+                            text_parts.extend([f"- {measure}" for measure in treatment['self_care']])
+                        if 'medical_treatment' in treatment:
+                            text_parts.append("\nMedical treatment:")
+                            text_parts.extend([f"- {treatment}" for treatment in treatment['medical_treatment']])
+                        if 'lifestyle_changes' in treatment:
+                            text_parts.append("\nLifestyle changes:")
+                            text_parts.extend([f"- {change}" for change in treatment['lifestyle_changes']])
+                        if 'medications' in treatment:
+                            text_parts.append("\nMedications:")
+                            text_parts.extend([f"- {med}" for med in treatment['medications']])
+                    
+                    if 'prevention' in condition:
+                        text_parts.append("\nPrevention:")
+                        text_parts.extend([f"- {prevention}" for prevention in condition['prevention']])
+                    
+                    if 'complications' in condition:
+                        text_parts.append("\nComplications:")
+                        text_parts.extend([f"- {complication}" for complication in condition['complications']])
+                    
+                    if 'risk_factors' in condition:
+                        text_parts.append("\nRisk Factors:")
+                        text_parts.extend([f"- {factor}" for factor in condition['risk_factors']])
+                    
+                    if 'urgent_warning_signs' in condition:
+                        text_parts.append("\nUrgent Warning Signs:")
+                        text_parts.extend([f"- {warning}" for warning in condition['urgent_warning_signs']])
+                    
+                    if 'diagnosis' in condition:
+                        text_parts.append("\nDiagnosis Criteria:")
+                        for stage, criteria in condition['diagnosis'].items():
+                            text_parts.append(f"- {stage.replace('_', ' ').title()}: {criteria}")
+                    
+                    documents.append({
+                        "id": f"condition_{condition_id}",
+                        "title": condition['name'],
+                        "text": "\n".join(text_parts),
+                        "source": "conditions_database.json",
+                        "doc_type": "medical_literature"
+                    })
+        except Exception as e:
+            logger.error(f"Error processing conditions database: {e}")
+    
+    symptoms_path = kb_dir / "symptoms_database.json"
+    if symptoms_path.exists():
+        try:
+            with open(symptoms_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                for symptom_id, symptom in data.get("symptoms", {}).items():
+                    text_parts = [
+                        f"Symptom: {symptom['name']}",
+                        f"Description: {symptom.get('description', '')}"
+                    ]
+                    
+                    if 'common_causes' in symptom:
+                        text_parts.append("\nCommon Causes:")
+                        text_parts.extend([f"- {cause}" for cause in symptom['common_causes']])
+                    
+                    if 'seek_medical_attention' in symptom:
+                        text_parts.append("\nWhen to Seek Medical Attention:")
+                        text_parts.extend([f"- {warning}" for warning in symptom['seek_medical_attention']])
+                    
+                    if 'self_care_measures' in symptom:
+                        text_parts.append("\nSelf-Care Measures:")
+                        text_parts.extend([f"- {measure}" for measure in symptom['self_care_measures']])
+                    
+                    documents.append({
+                        "id": f"symptom_{symptom_id}",
+                        "title": symptom['name'],
+                        "text": "\n".join(text_parts),
+                        "source": "symptoms_database.json",
+                        "doc_type": "medical_literature"
+                    })
+        except Exception as e:
+            logger.error(f"Error processing symptoms database: {e}")
+    
+    medications_path = kb_dir / "medications_database.json"
+    if medications_path.exists():
+        try:
+            with open(medications_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                for med_id, medication in data.get("medications", {}).items():
+                    text_parts = [
+                        f"Medication: {medication['name']}",
+                        f"Description: {medication.get('description', '')}"
+                    ]
+                    
+                    if 'uses' in medication:
+                        text_parts.append("\nUses:")
+                        text_parts.extend([f"- {use}" for use in medication['uses']])
+                    
+                    if 'dosage' in medication:
+                        text_parts.append(f"\nDosage: {medication['dosage']}")
+                    
+                    if 'side_effects' in medication:
+                        text_parts.append("\nSide Effects:")
+                        text_parts.extend([f"- {effect}" for effect in medication['side_effects']])
+                    
+                    if 'precautions' in medication:
+                        text_parts.append("\nPrecautions:")
+                        text_parts.extend([f"- {precaution}" for precaution in medication['precautions']])
+                    
+                    if 'interactions' in medication:
+                        text_parts.append("\nInteractions:")
+                        text_parts.extend([f"- {interaction}" for interaction in medication['interactions']])
+                    
+                    documents.append({
+                        "id": f"medication_{med_id}",
+                        "title": medication['name'],
+                        "text": "\n".join(text_parts),
+                        "source": "medications_database.json",
+                        "doc_type": "medical_literature"
+                    })
+        except Exception as e:
+            logger.error(f"Error processing medications database: {e}")
+    
+    logger.info(f"Converted {len(documents)} documents from medical knowledge base")
+    return documents
+
+def index_directory(directory_path: str) -> Tuple[int, int]:
+    """Index all documents in the specified directory."""
+    kb_dir = Path(directory_path)
+    if not kb_dir.exists():
+        logger.error(f"Directory does not exist: {directory_path}")
+        return 0, 0
+    
+    indexer = create_indexer()
+    
+    try:
+        documents = convert_medical_kb_to_documents(kb_dir)
+        
+        if not documents:
+            logger.error("No valid documents found to index")
+            return 0, 0
+        
+        doc_count, chunk_count = indexer.index_documents(documents)
+        
+        if doc_count == 0:
+            logger.error("Failed to index any documents")
+        else:
+            logger.info(f"Successfully indexed {doc_count} documents with {chunk_count} chunks")
+        
+        return doc_count, chunk_count
+    
+    except Exception as e:
+        logger.error(f"Error indexing directory: {e}")
+        return 0, 0
+
 if __name__ == "__main__":
     import sys
     
@@ -190,10 +360,8 @@ if __name__ == "__main__":
     else:
         input_dir = str(Path(__file__).parent.parent / "data" / "medical_kb")
     
-    indexer = create_indexer()
-    
-    doc_count, chunk_count = indexer.index_directory(input_dir)
+    doc_count, chunk_count = index_directory(input_dir)
     print(f"Indexed {doc_count} documents with {chunk_count} chunks")
     
-    stats = indexer.get_index_stats()
+    stats = create_indexer().get_index_stats()
     print(f"Index stats: {stats}")
