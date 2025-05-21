@@ -30,18 +30,15 @@ class VisionModelClient:
             if not image_path.exists():
                 raise FileNotFoundError(f"Image file not found: {image_path}")
 
-            # Compose the full prompt
             if system_prompt:
                 full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
             else:
                 full_prompt = prompt
 
-            # Prepare Ollama options
             options = {"temperature": temperature}
             if max_tokens:
                 options["num_predict"] = max_tokens
 
-            # Call Ollama via Python package for vision
             response = ollama.generate(
                 model=self.vision_model,
                 prompt=full_prompt,
@@ -120,7 +117,6 @@ class VisionModelClient:
                 "overall_assessment": "Overall assessment of the changes",
                 "recommendations": ["Recommendation 1", "Recommendation 2"]
             }
-            # Use the first image for the main prompt, then add others as context
             analyses = []
             for image_path in image_paths:
                 analysis = self.analyze_medical_image(

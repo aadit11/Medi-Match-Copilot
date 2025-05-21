@@ -68,16 +68,6 @@ class SystemAnalyzer:
                 result["image_analysis_error"] = image_analysis["error"]
         
         return result
-    
-    def get_condition_details(self, condition_name: str) -> Dict[str, Any]:
-        return self.diagnosis_engine.get_condition_details(condition_name)
-    
-    def get_symptom_guidance(self, symptom: str) -> Dict[str, Any]:
-        return self.diagnosis_engine.get_symptom_guidance(symptom)
-    
-    def extract_findings_from_image(self, image_path: str) -> List[Dict[str, Any]]:
-        analysis = self.image_processor.analyze_image(image_path)
-        return self.image_processor.extract_findings_from_analysis(analysis)
 
 def create_system_analyzer() -> SystemAnalyzer:
     return SystemAnalyzer()

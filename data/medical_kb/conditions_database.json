@@ -1,139 +1,17 @@
-{
-    "conditions": {
-        "common_cold": {
-            "name": "Common Cold",
-            "description": "A viral infection of the upper respiratory tract",
-            "symptoms": [
-                "Runny nose",
-                "Sore throat",
-                "Cough",
-                "Congestion",
-                "Sneezing",
-                "Mild fever",
-                "Body aches"
-            ],
-            "duration": "7-10 days",
-            "treatment": {
-                "self_care": [
-                    "Rest",
-                    "Stay hydrated",
-                    "Over-the-counter pain relievers",
-                    "Saline nasal drops",
-                    "Warm liquids"
-                ],
-                "medical_treatment": [
-                    "Antiviral medications (in some cases)",
-                    "Prescription decongestants (if severe)"
-                ]
-            },
-            "prevention": [
-                "Frequent hand washing",
-                "Avoid close contact with sick people",
-                "Don't touch face with unwashed hands",
-                "Maintain good immune system health"
-            ],
-            "complications": [
-                "Sinus infection",
-                "Ear infection",
-                "Bronchitis",
-                "Pneumonia (rare)"
-            ]
-        },
-        "influenza": {
-            "name": "Influenza (Flu)",
-            "description": "A contagious respiratory illness caused by influenza viruses",
-            "symptoms": [
-                "High fever",
-                "Severe body aches",
-                "Fatigue",
-                "Dry cough",
-                "Sore throat",
-                "Headache",
-                "Chills"
-            ],
-            "duration": "1-2 weeks",
-            "treatment": {
-                "self_care": [
-                    "Rest",
-                    "Stay hydrated",
-                    "Over-the-counter pain relievers",
-                    "Antiviral medications (if prescribed)"
-                ],
-                "medical_treatment": [
-                    "Antiviral medications (within 48 hours of symptoms)",
-                    "Hospitalization (in severe cases)"
-                ]
-            },
-            "prevention": [
-                "Annual flu vaccination",
-                "Frequent hand washing",
-                "Avoid close contact with sick people",
-                "Stay home when sick"
-            ],
-            "complications": [
-                "Pneumonia",
-                "Bronchitis",
-                "Sinus infections",
-                "Ear infections",
-                "Worsening of chronic conditions"
-            ],
-            "urgent_warning_signs": [
-                "Difficulty breathing",
-                "Chest pain",
-                "Sudden dizziness",
-                "Severe vomiting",
-                "Confusion"
-            ]
-        },
-        "hypertension": {
-            "name": "Hypertension (High Blood Pressure)",
-            "description": "A condition where the force of blood against artery walls is too high",
-            "symptoms": [
-                "Usually asymptomatic",
-                "Headaches (in some cases)",
-                "Shortness of breath",
-                "Nosebleeds (rare)"
-            ],
-            "diagnosis": {
-                "normal": "Less than 120/80 mmHg",
-                "elevated": "120-129/<80 mmHg",
-                "stage1": "130-139/80-89 mmHg",
-                "stage2": "140 or higher/90 or higher mmHg",
-                "crisis": "Higher than 180/Higher than 120 mmHg"
-            },
-            "treatment": {
-                "lifestyle_changes": [
-                    "Healthy diet (DASH diet)",
-                    "Regular exercise",
-                    "Weight management",
-                    "Limit alcohol",
-                    "Quit smoking",
-                    "Reduce sodium intake"
-                ],
-                "medications": [
-                    "Diuretics",
-                    "ACE inhibitors",
-                    "ARBs",
-                    "Calcium channel blockers",
-                    "Beta blockers"
-                ]
-            },
-            "risk_factors": [
-                "Age",
-                "Family history",
-                "Obesity",
-                "Physical inactivity",
-                "High sodium diet",
-                "Excessive alcohol consumption",
-                "Stress"
-            ],
-            "complications": [
-                "Heart attack",
-                "Stroke",
-                "Heart failure",
-                "Kidney disease",
-                "Vision loss"
-            ]
-        }
+[
+    {
+        "id": "common_cold",
+        "title": "Common Cold",
+        "content": "A viral infection of the upper respiratory tract. Symptoms include runny nose, sore throat, cough, congestion, sneezing, mild fever, and body aches. Duration is typically 7-10 days. Treatment includes rest, staying hydrated, over-the-counter pain relievers, saline nasal drops, and warm liquids. Medical treatment may include antiviral medications and prescription decongestants in severe cases. Prevention involves frequent hand washing, avoiding close contact with sick people, not touching face with unwashed hands, and maintaining good immune system health. Possible complications include sinus infection, ear infection, bronchitis, and rarely pneumonia."
+    },
+    {
+        "id": "influenza",
+        "title": "Influenza (Flu)",
+        "content": "A contagious respiratory illness caused by influenza viruses. Symptoms include high fever, severe body aches, fatigue, dry cough, sore throat, headache, and chills. Duration is typically 1-2 weeks. Treatment includes rest, staying hydrated, over-the-counter pain relievers, and antiviral medications if prescribed. Medical treatment may include antiviral medications within 48 hours of symptoms and hospitalization in severe cases. Prevention involves annual flu vaccination, frequent hand washing, avoiding close contact with sick people, and staying home when sick. Complications can include pneumonia, bronchitis, sinus infections, ear infections, and worsening of chronic conditions. Urgent warning signs include difficulty breathing, chest pain, sudden dizziness, severe vomiting, and confusion."
+    },
+    {
+        "id": "hypertension",
+        "title": "Hypertension (High Blood Pressure)",
+        "content": "A condition where the force of blood against artery walls is too high. Usually asymptomatic, but may cause headaches, shortness of breath, and rarely nosebleeds. Blood pressure categories: Normal (less than 120/80 mmHg), Elevated (120-129/<80 mmHg), Stage 1 (130-139/80-89 mmHg), Stage 2 (140 or higher/90 or higher mmHg), Crisis (higher than 180/higher than 120 mmHg). Treatment includes lifestyle changes such as healthy diet (DASH diet), regular exercise, weight management, limiting alcohol, quitting smoking, and reducing sodium intake. Medications may include diuretics, ACE inhibitors, ARBs, calcium channel blockers, and beta blockers. Risk factors include age, family history, obesity, physical inactivity, high sodium diet, excessive alcohol consumption, and stress. Complications can include heart attack, stroke, heart failure, kidney disease, and vision loss."
     }
-} 
+] 

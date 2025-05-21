@@ -11,7 +11,7 @@ from core.config import (
     MEDICAL_KB_DIR
 )
 from retrieval.vector_store import VectorStore
-from retrieval.chunking import preprocess_medical_text, split_medical_text_by_sections
+from retrieval.chunking import preprocess_medical_text
 
 logger = logging.getLogger(__name__)
 

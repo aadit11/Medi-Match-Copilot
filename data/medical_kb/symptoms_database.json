@@ -1,71 +1,17 @@
-{
-    "symptoms": {
-        "fever": {
-            "name": "Fever",
-            "description": "Elevated body temperature above normal range (typically above 100.4°F or 38°C)",
-            "common_causes": [
-                "Infection",
-                "Inflammation",
-                "Heat exhaustion",
-                "Certain medications"
-            ],
-            "severity_levels": {
-                "mild": "100.4°F - 102.2°F (38°C - 39°C)",
-                "moderate": "102.2°F - 104°F (39°C - 40°C)",
-                "high": "Above 104°F (40°C)"
-            },
-            "urgent_threshold": "Above 103°F (39.4°C) in adults or 100.4°F (38°C) in infants",
-            "common_accompanying_symptoms": [
-                "Chills",
-                "Sweating",
-                "Headache",
-                "Muscle aches",
-                "Fatigue"
-            ]
-        },
-        "headache": {
-            "name": "Headache",
-            "description": "Pain in the head or upper neck",
-            "types": [
-                "Tension headache",
-                "Migraine",
-                "Cluster headache",
-                "Sinus headache"
-            ],
-            "severity_levels": {
-                "mild": "Manageable pain, doesn't interfere with daily activities",
-                "moderate": "Significant pain, may interfere with some activities",
-                "severe": "Intense pain, significantly impacts daily activities"
-            },
-            "urgent_threshold": "Sudden severe headache, especially with fever, stiff neck, or confusion",
-            "common_accompanying_symptoms": [
-                "Nausea",
-                "Sensitivity to light",
-                "Sensitivity to sound",
-                "Dizziness"
-            ]
-        },
-        "cough": {
-            "name": "Cough",
-            "description": "Sudden expulsion of air from the lungs through the mouth",
-            "types": [
-                "Dry cough",
-                "Wet/Productive cough",
-                "Chronic cough",
-                "Acute cough"
-            ],
-            "severity_levels": {
-                "mild": "Occasional coughing, doesn't interfere with daily activities",
-                "moderate": "Frequent coughing, may interfere with some activities",
-                "severe": "Constant coughing, significantly impacts daily activities"
-            },
-            "urgent_threshold": "Coughing up blood, severe chest pain, or difficulty breathing",
-            "common_accompanying_symptoms": [
-                "Sore throat",
-                "Chest pain",
-                "Shortness of breath",
-                "Fatigue"
-            ]
-        }
+[
+    {
+        "id": "fever",
+        "title": "Fever",
+        "content": "Elevated body temperature above normal range (typically above 100.4°F or 38°C). Common causes include infection, inflammation, heat exhaustion, and certain medications. Severity levels: Mild (100.4°F - 102.2°F or 38°C - 39°C), Moderate (102.2°F - 104°F or 39°C - 40°C), High (Above 104°F or 40°C). Urgent threshold is above 103°F (39.4°C) in adults or 100.4°F (38°C) in infants. Common accompanying symptoms include chills, sweating, headache, muscle aches, and fatigue."
+    },
+    {
+        "id": "headache",
+        "title": "Headache",
+        "content": "Pain in the head or upper neck. Types include tension headache, migraine, cluster headache, and sinus headache. Severity levels: Mild (manageable pain, doesn't interfere with daily activities), Moderate (significant pain, may interfere with some activities), Severe (intense pain, significantly impacts daily activities). Urgent threshold is sudden severe headache, especially with fever, stiff neck, or confusion. Common accompanying symptoms include nausea, sensitivity to light, sensitivity to sound, and dizziness."
+    },
+    {
+        "id": "cough",
+        "title": "Cough",
+        "content": "Sudden expulsion of air from the lungs through the mouth. Types include dry cough, wet/productive cough, chronic cough, and acute cough. Severity levels: Mild (occasional coughing, doesn't interfere with daily activities), Moderate (frequent coughing, may interfere with some activities), Severe (constant coughing, significantly impacts daily activities). Urgent threshold is coughing up blood, severe chest pain, or difficulty breathing. Common accompanying symptoms include sore throat, chest pain, shortness of breath, and fatigue."
     }
-} 
+] 

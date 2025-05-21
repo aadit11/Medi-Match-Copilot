@@ -46,7 +46,7 @@ class ConditionClassifier:
             
             response = self.model_client.generate_text(
                 system_prompt=self._get_system_prompt(),
-                user_prompt=prompt
+                prompt=prompt
             )
             
             classifications = self._extract_classifications(response)
@@ -136,7 +136,7 @@ class ConditionClassifier:
             
             extraction_result = self.model_client.generate_text(
                 system_prompt=system_prompt,
-                user_prompt=f"Extract conditions from this analysis:\n\n{response}"
+                prompt=f"Extract conditions from this analysis:\n\n{response}"
             )
             
             import re

@@ -2,6 +2,7 @@ import re
 from typing import Dict, List, Any, Tuple, Optional, Union
 from pathlib import Path
 from datetime import datetime
+from core.config import get_validation_config
 
 def validate_symptoms(symptoms: List[str]) -> Tuple[List[str], List[str]]:
    
@@ -26,47 +27,49 @@ def validate_symptoms(symptoms: List[str]) -> Tuple[List[str], List[str]]:
     
     return valid_symptoms, rejected_symptoms
 
-def validate_patient_age(age: Union[int, str]) -> Tuple[Optional[int], str]:
-    
+def validate_patient_age(age: Union[int, str, float]) -> Tuple[Optional[int], str]:
+    """Validate patient age."""
+    validation_config = get_validation_config()
+    min_age = validation_config["min_patient_age"]
+    max_age = validation_config["max_patient_age"]
     error_msg = ""
     
     if isinstance(age, str):
         try:
-            age = int(age.strip())
+            age = int(float(age.strip()))
         except ValueError:
             return None, "Age must be a number"
     
-    if not isinstance(age, int):
+    if not isinstance(age, (int, float)):
         return None, "Age must be a number"
     
-    if age < 0:
-        return None, "Age cannot be negative"
-    
-    if age > 120:
-        return None, f"Age {age} seems unusually high, please verify"
+    age = int(age)
+    if age < min_age:
+        return None, f"Age cannot be less than {min_age}"
+    if age > max_age:
+        return None, f"Age cannot be greater than {max_age}"
     
     return age, error_msg
 
 def validate_patient_sex(sex: str) -> Tuple[Optional[str], str]:
- 
-    if not sex or not isinstance(sex, str):
-        return None, "Sex/gender information is missing"
+    """Validate patient gender/sex."""
+    validation_config = get_validation_config()
+    allowed_genders = validation_config["allowed_genders"]
+    error_msg = ""
     
-    sex = sex.lower().strip()
+    if not isinstance(sex, str):
+        return None, "Gender must be a string"
     
-    male_terms = ["m", "male", "man", "boy"]
-    female_terms = ["f", "female", "woman", "girl"]
+    sex = sex.strip().upper()
+    if sex not in allowed_genders:
+        return None, f"Gender must be one of: {', '.join(allowed_genders)}"
     
-    if sex in male_terms:
-        return "male", ""
-    
-    if sex in female_terms:
-        return "female", ""
-    
-    return sex, "Non-standard sex/gender term used"
+    return sex, error_msg
 
 def validate_duration(duration: Union[int, str, float]) -> Tuple[Optional[float], str]:
-   
+    """Validate symptom duration."""
+    validation_config = get_validation_config()
+    max_duration = validation_config["max_symptom_duration_days"]
     error_msg = ""
     
     if isinstance(duration, str):
@@ -81,7 +84,7 @@ def validate_duration(duration: Union[int, str, float]) -> Tuple[Optional[float]
     if duration < 0:
         return None, "Duration cannot be negative"
     
-    if duration > 365 * 10:  
+    if duration > max_duration:
         return None, f"Duration {duration} days seems unusually long, please verify"
     
     return duration, error_msg
@@ -167,13 +170,9 @@ def is_urgent_symptom(symptoms: List[str]) -> Tuple[bool, List[str]]:
         'suicide', 'self-harm', 'overdose'
     ]
     
-    urgent_symptoms = []
-    
+    urgent_found = []
     for symptom in symptoms:
-        symptom_lower = symptom.lower()
-        for keyword in urgent_keywords:
-            if keyword in symptom_lower:
-                urgent_symptoms.append(symptom)
-                break
+        if any(keyword in symptom.lower() for keyword in urgent_keywords):
+            urgent_found.append(symptom)
     
-    return bool(urgent_symptoms), urgent_symptoms
+    return bool(urgent_found), urgent_found

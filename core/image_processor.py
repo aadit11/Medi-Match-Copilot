@@ -25,12 +25,10 @@ class ImageProcessor:
     def __init__(
         self,
         vision_model: Optional[VisionModelClient] = None,
-        image_size: Tuple[int, int] = IMAGE_SIZE,
         confidence_threshold: float = IMAGE_CONFIDENCE_THRESHOLD
     ):
         
         self.vision_model = vision_model or VisionModelClient()
-        self.image_size = image_size
         self.confidence_threshold = confidence_threshold
         
     def analyze_image(
@@ -49,7 +47,7 @@ class ImageProcessor:
         
         try:
             image = Image.open(image_path)
-            preprocessed_image = preprocess_image(image, target_size=self.image_size)
+            preprocessed_image = preprocess_image(image, target_size=IMAGE_SIZE)
             
             image_features = extract_features(preprocessed_image)
             
@@ -93,8 +91,8 @@ class ImageProcessor:
                 "details": str(e)
             }
     
-    def extract_findings_from_analysis(self, analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
-               
+    def _extract_findings_from_analysis(self, analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Internal method to extract findings from image analysis."""
         if "error" in analysis:
             return []
         
@@ -217,7 +215,7 @@ class ImageProcessor:
                 "combined_assessment": combined_assessment,
                 "is_urgent": symptom_data.get("is_urgent", False) or any(
                     finding.get("urgency_required", False) 
-                    for finding in self.extract_findings_from_analysis(image_analysis)
+                    for finding in self._extract_findings_from_analysis(image_analysis)
                 )
             }
             
@@ -235,6 +233,5 @@ def create_image_processor() -> ImageProcessor:
     
     return ImageProcessor(
         vision_model=vision_model,
-        image_size=IMAGE_SIZE,
         confidence_threshold=IMAGE_CONFIDENCE_THRESHOLD
     )
