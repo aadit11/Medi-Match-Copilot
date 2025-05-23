@@ -122,9 +122,9 @@ class ImageProcessor:
             
             user_prompt = f"Extract findings from this medical image analysis:\n\n{detailed_text}"
             
-            extraction_result = self.vision_model.model_client.generate_text(
-                system_prompt=system_prompt,
-                prompt=user_prompt
+            extraction_result = self.vision_model.generate_text(
+                prompt=user_prompt,
+                system_prompt=system_prompt
             )
             
             import re
@@ -204,9 +204,9 @@ class ImageProcessor:
             the symptom-based diagnoses.
             """
             
-            combined_assessment = self.vision_model.model_client.generate_text(
-                system_prompt=system_prompt,
-                prompt=user_prompt
+            combined_assessment = self.vision_model.generate_text(
+                prompt=user_prompt,
+                system_prompt=system_prompt
             )
             
             return {

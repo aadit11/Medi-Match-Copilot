@@ -33,7 +33,6 @@ class QueryEngine:
             logger.error(f"Failed to load embedding model: {e}")
             raise
         
-        # Initialize vector store
         self.vector_store = VectorStore(vector_db_path)
     
     def embed_query(self, query: str) -> List[float]:

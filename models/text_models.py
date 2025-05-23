@@ -26,20 +26,17 @@ class TextModelClient:
         stop: Optional[List[str]] = None
     ) -> str:
         try:
-            # Compose the full prompt
             if system_prompt:
                 full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
             else:
                 full_prompt = prompt
 
-            # Prepare Ollama options
             options = {"temperature": temperature}
             if max_tokens:
                 options["num_predict"] = max_tokens
             if stop:
                 options["stop"] = stop
 
-            # Call Ollama via Python package
             response = ollama.generate(
                 model=self.text_model,
                 prompt=full_prompt,

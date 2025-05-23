@@ -15,16 +15,16 @@ MEDICAL_KB_DIR.mkdir(parents=True, exist_ok=True)
 # Model settings
 OLLAMA_BASE_URL = "http://localhost:11434"  
 OLLAMA_TEXT_MODEL = "llama3.1:8b"
-OLLAMA_VISION_MODEL = "llama3.2-vision"
+OLLAMA_VISION_MODEL = "llama3.2-vision:11b"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"  
 
 # Model initialization settings
-MODEL_INIT_TIMEOUT = 30  # seconds
+MODEL_INIT_TIMEOUT = 30  
 MODEL_RETRY_ATTEMPTS = 2  
 
 # Vector database settings
 VECTOR_DB_PATH = str(EMBEDDINGS_DIR / "vector_db")
-VECTOR_DB_INIT_TIMEOUT = 60  # seconds
+VECTOR_DB_INIT_TIMEOUT = 60  
 
 # Diagnosis engine settings
 MAX_DIAGNOSES = 5
@@ -36,7 +36,7 @@ DIAGNOSIS_TIMEOUT = 45  # seconds
 IMAGE_SIZE = (512, 512)  
 ALLOWED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".bmp"]
 IMAGE_CONFIDENCE_THRESHOLD = 0.4
-IMAGE_ANALYSIS_TIMEOUT = 30  # seconds
+IMAGE_ANALYSIS_TIMEOUT = 30  
 
 # Logging settings
 LOG_LEVEL = "INFO"
