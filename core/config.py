@@ -98,10 +98,11 @@ DEFAULT_SYMPTOMS = {
 }
 
 DEFAULT_IMAGE_INFO = {
-    "image_path": str(DATA_DIR / "xray.png"),
+    "image_path": str(DATA_DIR / "xray.png"),  
     "body_area": "chest",
-    "image_type": "X-ray"
-}
+    "image_type": "X-ray",
+    "image_description": "Chest X-ray showing anterior-posterior view"
+} 
 
 DEFAULT_ANALYSIS_PARAMS = {
     "include_image_analysis": True,

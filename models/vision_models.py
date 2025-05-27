@@ -78,7 +78,9 @@ class VisionModelClient:
                     "You are a medical imaging specialist. Analyze the provided medical image "
                     "and provide a detailed, structured assessment. Focus on identifying "
                     "abnormalities, their significance, and potential implications. "
-                    "Be precise in describing locations and findings."
+                    "Be precise in describing locations and findings. "
+                    "IMPORTANT: Your response must be a valid JSON object following the exact structure specified. "
+                    "Do not include any text before or after the JSON object."
                 )
 
             prompt_parts = [
@@ -98,7 +100,7 @@ class VisionModelClient:
                     prompt_parts.append(f"- {key}: {value}")
                     
             prompt_parts.append(
-                "\nFormat your response as a JSON object with the following structure:\n"
+                "\nIMPORTANT: Your response must be a valid JSON object with this exact structure:\n"
                 "{\n"
                 '  "findings": [\n'
                 "    {\n"
@@ -124,29 +126,94 @@ class VisionModelClient:
                 temperature=temperature
             )
             
-            try:
-                json_match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", response, re.DOTALL)
+            parsed_response = None
+            json_str = None
+            
+            json_match = re.search(r"```(?:json)?\s*(\{[\s\S]*?\})\s*```", response, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(1)
+                try:
+                    parsed_response = json.loads(json_str)
+                except json.JSONDecodeError:
+                    pass
+            
+            if not parsed_response:
+                json_match = re.search(r"(\{[\s\S]*?\})", response, re.DOTALL)
                 if json_match:
                     json_str = json_match.group(1)
-                    return json.loads(json_str)
-                
+                    try:
+                        parsed_response = json.loads(json_str)
+                    except json.JSONDecodeError:
+                        pass
             
-                return json.loads(response)
-            except json.JSONDecodeError as e:
-                logger.warning(f"Could not parse response as JSON: {e}")
-               
-                return {
-                    "error": "Could not parse model response as structured data",
-                    "raw_response": response,
+            if not parsed_response:
+                try:
+                    parsed_response = json.loads(response)
+                except json.JSONDecodeError:
+                    pass
+            
+            if parsed_response:
+                normalized_response = {
                     "findings": [],
-                    "overall_assessment": "Unable to generate structured assessment",
-                    "recommendations": ["Please review the raw response for analysis"],
-                    "limitations": ["Response format parsing failed"]
+                    "overall_assessment": "",
+                    "recommendations": [],
+                    "limitations": []
                 }
+                
+                if isinstance(parsed_response, dict):
+                    if "findings" in parsed_response and isinstance(parsed_response["findings"], list):
+                        normalized_response["findings"] = [
+                            {
+                                "description": str(f.get("description", "")),
+                                "location": str(f.get("location", "")),
+                                "significance": str(f.get("significance", "medium")).lower(),
+                                "confidence": float(f.get("confidence", 0.5)),
+                                "notes": str(f.get("notes", ""))
+                            }
+                            for f in parsed_response["findings"]
+                            if isinstance(f, dict)
+                        ]
+                    
+                    normalized_response["overall_assessment"] = str(parsed_response.get("overall_assessment", ""))
+                    
+                    if "recommendations" in parsed_response and isinstance(parsed_response["recommendations"], list):
+                        normalized_response["recommendations"] = [
+                            str(r) for r in parsed_response["recommendations"]
+                            if isinstance(r, (str, int, float))
+                        ]
+                    
+                    if "limitations" in parsed_response and isinstance(parsed_response["limitations"], list):
+                        normalized_response["limitations"] = [
+                            str(l) for l in parsed_response["limitations"]
+                            if isinstance(l, (str, int, float))
+                        ]
+                
+                return normalized_response
+            
+            logger.warning("Could not parse model response as structured data")
+            return {
+                "error": "Could not parse model response as structured data",
+                "raw_response": response,
+                "findings": [],
+                "overall_assessment": "Unable to generate structured assessment",
+                "recommendations": ["Please review the raw response for analysis"],
+                "limitations": ["Response format parsing failed"],
+                "parsing_attempts": {
+                    "code_block_json": bool(json_match and json_str),
+                    "raw_json": bool(not json_match and json_str),
+                    "full_response": bool(not json_str)
+                }
+            }
                 
         except Exception as e:
             logger.error(f"Error analyzing medical image: {e}")
-            raise
+            return {
+                "error": f"Error during image analysis: {str(e)}",
+                "findings": [],
+                "overall_assessment": "Analysis failed due to an error",
+                "recommendations": ["Please try again or contact support"],
+                "limitations": ["Technical error occurred during analysis"]
+            }
 
     def compare_images(
         self,
@@ -193,6 +260,34 @@ class VisionModelClient:
             return combined_analysis
         except Exception as e:
             logger.error(f"Error comparing images: {e}")
+            raise
+
+    def generate_text(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        temperature: float = 0.3,
+        max_tokens: Optional[int] = None
+    ) -> str:
+        """Generate text using the vision model."""
+        try:
+            if system_prompt:
+                full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
+            else:
+                full_prompt = prompt
+
+            options = {"temperature": temperature}
+            if max_tokens:
+                options["num_predict"] = max_tokens
+
+            response = ollama.generate(
+                model=self.vision_model,
+                prompt=full_prompt,
+                options=options
+            )
+            return response.get("response", "")
+        except Exception as e:
+            logger.error(f"Error generating text: {e}")
             raise
 
 def create_vision_model_client() -> VisionModelClient:

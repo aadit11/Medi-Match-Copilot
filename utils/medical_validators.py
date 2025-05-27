@@ -177,3 +177,65 @@ def is_urgent_symptom(symptoms: List[str]) -> Tuple[bool, List[str]]:
                 break
     
     return bool(urgent_symptoms), urgent_symptoms
+
+def sanitize_patient_data(patient_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Sanitize and validate patient data."""
+    sanitized_data = {}
+    
+    for key, value in patient_data.items():
+        if value is None or (isinstance(value, str) and not value.strip()):
+            continue
+            
+        key = key.lower().strip().replace(" ", "_")
+        
+        if key in ['date_of_birth', 'dob', 'birth_date']:
+            try:
+                if isinstance(value, str):
+                    dob = datetime.strptime(value, "%Y-%m-%d")
+                elif isinstance(value, datetime):
+                    dob = value
+                else:
+                    continue
+                    
+                age = (datetime.now() - dob).days // 365
+                if 0 <= age <= 120:
+                    sanitized_data['age'] = age
+            except (ValueError, TypeError):
+                continue
+        
+        elif key in ['sex', 'gender', 'patient_sex', 'patient_gender']:
+            sex, error = validate_patient_sex(str(value).upper())
+            if sex:
+                sanitized_data['gender'] = sex.upper()
+        
+        elif key in ['symptoms', 'patient_symptoms']:
+            if isinstance(value, list):
+                valid_symptoms, _ = validate_symptoms(value)
+                if valid_symptoms:
+                    sanitized_data['symptoms'] = valid_symptoms
+            elif isinstance(value, str):
+                symptom_list = [s.strip() for s in value.split(',')]
+                valid_symptoms, _ = validate_symptoms(symptom_list)
+                if valid_symptoms:
+                    sanitized_data['symptoms'] = valid_symptoms
+        
+        elif key in ['duration', 'symptom_duration']:
+            duration, error = validate_duration(value)
+            if not error:
+                sanitized_data['duration_days'] = duration
+        
+        elif isinstance(value, str):
+            clean_value = re.sub(r'[<>{}[\]\\]', '', value).strip()
+            if clean_value:
+                sanitized_data[key] = clean_value
+        
+        elif isinstance(value, (int, float, bool)):
+            sanitized_data[key] = value
+        
+        elif isinstance(value, dict):
+            sanitized_data[key] = sanitize_patient_data(value)
+        
+        elif isinstance(value, list):
+            sanitized_data[key] = [str(v) for v in value if v is not None]
+    
+    return sanitized_data 
