@@ -127,11 +127,14 @@ class DiagnosisEngine:
         limited_diagnoses = filtered_diagnoses[:self.max_diagnoses]
         
         result = {
+            "primary_symptom": primary_symptom,
+            "secondary_symptoms": secondary_symptoms,
             "diagnoses": limited_diagnoses,
             "is_urgent": is_urgent,
             "urgent_symptoms": urgent_symptoms if is_urgent else [],
             "raw_assessment": response if self.detailed_explanations else "",
-            "context": context_text if self.detailed_explanations else ""
+            "context": context_text if self.detailed_explanations else "",
+            "duration_days": duration_days
         }
         
         if patient_info:
