@@ -13,5 +13,510 @@
         "id": "cough",
         "title": "Cough",
         "content": "Sudden expulsion of air from the lungs through the mouth. Types include dry cough, wet/productive cough, chronic cough, and acute cough. Severity levels: Mild (occasional coughing, doesn't interfere with daily activities), Moderate (frequent coughing, may interfere with some activities), Severe (constant coughing, significantly impacts daily activities). Urgent threshold is coughing up blood, severe chest pain, or difficulty breathing. Common accompanying symptoms include sore throat, chest pain, shortness of breath, and fatigue."
+    },
+    {
+        "id": "shortness_of_breath",
+        "title": "Shortness of Breath",
+        "content": "Difficulty or discomfort in breathing, feeling of not getting enough air. Causes include asthma, COPD, pneumonia, heart failure, and anxiety. Severity levels: Mild (shortness during exertion), Moderate (shortness during minimal activity), Severe (shortness at rest). Urgent threshold is sudden onset, worsening symptoms, or associated chest pain. Common accompanying symptoms include wheezing, chest tightness, cough, and cyanosis."
+    },
+    {
+        "id": "chest_pain",
+        "title": "Chest Pain",
+        "content": "Discomfort or pain in the chest area. Causes include angina, myocardial infarction, acid reflux, musculoskeletal pain, and pulmonary embolism. Severity levels: Mild (occasional, mild discomfort), Moderate (persistent pain with some activity limitation), Severe (intense pain, disabling). Urgent threshold is chest pain with sweating, nausea, shortness of breath, or radiating pain to arm/jaw. Common accompanying symptoms include sweating, nausea, dizziness, and palpitations."
+    },
+    {
+        "id": "nausea",
+        "title": "Nausea",
+        "content": "Feeling of unease and discomfort in the stomach with an urge to vomit. Causes include infections, pregnancy, medication side effects, and motion sickness. Severity levels: Mild (occasional discomfort), Moderate (persistent nausea), Severe (persistent nausea with vomiting). Urgent threshold is persistent vomiting or associated severe abdominal pain. Common accompanying symptoms include vomiting, dizziness, abdominal pain, and loss of appetite."
+    },
+    {
+        "id": "vomiting",
+        "title": "Vomiting",
+        "content": "Forceful expulsion of stomach contents through the mouth. Causes include infections, food poisoning, motion sickness, pregnancy, and gastrointestinal disorders. Severity levels: Mild (occasional vomiting), Moderate (frequent vomiting), Severe (persistent vomiting with dehydration risk). Urgent threshold is vomiting blood, severe abdominal pain, or signs of dehydration. Common accompanying symptoms include nausea, abdominal pain, fever, and dizziness."
+    },
+    {
+        "id": "diarrhea",
+        "title": "Diarrhea",
+        "content": "Frequent loose or watery bowel movements. Causes include infections, food intolerance, medication side effects, and digestive disorders. Severity levels: Mild (occasional loose stools), Moderate (frequent loose stools), Severe (persistent diarrhea with dehydration risk). Urgent threshold is bloody stools, high fever, or signs of dehydration. Common accompanying symptoms include abdominal cramps, nausea, and fatigue."
+    },
+    {
+        "id": "fatigue",
+        "title": "Fatigue",
+        "content": "A state of extreme tiredness or lack of energy. Causes include infections, anemia, sleep disorders, chronic diseases, and mental health conditions. Severity levels: Mild (slight tiredness), Moderate (noticeable impact on activities), Severe (unable to perform daily tasks). Urgent threshold is sudden onset with other symptoms like chest pain or confusion. Common accompanying symptoms include weakness, dizziness, and difficulty concentrating."
+    },
+    {
+        "id": "dizziness",
+        "title": "Dizziness",
+        "content": "Sensation of lightheadedness, imbalance, or spinning (vertigo). Causes include dehydration, low blood pressure, inner ear problems, anemia, and neurological disorders. Severity levels: Mild (occasional lightheadedness), Moderate (frequent dizziness affecting activities), Severe (persistent dizziness causing falls). Urgent threshold is dizziness with chest pain, fainting, or neurological symptoms. Common accompanying symptoms include nausea, headache, and blurred vision."
+    },
+    {
+        "id": "sore_throat",
+        "title": "Sore Throat",
+        "content": "Pain or irritation in the throat, especially when swallowing. Causes include viral or bacterial infections, allergies, and dry air. Severity levels: Mild (slight irritation), Moderate (pain affecting swallowing), Severe (severe pain with difficulty swallowing). Urgent threshold is severe pain with difficulty breathing or drooling. Common accompanying symptoms include cough, fever, and swollen lymph nodes."
+    },
+    {
+        "id": "runny_nose",
+        "title": "Runny Nose",
+        "content": "Excess drainage from the nasal passages. Causes include common cold, allergies, sinus infections, and irritants. Severity levels: Mild (occasional drainage), Moderate (frequent drainage), Severe (persistent with thick mucus). Urgent threshold is associated high fever or facial pain. Common accompanying symptoms include sneezing, congestion, and cough."
+    },
+    {
+        "id": "abdominal_pain",
+        "title": "Abdominal Pain",
+        "content": "Discomfort or pain in the stomach area. Causes include indigestion, infections, appendicitis, gallstones, and menstrual cramps. Severity levels: Mild (occasional discomfort), Moderate (persistent pain affecting activities), Severe (intense pain with other symptoms). Urgent threshold is sudden severe pain, especially with vomiting or bleeding. Common accompanying symptoms include nausea, vomiting, bloating, and fever."
+    },
+    {
+        "id": "back_pain",
+        "title": "Back Pain",
+        "content": "Pain located in the back area. Causes include muscle strain, herniated discs, arthritis, and spinal stenosis. Severity levels: Mild (occasional discomfort), Moderate (persistent pain limiting activity), Severe (intense pain with weakness or numbness). Urgent threshold is back pain with loss of bladder/bowel control or weakness in legs. Common accompanying symptoms include stiffness, numbness, and muscle spasms."
+    },
+    {
+        "id": "joint_pain",
+        "title": "Joint Pain",
+        "content": "Discomfort or pain in one or more joints. Causes include arthritis, injury, infections, and autoimmune diseases. Severity levels: Mild (occasional pain), Moderate (pain affecting function), Severe (persistent pain with swelling). Urgent threshold is joint pain with redness, swelling, fever, or inability to move the joint. Common accompanying symptoms include swelling, stiffness, and redness."
+    },
+    {
+        "id": "rash",
+        "title": "Rash",
+        "content": "Visible change in skin color or texture, often with itching or irritation. Causes include allergic reactions, infections, heat, and autoimmune conditions. Severity levels: Mild (localized rash), Moderate (widespread rash), Severe (rash with blisters or systemic symptoms). Urgent threshold is rash with difficulty breathing, swelling, or fever. Common accompanying symptoms include itching, redness, and swelling."
+    },
+    {
+        "id": "palpitations",
+        "title": "Palpitations",
+        "content": "Feeling of rapid, strong, or irregular heartbeat. Causes include anxiety, arrhythmias, caffeine, and heart conditions. Severity levels: Mild (occasional awareness), Moderate (frequent, disturbing), Severe (persistent or with dizziness/fainting). Urgent threshold is palpitations with chest pain, shortness of breath, or fainting. Common accompanying symptoms include dizziness, sweating, and chest discomfort."
+    },
+    {
+        "id": "swelling",
+        "title": "Swelling",
+        "content": "Enlargement of tissue due to fluid accumulation. Causes include injury, infection, heart failure, and lymphatic obstruction. Severity levels: Mild (slight swelling), Moderate (noticeable swelling), Severe (significant swelling causing pain or dysfunction). Urgent threshold is swelling with redness, warmth, or sudden onset. Common accompanying symptoms include pain, redness, and warmth."
+    },
+    {
+        "id": "weight_loss",
+        "title": "Weight Loss",
+        "content": "Unintentional decrease in body weight. Causes include chronic illness, malnutrition, cancer, and thyroid disorders. Severity levels: Mild (less than 5% body weight), Moderate (5-10% body weight), Severe (more than 10% body weight). Urgent threshold is rapid weight loss with other symptoms like fatigue or fever. Common accompanying symptoms include fatigue, loss of appetite, and weakness."
+    },
+    {
+        "id": "confusion",
+        "title": "Confusion",
+        "content": "Impaired awareness or understanding of surroundings. Causes include infections, neurological disorders, metabolic imbalances, and medications. Severity levels: Mild (occasional disorientation), Moderate (frequent confusion), Severe (persistent disorientation or delirium). Urgent threshold is sudden confusion, especially with fever or neurological deficits. Common accompanying symptoms include agitation, lethargy, and hallucinations."
+    },
+    {
+        "id": "blurred_vision",
+        "title": "Blurred Vision",
+        "content": "Loss of sharpness of eyesight resulting in inability to see fine details. Causes include refractive errors, cataracts, glaucoma, stroke, and diabetes. Severity levels: Mild (occasional blurring), Moderate (persistent but partial vision loss), Severe (significant or sudden vision loss). Urgent threshold is sudden blurred vision, especially with headache or weakness. Common accompanying symptoms include headache, eye pain, and dizziness."
+    },
+    {
+        "id": "difficulty_swallowing",
+        "title": "Difficulty Swallowing",
+        "content": "Trouble moving food or liquids from mouth to stomach. Causes include infections, neurological disorders, esophageal strictures, and cancers. Severity levels: Mild (occasional discomfort), Moderate (pain or coughing while swallowing), Severe (inability to swallow or choking). Urgent threshold is sudden inability to swallow saliva or severe choking. Common accompanying symptoms include coughing, choking, and weight loss."
+    },
+    {
+        "id": "bleeding",
+        "title": "Bleeding",
+        "content": "Loss of blood from the circulatory system externally or internally. Causes include trauma, bleeding disorders, ulcers, and cancers. Severity levels: Mild (minor cuts), Moderate (prolonged bleeding), Severe (heavy or uncontrolled bleeding). Urgent threshold is bleeding that does not stop, bleeding with dizziness or weakness. Common accompanying symptoms include bruising, pallor, and rapid heartbeat."
+    },
+    {
+        "id": "chills",
+        "title": "Chills",
+        "content": "Feeling of coldness with shivering. Causes include infections, exposure to cold, and fever. Severity levels: Mild (occasional shivering), Moderate (frequent shivering), Severe (persistent shivering with high fever). Urgent threshold is chills with high fever or confusion. Common accompanying symptoms include sweating, fever, and muscle aches."
+    },
+    {
+        "id": "seizures",
+        "title": "Seizures",
+        "content": "Sudden, uncontrolled electrical disturbance in the brain causing changes in behavior, movements, feelings, and consciousness. Types include focal and generalized seizures. Severity levels: Mild (brief focal seizures), Moderate (generalized seizures with recovery), Severe (prolonged seizures or status epilepticus). Urgent threshold is seizures lasting more than 5 minutes, multiple seizures without recovery, or first-time seizure. Common accompanying symptoms include loss of consciousness, muscle spasms, confusion, and temporary paralysis."
+    },
+    {
+        "id": "memory_loss",
+        "title": "Memory Loss",
+        "content": "Difficulty recalling past events or forming new memories. Causes include dementia, head injury, stroke, and certain medications. Severity levels: Mild (occasional forgetfulness), Moderate (significant memory gaps), Severe (complete loss of recent or past memories). Urgent threshold is sudden onset memory loss or confusion with other neurological symptoms. Common accompanying symptoms include confusion, disorientation, and personality changes."
+    },
+    {
+        "id": "tremors",
+        "title": "Tremors",
+        "content": "Involuntary rhythmic muscle contractions causing shaking movements. Types include essential tremor, Parkinsonian tremor, and physiological tremor. Severity levels: Mild (slight shaking), Moderate (interferes with daily activities), Severe (disabling tremor). Urgent threshold is sudden onset tremor with other neurological symptoms. Common accompanying symptoms include difficulty with fine motor tasks, balance problems, and muscle stiffness."
+    },
+    {
+        "id": "insomnia",
+        "title": "Insomnia",
+        "content": "Difficulty falling asleep, staying asleep, or getting quality sleep. Causes include stress, anxiety, depression, medications, and medical conditions. Severity levels: Mild (occasional sleep difficulties), Moderate (frequent sleep problems), Severe (chronic insomnia affecting daily function). Urgent threshold is insomnia with severe anxiety or depression. Common accompanying symptoms include fatigue, irritability, and difficulty concentrating."
+    },
+    {
+        "id": "constipation",
+        "title": "Constipation",
+        "content": "Infrequent bowel movements or difficulty passing stools. Causes include low fiber diet, dehydration, medications, and certain medical conditions. Severity levels: Mild (occasional difficulty), Moderate (persistent constipation), Severe (impacted bowels). Urgent threshold is constipation with severe abdominal pain or vomiting. Common accompanying symptoms include abdominal pain, bloating, and straining during bowel movements."
+    },
+    {
+        "id": "urinary_frequency",
+        "title": "Urinary Frequency",
+        "content": "Need to urinate more often than usual. Causes include urinary tract infections, diabetes, prostate problems, and certain medications. Severity levels: Mild (slightly increased frequency), Moderate (frequent urination affecting daily activities), Severe (constant urge to urinate). Urgent threshold is urinary frequency with pain, blood in urine, or fever. Common accompanying symptoms include urgency, burning sensation, and incomplete bladder emptying."
+    },
+    {
+        "id": "muscle_weakness",
+        "title": "Muscle Weakness",
+        "content": "Reduced strength in one or more muscles. Causes include neurological disorders, muscular diseases, electrolyte imbalances, and certain medications. Severity levels: Mild (slight weakness), Moderate (noticeable impact on activities), Severe (significant functional impairment). Urgent threshold is sudden onset weakness, especially on one side of the body. Common accompanying symptoms include fatigue, muscle pain, and difficulty with movement."
+    },
+    {
+        "id": "night_sweats",
+        "title": "Night Sweats",
+        "content": "Excessive sweating during sleep. Causes include infections, hormonal disorders, certain medications, and cancers. Severity levels: Mild (occasional sweating), Moderate (frequent episodes), Severe (drenching sweats affecting sleep). Urgent threshold is night sweats with weight loss or fever. Common accompanying symptoms include fever, chills, and fatigue."
+    },
+    {
+        "id": "tinnitus",
+        "title": "Tinnitus",
+        "content": "Ringing, buzzing, or other noises in the ears without external source. Causes include hearing loss, ear injury, certain medications, and circulatory problems. Severity levels: Mild (occasional ringing), Moderate (persistent but manageable), Severe (constant, interfering with daily life). Urgent threshold is sudden onset tinnitus with hearing loss or dizziness. Common accompanying symptoms include hearing loss, dizziness, and ear pain."
+    },
+    {
+        "id": "mouth_sores",
+        "title": "Mouth Sores",
+        "content": "Painful ulcers or lesions in the mouth. Causes include viral infections, autoimmune conditions, nutritional deficiencies, and trauma. Severity levels: Mild (small, few sores), Moderate (multiple sores affecting eating), Severe (extensive sores with difficulty eating/drinking). Urgent threshold is mouth sores with high fever or difficulty swallowing. Common accompanying symptoms include pain, difficulty eating, and bad breath."
+    },
+    {
+        "id": "anxiety",
+        "title": "Anxiety",
+        "content": "Feeling of worry, nervousness, or unease about something with an uncertain outcome. Causes include stress, trauma, medical conditions, and certain medications. Severity levels: Mild (occasional worry), Moderate (frequent anxiety affecting daily activities), Severe (constant anxiety with panic attacks). Urgent threshold is anxiety with suicidal thoughts or severe panic attacks. Common accompanying symptoms include rapid heartbeat, sweating, trembling, and difficulty concentrating."
+    },
+    {
+        "id": "depression",
+        "title": "Depression",
+        "content": "Persistent feeling of sadness and loss of interest. Causes include chemical imbalances, life events, medical conditions, and genetic factors. Severity levels: Mild (occasional low mood), Moderate (persistent sadness affecting daily life), Severe (constant depression with suicidal thoughts). Urgent threshold is depression with suicidal thoughts or inability to function. Common accompanying symptoms include fatigue, sleep changes, appetite changes, and feelings of worthlessness."
+    },
+    {
+        "id": "ear_pain",
+        "title": "Ear Pain",
+        "content": "Pain or discomfort in or around the ear. Causes include infections, earwax buildup, pressure changes, and referred pain. Severity levels: Mild (occasional discomfort), Moderate (persistent pain affecting activities), Severe (intense pain with hearing changes). Urgent threshold is severe pain with fever, hearing loss, or drainage. Common accompanying symptoms include hearing changes, fever, and dizziness."
+    },
+    {
+        "id": "eye_pain",
+        "title": "Eye Pain",
+        "content": "Discomfort or pain in or around the eye. Causes include infections, injuries, glaucoma, and eye strain. Severity levels: Mild (occasional discomfort), Moderate (persistent pain affecting vision), Severe (intense pain with vision changes). Urgent threshold is sudden severe pain with vision changes or eye injury. Common accompanying symptoms include redness, sensitivity to light, and vision changes."
+    },
+    {
+        "id": "hoarseness",
+        "title": "Hoarseness",
+        "content": "Abnormal voice changes, often rough or raspy. Causes include vocal strain, infections, acid reflux, and neurological conditions. Severity levels: Mild (slight voice changes), Moderate (significant voice changes), Severe (complete voice loss). Urgent threshold is sudden voice loss with difficulty breathing. Common accompanying symptoms include sore throat, cough, and difficulty speaking."
+    },
+    {
+        "id": "itching",
+        "title": "Itching",
+        "content": "Unpleasant sensation that triggers the desire to scratch. Causes include allergies, skin conditions, infections, and systemic diseases. Severity levels: Mild (occasional itching), Moderate (persistent itching affecting sleep), Severe (constant itching with skin damage). Urgent threshold is severe itching with difficulty breathing or swelling. Common accompanying symptoms include rash, redness, and skin changes."
+    },
+    {
+        "id": "loss_of_appetite",
+        "title": "Loss of Appetite",
+        "content": "Reduced desire to eat. Causes include infections, digestive disorders, medications, and psychological conditions. Severity levels: Mild (slight decrease in appetite), Moderate (significant decrease affecting nutrition), Severe (complete loss of appetite). Urgent threshold is sudden loss of appetite with weight loss or other symptoms. Common accompanying symptoms include weight loss, nausea, and fatigue."
+    },
+    {
+        "id": "mood_swings",
+        "title": "Mood Swings",
+        "content": "Rapid changes in emotional state. Causes include hormonal changes, mental health conditions, medications, and stress. Severity levels: Mild (occasional mood changes), Moderate (frequent changes affecting relationships), Severe (extreme changes with behavioral issues). Urgent threshold is mood swings with thoughts of self-harm. Common accompanying symptoms include irritability, anxiety, and sleep changes."
+    },
+    {
+        "id": "numbness",
+        "title": "Numbness",
+        "content": "Loss of sensation or feeling in a part of the body. Causes include nerve damage, poor circulation, neurological conditions, and pressure on nerves. Severity levels: Mild (occasional tingling), Moderate (persistent numbness affecting function), Severe (complete loss of sensation). Urgent threshold is sudden numbness, especially on one side of the body. Common accompanying symptoms include tingling, weakness, and pain."
+    },
+    {
+        "id": "sensitivity_to_light",
+        "title": "Sensitivity to Light",
+        "content": "Increased discomfort or pain in response to light. Causes include eye conditions, migraines, infections, and neurological disorders. Severity levels: Mild (slight discomfort in bright light), Moderate (need to avoid bright environments), Severe (unable to tolerate normal lighting). Urgent threshold is sudden sensitivity with eye pain or vision changes. Common accompanying symptoms include eye pain, headache, and nausea."
+    },
+    {
+        "id": "sweating",
+        "title": "Sweating",
+        "content": "Excessive production of sweat. Causes include heat, exercise, anxiety, hormonal changes, and medical conditions. Severity levels: Mild (slightly increased sweating), Moderate (excessive sweating affecting daily activities), Severe (profuse sweating requiring frequent clothing changes). Urgent threshold is sudden excessive sweating with chest pain or dizziness. Common accompanying symptoms include body odor, skin irritation, and dehydration."
+    },
+    {
+        "id": "thirst",
+        "title": "Thirst",
+        "content": "Increased desire to drink fluids. Causes include dehydration, diabetes, certain medications, and dry mouth conditions. Severity levels: Mild (slightly increased thirst), Moderate (frequent need to drink), Severe (constant thirst despite drinking). Urgent threshold is extreme thirst with confusion or rapid breathing. Common accompanying symptoms include dry mouth, frequent urination, and fatigue."
+    },
+    {
+        "id": "unexplained_bruising",
+        "title": "Unexplained Bruising",
+        "content": "Bruises appearing without known injury. Causes include blood disorders, medications, aging, and nutritional deficiencies. Severity levels: Mild (occasional small bruises), Moderate (frequent or large bruises), Severe (extensive bruising with bleeding). Urgent threshold is sudden extensive bruising or bleeding. Common accompanying symptoms include fatigue, weakness, and easy bleeding."
+    },
+    {
+        "id": "voice_changes",
+        "title": "Voice Changes",
+        "content": "Alterations in voice quality, pitch, or volume. Causes include vocal cord problems, neurological conditions, infections, and acid reflux. Severity levels: Mild (slight voice changes), Moderate (significant voice changes), Severe (complete voice loss). Urgent threshold is sudden voice loss with difficulty breathing. Common accompanying symptoms include hoarseness, throat pain, and difficulty speaking."
+    },
+    {
+        "id": "hallucinations",
+        "title": "Hallucinations",
+        "content": "Perceiving things that aren't present through any of the senses. Causes include psychiatric disorders, neurological conditions, substance use, and certain medications. Severity levels: Mild (occasional, brief hallucinations), Moderate (frequent hallucinations affecting daily life), Severe (persistent hallucinations with behavioral changes). Urgent threshold is hallucinations with confusion, agitation, or violent behavior. Common accompanying symptoms include confusion, anxiety, and paranoia."
+    },
+    {
+        "id": "balance_problems",
+        "title": "Balance Problems",
+        "content": "Difficulty maintaining equilibrium while standing or walking. Causes include inner ear disorders, neurological conditions, medications, and aging. Severity levels: Mild (slight unsteadiness), Moderate (frequent balance issues affecting mobility), Severe (inability to stand or walk without support). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include dizziness, vertigo, and falls."
+    },
+    {
+        "id": "speech_difficulties",
+        "title": "Speech Difficulties",
+        "content": "Problems with speaking or forming words. Causes include stroke, neurological disorders, muscle weakness, and developmental conditions. Severity levels: Mild (occasional word-finding difficulty), Moderate (noticeable speech impairment), Severe (inability to communicate verbally). Urgent threshold is sudden onset speech problems, especially with other neurological symptoms. Common accompanying symptoms include slurred speech, difficulty swallowing, and facial weakness."
+    },
+    {
+        "id": "coordination_problems",
+        "title": "Coordination Problems",
+        "content": "Difficulty with fine or gross motor movements. Causes include neurological disorders, alcohol use, medications, and aging. Severity levels: Mild (slight clumsiness), Moderate (noticeable coordination issues), Severe (inability to perform basic movements). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include tremors, muscle weakness, and balance problems."
+    },
+    {
+        "id": "temperature_sensitivity",
+        "title": "Temperature Sensitivity",
+        "content": "Abnormal response to hot or cold temperatures. Causes include neurological disorders, circulatory problems, thyroid disorders, and certain medications. Severity levels: Mild (slight discomfort in temperature extremes), Moderate (significant discomfort affecting activities), Severe (inability to tolerate normal temperature ranges). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include numbness, tingling, and skin changes."
+    },
+    {
+        "id": "sleep_apnea",
+        "title": "Sleep Apnea",
+        "content": "Breathing interruptions during sleep. Causes include obesity, anatomical abnormalities, neurological conditions, and aging. Severity levels: Mild (occasional breathing pauses), Moderate (frequent interruptions affecting sleep quality), Severe (constant interruptions with oxygen desaturation). Urgent threshold is severe breathing difficulties or associated heart problems. Common accompanying symptoms include snoring, daytime sleepiness, and morning headaches."
+    },
+    {
+        "id": "restless_legs",
+        "title": "Restless Legs",
+        "content": "Uncomfortable sensations in legs with urge to move them. Causes include iron deficiency, neurological conditions, pregnancy, and certain medications. Severity levels: Mild (occasional discomfort), Moderate (frequent symptoms affecting sleep), Severe (constant symptoms causing significant sleep disruption). Urgent threshold is severe symptoms with sleep deprivation. Common accompanying symptoms include sleep problems, daytime fatigue, and leg pain."
+    },
+    {
+        "id": "taste_changes",
+        "title": "Taste Changes",
+        "content": "Alterations in sense of taste. Causes include infections, medications, neurological conditions, and aging. Severity levels: Mild (slight taste alteration), Moderate (significant taste changes), Severe (complete loss of taste). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include smell changes, dry mouth, and appetite changes."
+    },
+    {
+        "id": "smell_changes",
+        "title": "Smell Changes",
+        "content": "Alterations in sense of smell. Causes include infections, neurological conditions, head injuries, and aging. Severity levels: Mild (slight smell alteration), Moderate (significant smell changes), Severe (complete loss of smell). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include taste changes, nasal congestion, and headache."
+    },
+    {
+        "id": "gait_changes",
+        "title": "Gait Changes",
+        "content": "Alterations in walking pattern or style. Causes include neurological disorders, musculoskeletal problems, medications, and aging. Severity levels: Mild (slight walking changes), Moderate (noticeable gait abnormalities), Severe (inability to walk independently). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include balance problems, weakness, and pain."
+    },
+    {
+        "id": "cognitive_changes",
+        "title": "Cognitive Changes",
+        "content": "Alterations in thinking, memory, or mental processing. Causes include neurological disorders, medications, infections, and aging. Severity levels: Mild (occasional forgetfulness), Moderate (noticeable cognitive decline), Severe (significant impairment in daily function). Urgent threshold is sudden onset with confusion or behavioral changes. Common accompanying symptoms include memory problems, confusion, and personality changes."
+    },
+    {
+        "id": "personality_changes",
+        "title": "Personality Changes",
+        "content": "Significant alterations in behavior or emotional responses. Causes include neurological disorders, psychiatric conditions, medications, and brain injuries. Severity levels: Mild (slight behavioral changes), Moderate (noticeable personality changes), Severe (dramatic personality transformation). Urgent threshold is sudden onset with dangerous behavior. Common accompanying symptoms include mood changes, cognitive changes, and social withdrawal."
+    },
+    {
+        "id": "sensory_changes",
+        "title": "Sensory Changes",
+        "content": "Alterations in any of the five senses. Causes include neurological disorders, aging, medications, and systemic diseases. Severity levels: Mild (slight sensory changes), Moderate (significant sensory alterations), Severe (complete loss of one or more senses). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include numbness, tingling, and balance problems."
+    },
+    {
+        "id": "sleep_changes",
+        "title": "Sleep Changes",
+        "content": "Alterations in sleep patterns or quality. Causes include stress, medical conditions, medications, and lifestyle factors. Severity levels: Mild (occasional sleep disturbances), Moderate (frequent sleep problems), Severe (chronic sleep disruption). Urgent threshold is severe sleep deprivation with behavioral changes. Common accompanying symptoms include fatigue, mood changes, and cognitive problems."
+    },
+    {
+        "id": "syncope",
+        "title": "Syncope",
+        "content": "Temporary loss of consciousness (fainting). Causes include low blood pressure, heart conditions, neurological disorders, and dehydration. Severity levels: Mild (single brief episode), Moderate (recurrent episodes), Severe (frequent episodes with injury risk). Urgent threshold is fainting with chest pain, shortness of breath, or head injury. Common accompanying symptoms include dizziness, nausea, and sweating before episode."
+    },
+    {
+        "id": "dysphagia",
+        "title": "Dysphagia",
+        "content": "Difficulty or discomfort when swallowing. Causes include neurological disorders, esophageal strictures, tumors, and muscle disorders. Severity levels: Mild (occasional difficulty with certain foods), Moderate (frequent swallowing problems), Severe (inability to swallow liquids). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include coughing, choking, and weight loss."
+    },
+    {
+        "id": "photophobia",
+        "title": "Photophobia",
+        "content": "Abnormal sensitivity to light. Causes include migraines, eye conditions, meningitis, and certain medications. Severity levels: Mild (discomfort in bright light), Moderate (need to avoid normal lighting), Severe (unable to tolerate any light). Urgent threshold is sudden onset with severe headache or eye pain. Common accompanying symptoms include eye pain, headache, and nausea."
+    },
+    {
+        "id": "hyperhidrosis",
+        "title": "Hyperhidrosis",
+        "content": "Excessive sweating beyond normal physiological needs. Causes include hormonal disorders, neurological conditions, medications, and anxiety. Severity levels: Mild (slightly increased sweating), Moderate (excessive sweating affecting daily activities), Severe (profuse sweating requiring frequent clothing changes). Urgent threshold is sudden onset with other systemic symptoms. Common accompanying symptoms include body odor, skin irritation, and social anxiety."
+    },
+    {
+        "id": "paresthesia",
+        "title": "Paresthesia",
+        "content": "Abnormal sensations like tingling, prickling, or numbness. Causes include nerve compression, diabetes, vitamin deficiencies, and neurological disorders. Severity levels: Mild (occasional tingling), Moderate (persistent sensations affecting function), Severe (constant sensations with pain). Urgent threshold is sudden onset with weakness or paralysis. Common accompanying symptoms include numbness, burning sensation, and muscle weakness."
+    },
+    {
+        "id": "dyspnea_on_exertion",
+        "title": "Dyspnea on Exertion",
+        "content": "Shortness of breath during physical activity. Causes include heart conditions, lung diseases, anemia, and deconditioning. Severity levels: Mild (shortness with intense exercise), Moderate (shortness with moderate activity), Severe (shortness with minimal activity). Urgent threshold is sudden worsening or associated chest pain. Common accompanying symptoms include fatigue, chest discomfort, and cough."
+    },
+    {
+        "id": "orthopnea",
+        "title": "Orthopnea",
+        "content": "Shortness of breath when lying flat. Causes include heart failure, lung conditions, and certain neurological disorders. Severity levels: Mild (slight discomfort when lying flat), Moderate (need to sleep propped up), Severe (unable to lie flat at all). Urgent threshold is sudden onset or associated chest pain. Common accompanying symptoms include cough, fatigue, and swelling in legs."
+    },
+    {
+        "id": "nocturia",
+        "title": "Nocturia",
+        "content": "Excessive urination at night. Causes include diabetes, heart failure, medications, and aging. Severity levels: Mild (1-2 times per night), Moderate (3-4 times per night), Severe (5 or more times per night). Urgent threshold is sudden onset with other urinary symptoms. Common accompanying symptoms include frequent daytime urination, thirst, and fatigue."
+    },
+    {
+        "id": "dysgeusia",
+        "title": "Dysgeusia",
+        "content": "Distorted sense of taste. Causes include medications, infections, neurological conditions, and nutritional deficiencies. Severity levels: Mild (slight taste distortion), Moderate (significant taste changes), Severe (complete taste alteration). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include smell changes, dry mouth, and loss of appetite."
+    },
+    {
+        "id": "vertigo",
+        "title": "Vertigo",
+        "content": "Sensation of spinning or movement when stationary. Causes include inner ear disorders, vestibular migraines, neurological conditions, and medications. Severity levels: Mild (brief episodes), Moderate (frequent episodes affecting activities), Severe (constant vertigo with falls). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include nausea, vomiting, and balance problems."
+    },
+    {
+        "id": "dysarthria",
+        "title": "Dysarthria",
+        "content": "Difficulty articulating words due to muscle weakness. Causes include stroke, neurological disorders, muscle diseases, and certain medications. Severity levels: Mild (slight speech slurring), Moderate (noticeable speech difficulty), Severe (unintelligible speech). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include swallowing difficulties, facial weakness, and drooling."
+    },
+    {
+        "id": "anosmia",
+        "title": "Anosmia",
+        "content": "Complete loss of sense of smell. Causes include head injuries, infections, neurological conditions, and aging. Severity levels: Mild (partial smell loss), Moderate (significant smell reduction), Severe (complete smell loss). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include taste changes, nasal congestion, and headache."
+    },
+    {
+        "id": "dysphonia",
+        "title": "Dysphonia",
+        "content": "Voice disorder affecting quality, pitch, or volume. Causes include vocal cord problems, neurological conditions, acid reflux, and overuse. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is sudden onset with breathing difficulty. Common accompanying symptoms include throat pain, cough, and difficulty speaking."
+    },
+    {
+        "id": "akathisia",
+        "title": "Akathisia",
+        "content": "Inability to stay still, with inner restlessness. Causes include certain medications, neurological conditions, and withdrawal states. Severity levels: Mild (slight restlessness), Moderate (significant movement need), Severe (constant movement with distress). Urgent threshold is severe symptoms with suicidal thoughts. Common accompanying symptoms include anxiety, insomnia, and pacing."
+    },
+    {
+        "id": "dysmetria",
+        "title": "Dysmetria",
+        "content": "Impaired ability to judge distance or scale of movement. Causes include cerebellar disorders, stroke, multiple sclerosis, and certain medications. Severity levels: Mild (slight coordination issues), Moderate (noticeable movement problems), Severe (inability to perform precise movements). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include tremors, balance problems, and speech difficulties."
+    },
+    {
+        "id": "dysdiadochokinesia",
+        "title": "Dysdiadochokinesia",
+        "content": "Difficulty performing rapid alternating movements. Causes include cerebellar disorders, stroke, multiple sclerosis, and certain medications. Severity levels: Mild (slight clumsiness with rapid movements), Moderate (noticeable difficulty with alternating movements), Severe (inability to perform alternating movements). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include tremors, coordination problems, and balance issues."
+    },
+    {
+        "id": "dysgraphia",
+        "title": "Dysgraphia",
+        "content": "Difficulty with writing or fine motor skills. Causes include neurological disorders, developmental conditions, and certain medications. Severity levels: Mild (slight writing difficulties), Moderate (significant writing problems), Severe (inability to write legibly). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include hand tremors, coordination problems, and muscle weakness."
+    },
+    {
+        "id": "dyscalculia",
+        "title": "Dyscalculia",
+        "content": "Difficulty with mathematical calculations and number processing. Causes include neurological disorders, developmental conditions, and brain injuries. Severity levels: Mild (slight calculation difficulties), Moderate (significant math problems), Severe (inability to perform basic calculations). Urgent threshold is sudden onset with other cognitive symptoms. Common accompanying symptoms include attention problems, memory issues, and spatial difficulties."
+    },
+    {
+        "id": "dyspraxia",
+        "title": "Dyspraxia",
+        "content": "Difficulty with motor planning and coordination. Causes include neurological disorders, developmental conditions, and brain injuries. Severity levels: Mild (slight coordination issues), Moderate (significant movement problems), Severe (inability to perform complex movements). Urgent threshold is sudden onset with other neurological symptoms. Common accompanying symptoms include clumsiness, balance problems, and speech difficulties."
+    },
+    {
+        "id": "dysphagia_paradoxica",
+        "title": "Dysphagia Paradoxica",
+        "content": "Difficulty swallowing solids but not liquids. Causes include esophageal disorders, neurological conditions, and structural abnormalities. Severity levels: Mild (occasional difficulty with certain solids), Moderate (frequent problems with most solids), Severe (inability to swallow any solid food). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include weight loss, regurgitation, and chest pain."
+    },
+    {
+        "id": "dysphagia_lusoria",
+        "title": "Dysphagia Lusoria",
+        "content": "Difficulty swallowing due to vascular compression of the esophagus. Causes include abnormal blood vessel positioning, congenital conditions, and aging. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include chest pain, regurgitation, and weight loss."
+    },
+    {
+        "id": "dysphagia_globus",
+        "title": "Dysphagia Globus",
+        "content": "Sensation of a lump in the throat without actual swallowing difficulty. Causes include anxiety, acid reflux, muscle tension, and certain medications. Severity levels: Mild (occasional sensation), Moderate (frequent sensation affecting daily life), Severe (constant sensation causing distress). Urgent threshold is associated breathing difficulty or weight loss. Common accompanying symptoms include anxiety, throat clearing, and acid reflux."
+    },
+    {
+        "id": "dysphagia_odynophagia",
+        "title": "Dysphagia Odynophagia",
+        "content": "Pain when swallowing. Causes include infections, inflammation, esophageal disorders, and certain medications. Severity levels: Mild (slight pain with swallowing), Moderate (significant pain affecting eating), Severe (severe pain preventing swallowing). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include weight loss, fever, and chest pain."
+    },
+    {
+        "id": "dysphagia_achalasia",
+        "title": "Dysphagia Achalasia",
+        "content": "Difficulty swallowing due to failure of esophageal muscle relaxation. Causes include nerve damage, autoimmune conditions, and certain infections. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include regurgitation, chest pain, and weight loss."
+    },
+    {
+        "id": "dysphagia_spastic",
+        "title": "Dysphagia Spastic",
+        "content": "Difficulty swallowing due to esophageal muscle spasm. Causes include neurological disorders, acid reflux, and certain medications. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include chest pain, regurgitation, and weight loss."
+    },
+    {
+        "id": "dysphagia_mechanical",
+        "title": "Dysphagia Mechanical",
+        "content": "Difficulty swallowing due to physical obstruction. Causes include tumors, strictures, and foreign bodies. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include weight loss, regurgitation, and chest pain."
+    },
+    {
+        "id": "dysphagia_neurological",
+        "title": "Dysphagia Neurological",
+        "content": "Difficulty swallowing due to neurological disorders. Causes include stroke, multiple sclerosis, and Parkinson's disease. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is complete inability to swallow or associated breathing problems. Common accompanying symptoms include speech difficulties, muscle weakness, and coordination problems."
+    },
+    {
+        "id": "dysphagia_psychogenic",
+        "title": "Dysphagia Psychogenic",
+        "content": "Difficulty swallowing due to psychological factors. Causes include anxiety, depression, and conversion disorder. Severity levels: Mild (occasional swallowing difficulty), Moderate (frequent swallowing problems), Severe (inability to swallow effectively). Urgent threshold is associated weight loss or dehydration. Common accompanying symptoms include anxiety, depression, and throat tightness."
+    },
+    {
+        "id": "dysphonia_spasmodic",
+        "title": "Dysphonia Spasmodic",
+        "content": "Voice disorder due to involuntary muscle spasms. Causes include neurological disorders, stress, and certain medications. Severity levels: Mild (occasional voice breaks), Moderate (frequent voice interruptions), Severe (constant voice disruption). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include throat tightness, voice strain, and anxiety."
+    },
+    {
+        "id": "dysphonia_muscle_tension",
+        "title": "Dysphonia Muscle Tension",
+        "content": "Voice disorder due to excessive muscle tension. Causes include voice overuse, stress, and poor vocal technique. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include throat pain, voice fatigue, and neck tension."
+    },
+    {
+        "id": "dysphonia_paradoxical",
+        "title": "Dysphonia Paradoxical",
+        "content": "Voice disorder with paradoxical vocal cord movement. Causes include neurological conditions, stress, and certain medications. Severity levels: Mild (occasional voice changes), Moderate (frequent voice problems), Severe (constant voice disruption). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include shortness of breath, throat tightness, and anxiety."
+    },
+    {
+        "id": "dysphonia_psychogenic",
+        "title": "Dysphonia Psychogenic",
+        "content": "Voice disorder due to psychological factors. Causes include anxiety, depression, and conversion disorder. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include anxiety, depression, and throat tightness."
+    },
+    {
+        "id": "dysphonia_contact",
+        "title": "Dysphonia Contact",
+        "content": "Voice disorder due to vocal cord contact issues. Causes include vocal cord lesions, inflammation, and certain medications. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include throat pain, voice fatigue, and coughing."
+    },
+    {
+        "id": "dysphonia_atrophic",
+        "title": "Dysphonia Atrophic",
+        "content": "Voice disorder due to vocal cord thinning. Causes include aging, hormonal changes, and certain medications. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include voice weakness, breathiness, and vocal fatigue."
+    },
+    {
+        "id": "dysphonia_paralytic",
+        "title": "Dysphonia Paralytic",
+        "content": "Voice disorder due to vocal cord paralysis. Causes include neurological conditions, surgery, and certain medications. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include breathiness, weak voice, and swallowing problems."
+    },
+    {
+        "id": "dysphonia_tremor",
+        "title": "Dysphonia Tremor",
+        "content": "Voice disorder due to vocal cord tremor. Causes include neurological conditions, stress, and certain medications. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include voice quivering, throat tightness, and anxiety."
+    },
+    {
+        "id": "dysphonia_puberphonia",
+        "title": "Dysphonia Puberphonia",
+        "content": "Voice disorder with persistent high-pitched voice after puberty. Causes include psychological factors, hormonal issues, and voice misuse. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include voice strain, throat tightness, and social anxiety."
+    },
+    {
+        "id": "dysphonia_mutational",
+        "title": "Dysphonia Mutational",
+        "content": "Voice disorder during voice change in adolescence. Causes include hormonal changes, voice misuse, and psychological factors. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include voice breaks, throat tightness, and social anxiety."
+    },
+    {
+        "id": "dysphonia_functional",
+        "title": "Dysphonia Functional",
+        "content": "Voice disorder without structural or neurological cause. Causes include voice misuse, stress, and psychological factors. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include voice fatigue, throat pain, and anxiety."
+    },
+    {
+        "id": "dysphonia_organic",
+        "title": "Dysphonia Organic",
+        "content": "Voice disorder due to structural changes. Causes include vocal cord lesions, inflammation, and certain medications. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include throat pain, voice fatigue, and coughing."
+    },
+    {
+        "id": "dysphonia_neurological",
+        "title": "Dysphonia Neurological",
+        "content": "Voice disorder due to neurological conditions. Causes include stroke, Parkinson's disease, and multiple sclerosis. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include speech difficulties, muscle weakness, and coordination problems."
+    },
+    {
+        "id": "dysphonia_psychosomatic",
+        "title": "Dysphonia Psychosomatic",
+        "content": "Voice disorder due to psychological and physical factors. Causes include stress, anxiety, and voice misuse. Severity levels: Mild (slight voice changes), Moderate (significant voice alteration), Severe (complete voice loss). Urgent threshold is associated breathing difficulty. Common accompanying symptoms include anxiety, throat tightness, and voice fatigue."
     }
 ] 

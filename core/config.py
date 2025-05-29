@@ -119,7 +119,7 @@ No known allergies to medications.
 """
 
 # Validation Settings
-MAX_SYMPTOM_DURATION_DAYS = 3650  # 10 years
+MAX_SYMPTOM_DURATION_DAYS = 3650  
 MIN_PATIENT_AGE = 0
 MAX_PATIENT_AGE = 120
 ALLOWED_GENDERS = ["MALE", "FEMALE"]

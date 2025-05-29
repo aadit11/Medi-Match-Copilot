@@ -13,5 +13,490 @@
         "id": "amoxicillin",
         "title": "Amoxicillin",
         "content": "Antibiotic of the penicillin class used for bacterial infections including ear infections, sinus infections, pneumonia, and urinary tract infections. Adult dosage: 250-500mg every 8 hours. Children's dosage: 20-40mg/kg per day divided into 3 doses. Side effects include diarrhea, nausea, rash, allergic reactions, and yeast infections. Contraindicated in known allergy to penicillin and active mononucleosis. Important interactions include probenecid (increases amoxicillin levels), allopurinol (increases risk of rash), and oral contraceptives (may reduce effectiveness). Precautions: Complete full course of antibiotics, take with or without food, report any signs of allergic reaction, and store in refrigerator for liquid form. Warning: Overuse can lead to antibiotic resistance."
+    },
+    {
+        "id": "loratadine",
+        "title": "Loratadine (Claritin)",
+        "content": "Non-drowsy antihistamine used to relieve allergy symptoms such as sneezing, runny nose, and itchy eyes. Adult dosage: 10mg once daily. Children's dosage: 5mg once daily for ages 2-5, 10mg for 6 and older. Side effects include headache, dry mouth, and fatigue. Contraindicated in severe liver impairment and known allergy to loratadine. Important interactions: minimal, but caution with CNS depressants. Precautions: Use in pregnancy only if clearly needed, may cause drowsiness in some individuals."
+    },
+    {
+        "id": "diphenhydramine",
+        "title": "Diphenhydramine (Benadryl)",
+        "content": "Sedating antihistamine used for allergy relief, motion sickness, and insomnia. Adult dosage: 25-50mg every 4-6 hours, maximum 300mg/day. Children's dosage: 1mg/kg every 6-8 hours, max 4 doses/day. Side effects include drowsiness, dry mouth, dizziness, and confusion (especially in elderly). Contraindicated in newborns, breastfeeding, and known allergy to diphenhydramine. Important interactions: alcohol, sedatives, MAO inhibitors. Precautions: Avoid operating machinery, use with caution in elderly."
+    },
+    {
+        "id": "lisinopril",
+        "title": "Lisinopril",
+        "content": "ACE inhibitor used to treat high blood pressure and heart failure. Adult dosage: 10-40mg once daily. Not recommended for children under 6 years. Side effects include cough, dizziness, increased potassium levels, and kidney dysfunction. Contraindicated in pregnancy, history of angioedema, and bilateral renal artery stenosis. Important interactions: potassium supplements, diuretics, NSAIDs, lithium. Precautions: Monitor blood pressure and kidney function, avoid potassium-rich foods and supplements."
+    },
+    {
+        "id": "metformin",
+        "title": "Metformin",
+        "content": "Biguanide class medication used to manage type 2 diabetes. Adult dosage: 500mg twice daily or 850mg once daily, max 2000-2550mg/day. Children's dosage: 500mg twice daily (10 years and older). Side effects include gastrointestinal upset, diarrhea, and rare risk of lactic acidosis. Contraindicated in severe kidney disease and metabolic acidosis. Important interactions: alcohol (increased risk of lactic acidosis), contrast dye. Precautions: Take with food to reduce GI effects, monitor kidney function."
+    },
+    {
+        "id": "omeprazole",
+        "title": "Omeprazole (Prilosec)",
+        "content": "Proton pump inhibitor used for GERD, stomach ulcers, and acid reflux. Adult dosage: 20-40mg once daily before a meal. Children's dosage: 0.7-3.3mg/kg/day depending on indication. Side effects include headache, nausea, diarrhea, and long-term risk of bone fractures and vitamin B12 deficiency. Contraindicated in known allergy to omeprazole. Important interactions: clopidogrel (reduced effectiveness), certain antifungals. Precautions: Do not crush capsules, long-term use requires monitoring."
+    },
+    {
+        "id": "albuterol",
+        "title": "Albuterol (Ventolin, ProAir)",
+        "content": "Short-acting beta agonist bronchodilator for asthma and COPD. Adult dosage: 90mcg per inhalation, 2 inhalations every 4-6 hours as needed. Children's dosage: same as adult. Side effects include tremor, nervousness, tachycardia, and headache. Contraindicated in known hypersensitivity to albuterol. Important interactions: beta-blockers, diuretics. Precautions: Monitor heart rate, do not exceed recommended dose, may cause paradoxical bronchospasm."
+    },
+    {
+        "id": "atorvastatin",
+        "title": "Atorvastatin (Lipitor)",
+        "content": "Statin medication used to lower cholesterol and prevent cardiovascular disease. Adult dosage: 10-80mg once daily. Not approved for children under 10. Side effects include muscle pain, liver enzyme elevation, and rare rhabdomyolysis. Contraindicated in active liver disease and pregnancy. Important interactions: grapefruit juice (increases levels), certain antibiotics and antifungals. Precautions: Monitor liver function, report unexplained muscle pain."
+    },
+    {
+        "id": "azithromycin",
+        "title": "Azithromycin (Zithromax)",
+        "content": "Macrolide antibiotic used for respiratory infections, STIs, and skin infections. Adult dosage: 500mg on day 1, then 250mg once daily for 4 days. Children's dosage: 10mg/kg on day 1, then 5mg/kg for 4 days. Side effects include diarrhea, nausea, abdominal pain, and QT prolongation. Contraindicated in known allergy to macrolides. Important interactions: antacids (reduce absorption), QT-prolonging drugs. Precautions: Take on empty stomach, complete full course."
+    },
+    {
+        "id": "hydrochlorothiazide",
+        "title": "Hydrochlorothiazide (HCTZ)",
+        "content": "Thiazide diuretic used to treat high blood pressure and fluid retention. Adult dosage: 12.5–50mg once daily. Not routinely used in children. Side effects include electrolyte imbalances, dizziness, photosensitivity, and increased uric acid. Contraindicated in anuria and sulfa allergy. Important interactions: lithium (increased toxicity), antidiabetics (reduced effectiveness). Precautions: Monitor electrolytes and kidney function."
+    },
+    {
+        "id": "furosemide",
+        "title": "Furosemide (Lasix)",
+        "content": "Loop diuretic used for edema and heart failure. Adult dosage: 20–80mg per dose, may repeat in 6–8 hours. Children's dosage: 1–2mg/kg/dose. Side effects include dehydration, electrolyte loss, hearing loss at high doses, and increased uric acid. Contraindicated in anuria. Important interactions: aminoglycosides, digoxin. Precautions: Monitor fluid balance, electrolytes, and kidney function."
+    },
+    {
+        "id": "sertraline",
+        "title": "Sertraline (Zoloft)",
+        "content": "SSRI antidepressant used for depression, anxiety, and PTSD. Adult dosage: 50–200mg once daily. Pediatric use approved for OCD (6–17 years). Side effects include nausea, insomnia, sexual dysfunction, and increased suicidal thoughts in youth. Contraindicated with MAO inhibitors. Important interactions: other serotonergic drugs, NSAIDs (bleeding risk). Precautions: Taper when discontinuing, monitor mood changes."
+    },
+    {
+        "id": "levothyroxine",
+        "title": "Levothyroxine (Synthroid)",
+        "content": "Synthetic thyroid hormone used for hypothyroidism. Adult dosage: 25–200mcg once daily on empty stomach. Pediatric dosing is weight-based. Side effects include hyperthyroid symptoms if overtreated. Contraindicated in untreated adrenal insufficiency. Important interactions: calcium, iron (reduce absorption), warfarin. Precautions: Take on empty stomach, same time daily, monitor TSH levels."
+    },
+    {
+        "id": "clonazepam",
+        "title": "Clonazepam (Klonopin)",
+        "content": "Benzodiazepine used for anxiety, seizures, and panic disorder. Adult dosage: 0.5–2mg two to three times daily. Pediatric dosing is weight-based. Side effects include drowsiness, dizziness, memory problems, and dependence. Contraindicated in severe liver disease and narrow-angle glaucoma. Important interactions: alcohol, opioids, other CNS depressants. Precautions: Avoid abrupt withdrawal, risk of addiction."
+    },
+    {
+        "id": "prednisone",
+        "title": "Prednisone",
+        "content": "Corticosteroid used for inflammation, autoimmune conditions, and allergies. Adult dosage: varies from 5–60mg/day depending on condition. Pediatric dosage is weight-based. Side effects include weight gain, insomnia, mood changes, high blood sugar, osteoporosis. Contraindicated in systemic fungal infections. Important interactions: NSAIDs, vaccines, antidiabetics. Precautions: Taper gradually after long use, monitor blood pressure, blood sugar."
+    },
+    {
+        "id": "cetirizine",
+        "title": "Cetirizine (Zyrtec)",
+        "content": "Second-generation antihistamine used for allergies and hives. Adult dosage: 10mg once daily. Children's dosage: 5mg (2–5 yrs), 10mg (6+ yrs). Side effects include drowsiness, dry mouth, and headache. Contraindicated in severe kidney impairment. Important interactions: alcohol, CNS depressants. Precautions: Caution in operating machinery, generally well-tolerated."
+    },
+    {
+        "id": "glipizide",
+        "title": "Glipizide (Glucotrol)",
+        "content": "Sulfonylurea used to lower blood sugar in type 2 diabetes. Adult dosage: 2.5–40mg/day in divided doses. Not used in children. Side effects include hypoglycemia, weight gain, and GI upset. Contraindicated in type 1 diabetes and diabetic ketoacidosis. Important interactions: alcohol, beta-blockers, NSAIDs. Precautions: Take 30 minutes before meals, monitor blood glucose."
+    },
+    {
+        "id": "tramadol",
+        "title": "Tramadol (Ultram)",
+        "content": "Opioid-like analgesic for moderate pain. Adult dosage: 50–100mg every 4–6 hours, max 400mg/day. Not recommended for children under 12. Side effects include dizziness, nausea, constipation, drowsiness, and dependence. Contraindicated in severe respiratory depression and recent MAOI use. Important interactions: SSRIs, CNS depressants, alcohol. Precautions: Risk of serotonin syndrome, seizure risk at high doses."
+    },
+    {
+        "id": "amlodipine",
+        "title": "Amlodipine",
+        "content": "Calcium channel blocker used to treat hypertension and angina. Adult dosage: 5–10 mg once daily. Side effects include peripheral edema, dizziness, and palpitations. Contraindicated in severe hypotension and known hypersensitivity. Important interactions: simvastatin (increased levels), other antihypertensives. Precautions: Monitor blood pressure regularly."
+    },
+    {
+        "id": "metoprolol",
+        "title": "Metoprolol",
+        "content": "Beta-blocker used for hypertension, angina, and heart failure. Adult dosage: 50–100 mg twice daily. Side effects include fatigue, bradycardia, and dizziness. Contraindicated in bradycardia, heart block, and asthma. Important interactions: other antihypertensives, digoxin. Precautions: Do not discontinue abruptly; monitor heart rate."
+    },
+    {
+        "id": "losartan",
+        "title": "Losartan",
+        "content": "Angiotensin II receptor blocker (ARB) used for hypertension and diabetic nephropathy. Adult dosage: 50–100 mg once daily. Side effects include dizziness, hyperkalemia, and fatigue. Contraindicated in pregnancy and known hypersensitivity. Important interactions: potassium supplements, NSAIDs. Precautions: Monitor kidney function and electrolytes."
+    },
+    {
+        "id": "simvastatin",
+        "title": "Simvastatin",
+        "content": "Statin used to lower cholesterol and triglycerides. Adult dosage: 10–40 mg once daily in the evening. Side effects include muscle pain, liver enzyme elevation, and gastrointestinal upset. Contraindicated in active liver disease and pregnancy. Important interactions: grapefruit juice, certain antifungals. Precautions: Monitor liver function tests."
+    },
+    {
+        "id": "gabapentin",
+        "title": "Gabapentin",
+        "content": "Anticonvulsant used for neuropathic pain and seizures. Adult dosage: 300–600 mg three times daily. Side effects include dizziness, drowsiness, and peripheral edema. Contraindicated in known hypersensitivity. Important interactions: antacids (reduce absorption). Precautions: Adjust dose in renal impairment."
+    },
+    {
+        "id": "montelukast",
+        "title": "Montelukast",
+        "content": "Leukotriene receptor antagonist used for asthma and allergic rhinitis. Adult dosage: 10 mg once daily in the evening. Side effects include headache, abdominal pain, and mood changes. Contraindicated in known hypersensitivity. Important interactions: phenobarbital (reduces levels). Precautions: Not for acute asthma attacks."
+    },
+    {
+        "id": "tamsulosin",
+        "title": "Tamsulosin",
+        "content": "Alpha-1 blocker used for benign prostatic hyperplasia (BPH). Adult dosage: 0.4 mg once daily after a meal. Side effects include dizziness, orthostatic hypotension, and ejaculation disorders. Contraindicated in known hypersensitivity. Important interactions: other alpha-blockers, PDE5 inhibitors. Precautions: Monitor blood pressure."
+    },
+    {
+        "id": "escitalopram",
+        "title": "Escitalopram",
+        "content": "Selective serotonin reuptake inhibitor (SSRI) used for depression and anxiety. Adult dosage: 10–20 mg once daily. Side effects include nausea, insomnia, and sexual dysfunction. Contraindicated with MAO inhibitors. Important interactions: other serotonergic drugs, NSAIDs. Precautions: Monitor for suicidal thoughts."
+    },
+    {
+        "id": "citalopram",
+        "title": "Citalopram",
+        "content": "SSRI used for depression. Adult dosage: 20–40 mg once daily. Side effects include dry mouth, drowsiness, and QT prolongation. Contraindicated with MAO inhibitors. Important interactions: other QT-prolonging drugs. Precautions: Monitor ECG in high-risk patients."
+    },
+    {
+        "id": "rosuvastatin",
+        "title": "Rosuvastatin",
+        "content": "Statin used to lower cholesterol and triglycerides. Adult dosage: 5–40 mg once daily. Side effects include muscle pain, liver enzyme elevation, and gastrointestinal upset. Contraindicated in active liver disease and pregnancy. Important interactions: cyclosporine, warfarin. Precautions: Monitor liver function tests."
+    },
+    {
+        "id": "doxycycline",
+        "title": "Doxycycline",
+        "content": "Tetracycline antibiotic used for various bacterial infections including acne, Lyme disease, and respiratory infections. Adult dosage: 100mg twice daily or 200mg once daily. Children's dosage: 2-4mg/kg/day divided twice daily (8 years and older). Side effects include photosensitivity, GI upset, and esophageal irritation. Contraindicated in pregnancy and children under 8 years. Important interactions: antacids, iron supplements, warfarin. Precautions: Take with food and plenty of water, avoid sun exposure, complete full course."
+    },
+    {
+        "id": "fluoxetine",
+        "title": "Fluoxetine (Prozac)",
+        "content": "SSRI antidepressant used for depression, OCD, and bulimia. Adult dosage: 20-80mg once daily. Pediatric use approved for OCD (7-17 years). Side effects include nausea, insomnia, sexual dysfunction, and increased suicidal thoughts in youth. Contraindicated with MAO inhibitors. Important interactions: other serotonergic drugs, NSAIDs. Precautions: Long half-life, monitor for serotonin syndrome."
+    },
+    {
+        "id": "pantoprazole",
+        "title": "Pantoprazole (Protonix)",
+        "content": "Proton pump inhibitor for GERD and peptic ulcers. Adult dosage: 40mg once daily. Children's dosage: 1-1.2mg/kg once daily. Side effects include headache, diarrhea, and long-term risk of bone fractures. Contraindicated in known hypersensitivity. Important interactions: iron salts, ketoconazole. Precautions: Take before meals, monitor for long-term use effects."
+    },
+    {
+        "id": "carvedilol",
+        "title": "Carvedilol (Coreg)",
+        "content": "Beta-blocker with alpha-blocking properties for heart failure and hypertension. Adult dosage: 3.125-25mg twice daily. Side effects include dizziness, fatigue, and bradycardia. Contraindicated in severe heart failure, asthma, and bradycardia. Important interactions: other antihypertensives, digoxin. Precautions: Monitor heart rate and blood pressure, do not stop abruptly."
+    },
+    {
+        "id": "venlafaxine",
+        "title": "Venlafaxine (Effexor)",
+        "content": "SNRI antidepressant for depression and anxiety. Adult dosage: 75-225mg daily in divided doses. Side effects include nausea, hypertension, and sexual dysfunction. Contraindicated with MAO inhibitors. Important interactions: other serotonergic drugs, NSAIDs. Precautions: Monitor blood pressure, taper when discontinuing."
+    },
+    {
+        "id": "duloxetine",
+        "title": "Duloxetine (Cymbalta)",
+        "content": "SNRI used for depression, anxiety, and neuropathic pain. Adult dosage: 30-60mg once daily. Side effects include nausea, dry mouth, and increased blood pressure. Contraindicated in severe liver disease and with MAO inhibitors. Important interactions: other serotonergic drugs, NSAIDs. Precautions: Monitor liver function, taper when stopping."
+    },
+    {
+        "id": "quetiapine",
+        "title": "Quetiapine (Seroquel)",
+        "content": "Atypical antipsychotic for schizophrenia and bipolar disorder. Adult dosage: 150-800mg daily in divided doses. Side effects include sedation, weight gain, and metabolic changes. Contraindicated in known hypersensitivity. Important interactions: CNS depressants, CYP3A4 inhibitors. Precautions: Monitor metabolic parameters and blood pressure."
+    },
+    {
+        "id": "pregabalin",
+        "title": "Pregabalin (Lyrica)",
+        "content": "Anticonvulsant for neuropathic pain and fibromyalgia. Adult dosage: 150-600mg daily in divided doses. Side effects include dizziness, weight gain, and peripheral edema. Contraindicated in known hypersensitivity. Important interactions: CNS depressants, thiazolidinediones. Precautions: Adjust dose in renal impairment."
+    },
+    {
+        "id": "tadalafil",
+        "title": "Tadalafil (Cialis)",
+        "content": "PDE5 inhibitor for erectile dysfunction and BPH. Adult dosage: 5-20mg as needed or 5mg daily. Side effects include headache, flushing, and back pain. Contraindicated with nitrates and in severe heart disease. Important interactions: alpha-blockers, nitrates. Precautions: Monitor for priapism, use caution in cardiovascular disease."
+    },
+    {
+        "id": "apixaban",
+        "title": "Apixaban (Eliquis)",
+        "content": "Direct oral anticoagulant for stroke prevention in atrial fibrillation. Adult dosage: 5mg twice daily. Side effects include bleeding, bruising, and anemia. Contraindicated in active bleeding and severe liver disease. Important interactions: strong CYP3A4 inhibitors, antiplatelet drugs. Precautions: Monitor for bleeding, consider renal function."
+    },
+    {
+        "id": "ceftriaxone",
+        "title": "Ceftriaxone (Rocephin)",
+        "content": "Third-generation cephalosporin antibiotic for serious bacterial infections. Adult dosage: 1-2g daily IV/IM. Children's dosage: 50-75mg/kg daily. Side effects include diarrhea, injection site reactions, and allergic reactions. Contraindicated in known hypersensitivity to cephalosporins. Important interactions: calcium-containing products (IV), probenecid. Precautions: Monitor for superinfection, adjust dose in renal impairment."
+    },
+    {
+        "id": "metronidazole",
+        "title": "Metronidazole (Flagyl)",
+        "content": "Antibiotic/antiprotozoal for anaerobic infections and parasitic infections. Adult dosage: 500-750mg three times daily. Children's dosage: 30-50mg/kg/day divided. Side effects include metallic taste, nausea, and peripheral neuropathy. Contraindicated in first trimester of pregnancy. Important interactions: alcohol (disulfiram-like reaction), warfarin. Precautions: Complete full course, avoid alcohol during and 48 hours after treatment."
+    },
+    {
+        "id": "spironolactone",
+        "title": "Spironolactone (Aldactone)",
+        "content": "Potassium-sparing diuretic for heart failure and hypertension. Adult dosage: 25-100mg daily. Side effects include hyperkalemia, gynecomastia, and menstrual irregularities. Contraindicated in hyperkalemia and acute renal failure. Important interactions: ACE inhibitors, potassium supplements. Precautions: Monitor potassium levels, avoid potassium-rich foods."
+    },
+    {
+        "id": "warfarin",
+        "title": "Warfarin (Coumadin)",
+        "content": "Oral anticoagulant for blood clot prevention. Adult dosage: 2-10mg daily, adjusted by INR. Side effects include bleeding, bruising, and skin necrosis. Contraindicated in active bleeding and pregnancy. Important interactions: many medications, vitamin K, alcohol. Precautions: Regular INR monitoring, maintain consistent vitamin K intake."
+    },
+    {
+        "id": "insulin_glargine",
+        "title": "Insulin Glargine (Lantus)",
+        "content": "Long-acting insulin for diabetes management. Adult dosage: individualized, typically 0.2-0.4 units/kg daily. Side effects include hypoglycemia, weight gain, and injection site reactions. Contraindicated in hypoglycemia. Important interactions: corticosteroids, beta-blockers. Precautions: Rotate injection sites, monitor blood glucose."
+    },
+    {
+        "id": "insulin_aspart",
+        "title": "Insulin Aspart (NovoLog)",
+        "content": "Rapid-acting insulin for diabetes management. Adult dosage: individualized, typically 0.5-1 unit/kg/day divided. Side effects include hypoglycemia and injection site reactions. Contraindicated in hypoglycemia. Important interactions: corticosteroids, beta-blockers. Precautions: Use within 15 minutes of meals, monitor blood glucose."
+    },
+    {
+        "id": "fluticasone",
+        "title": "Fluticasone (Flovent)",
+        "content": "Inhaled corticosteroid for asthma maintenance. Adult dosage: 88-440mcg twice daily. Children's dosage: 44-220mcg twice daily. Side effects include oral thrush, hoarseness, and growth suppression in children. Contraindicated in status asthmaticus. Important interactions: ritonavir, ketoconazole. Precautions: Rinse mouth after use, use spacer device."
+    },
+    {
+        "id": "formoterol",
+        "title": "Formoterol (Foradil)",
+        "content": "Long-acting beta agonist for asthma and COPD. Adult dosage: 12mcg twice daily. Side effects include tremor, tachycardia, and headache. Contraindicated in acute asthma attacks. Important interactions: beta-blockers, diuretics. Precautions: Not for acute symptoms, use with inhaled steroid."
+    },
+    {
+        "id": "memantine",
+        "title": "Memantine (Namenda)",
+        "content": "NMDA receptor antagonist for moderate to severe Alzheimer's disease. Adult dosage: 5-20mg daily. Side effects include dizziness, confusion, and headache. Contraindicated in severe renal impairment. Important interactions: carbonic anhydrase inhibitors, sodium bicarbonate. Precautions: Titrate dose slowly, monitor for CNS effects."
+    },
+    {
+        "id": "donepezil",
+        "title": "Donepezil (Aricept)",
+        "content": "Cholinesterase inhibitor for Alzheimer's disease. Adult dosage: 5-10mg once daily. Side effects include nausea, diarrhea, and insomnia. Contraindicated in known hypersensitivity. Important interactions: anticholinergics, succinylcholine. Precautions: Take at bedtime, monitor for GI effects."
+    },
+    {
+        "id": "rivaroxaban",
+        "title": "Rivaroxaban (Xarelto)",
+        "content": "Direct oral anticoagulant for DVT prevention and stroke prevention. Adult dosage: 10-20mg once daily. Side effects include bleeding, bruising, and back pain. Contraindicated in active bleeding and severe liver disease. Important interactions: strong CYP3A4 inhibitors, antiplatelet drugs. Precautions: Monitor for bleeding, consider renal function."
+    },
+    {
+        "id": "empagliflozin",
+        "title": "Empagliflozin (Jardiance)",
+        "content": "SGLT2 inhibitor for type 2 diabetes. Adult dosage: 10-25mg once daily. Side effects include UTIs, dehydration, and ketoacidosis. Contraindicated in severe renal impairment. Important interactions: diuretics, insulin. Precautions: Monitor for dehydration, check for ketones if ill."
+    },
+    {
+        "id": "dapagliflozin",
+        "title": "Dapagliflozin (Farxiga)",
+        "content": "SGLT2 inhibitor for type 2 diabetes and heart failure. Adult dosage: 5-10mg once daily. Side effects include UTIs, dehydration, and ketoacidosis. Contraindicated in severe renal impairment. Important interactions: diuretics, insulin. Precautions: Monitor for dehydration, check for ketones if ill."
+    },
+    {
+        "id": "semaglutide",
+        "title": "Semaglutide (Ozempic)",
+        "content": "GLP-1 receptor agonist for type 2 diabetes. Adult dosage: 0.25-1mg once weekly. Side effects include nausea, vomiting, and pancreatitis. Contraindicated in personal/family history of medullary thyroid cancer. Important interactions: insulin, oral medications. Precautions: Monitor for pancreatitis, adjust other diabetes medications."
+    },
+    {
+        "id": "liraglutide",
+        "title": "Liraglutide (Victoza)",
+        "content": "GLP-1 receptor agonist for type 2 diabetes. Adult dosage: 0.6-1.8mg once daily. Side effects include nausea, vomiting, and pancreatitis. Contraindicated in personal/family history of medullary thyroid cancer. Important interactions: insulin, oral medications. Precautions: Monitor for pancreatitis, adjust other diabetes medications."
+    },
+    {
+        "id": "abiraterone",
+        "title": "Abiraterone (Zytiga)",
+        "content": "Antiandrogen for prostate cancer. Adult dosage: 1000mg once daily with prednisone. Side effects include hypertension, hypokalemia, and liver toxicity. Contraindicated in severe liver disease. Important interactions: strong CYP3A4 inducers, food. Precautions: Monitor liver function, blood pressure, and potassium."
+    },
+    {
+        "id": "enzalutamide",
+        "title": "Enzalutamide (Xtandi)",
+        "content": "Antiandrogen for prostate cancer. Adult dosage: 160mg once daily. Side effects include fatigue, hot flashes, and seizures. Contraindicated in pregnancy and history of seizures. Important interactions: strong CYP3A4 inducers, warfarin. Precautions: Monitor for seizures, avoid driving if drowsy."
+    },
+    {
+        "id": "ibrutinib",
+        "title": "Ibrutinib (Imbruvica)",
+        "content": "BTK inhibitor for certain blood cancers. Adult dosage: 420-560mg once daily. Side effects include bleeding, infections, and atrial fibrillation. Contraindicated in severe liver disease. Important interactions: strong CYP3A4 inhibitors, anticoagulants. Precautions: Monitor for bleeding, infections, and heart rhythm."
+    },
+    {
+        "id": "lenalidomide",
+        "title": "Lenalidomide (Revlimid)",
+        "content": "Immunomodulatory drug for multiple myeloma. Adult dosage: 5-25mg once daily. Side effects include birth defects, blood clots, and low blood counts. Contraindicated in pregnancy. Important interactions: erythropoietin, blood thinners. Precautions: Pregnancy prevention program, monitor blood counts."
+    },
+    {
+        "id": "pembrolizumab",
+        "title": "Pembrolizumab (Keytruda)",
+        "content": "PD-1 inhibitor for various cancers. Adult dosage: 200mg every 3 weeks. Side effects include immune reactions, fatigue, and rash. Contraindicated in active autoimmune disease. Important interactions: systemic corticosteroids, other immunotherapies. Precautions: Monitor for immune-related adverse events."
+    },
+    {
+        "id": "vancomycin",
+        "title": "Vancomycin (Vancocin)",
+        "content": "Glycopeptide antibiotic for serious Gram-positive infections. Adult dosage: 15-20mg/kg every 8-12 hours IV. Children's dosage: 40-60mg/kg/day divided. Side effects include nephrotoxicity, ototoxicity, and red man syndrome. Contraindicated in known hypersensitivity. Important interactions: aminoglycosides, loop diuretics. Precautions: Monitor serum levels, renal function, and hearing."
+    },
+    {
+        "id": "meropenem",
+        "title": "Meropenem (Merrem)",
+        "content": "Carbapenem antibiotic for serious infections. Adult dosage: 1-2g every 8 hours IV. Children's dosage: 20-40mg/kg every 8 hours. Side effects include seizures, diarrhea, and allergic reactions. Contraindicated in known hypersensitivity to beta-lactams. Important interactions: valproic acid, probenecid. Precautions: Monitor for seizures, adjust dose in renal impairment."
+    },
+    {
+        "id": "linezolid",
+        "title": "Linezolid (Zyvox)",
+        "content": "Oxazolidinone antibiotic for resistant Gram-positive infections. Adult dosage: 600mg twice daily. Children's dosage: 10mg/kg every 8-12 hours. Side effects include myelosuppression, serotonin syndrome, and optic neuropathy. Contraindicated with MAO inhibitors. Important interactions: SSRIs, SNRIs, tyramine-rich foods. Precautions: Monitor blood counts, vision, and for serotonin syndrome."
+    },
+    {
+        "id": "daptomycin",
+        "title": "Daptomycin (Cubicin)",
+        "content": "Lipopeptide antibiotic for complicated skin infections. Adult dosage: 4-6mg/kg once daily IV. Side effects include myopathy, rhabdomyolysis, and eosinophilic pneumonia. Contraindicated in known hypersensitivity. Important interactions: statins, HMG-CoA reductase inhibitors. Precautions: Monitor CPK levels, renal function."
+    },
+    {
+        "id": "tigecycline",
+        "title": "Tigecycline (Tygacil)",
+        "content": "Glycylcycline antibiotic for complicated infections. Adult dosage: 100mg IV loading, then 50mg twice daily. Side effects include nausea, vomiting, and increased mortality. Contraindicated in known hypersensitivity. Important interactions: warfarin, oral contraceptives. Precautions: Monitor for superinfection, adjust in severe liver disease."
+    },
+    {
+        "id": "colistin",
+        "title": "Colistin (Coly-Mycin)",
+        "content": "Polymyxin antibiotic for multidrug-resistant Gram-negative infections. Adult dosage: 2.5-5mg/kg/day divided. Side effects include nephrotoxicity, neurotoxicity, and respiratory paralysis. Contraindicated in myasthenia gravis. Important interactions: aminoglycosides, neuromuscular blockers. Precautions: Monitor renal function, neurological status."
+    },
+    {
+        "id": "posaconazole",
+        "title": "Posaconazole (Noxafil)",
+        "content": "Triazole antifungal for invasive fungal infections. Adult dosage: 300mg twice daily first day, then 300mg daily. Side effects include QT prolongation, liver toxicity, and electrolyte disturbances. Contraindicated with certain QT-prolonging drugs. Important interactions: many medications, including cyclosporine and tacrolimus. Precautions: Monitor liver function, electrolytes, and ECG."
+    },
+    {
+        "id": "voriconazole",
+        "title": "Voriconazole (Vfend)",
+        "content": "Triazole antifungal for invasive aspergillosis. Adult dosage: 6mg/kg twice daily, then 4mg/kg twice daily. Side effects include visual disturbances, liver toxicity, and photosensitivity. Contraindicated with certain medications. Important interactions: many medications, including cyclosporine and warfarin. Precautions: Monitor liver function, visual changes."
+    },
+    {
+        "id": "caspofungin",
+        "title": "Caspofungin (Cancidas)",
+        "content": "Echinocandin antifungal for invasive candidiasis. Adult dosage: 70mg loading, then 50mg daily IV. Side effects include fever, phlebitis, and liver enzyme elevation. Contraindicated in known hypersensitivity. Important interactions: cyclosporine, tacrolimus. Precautions: Monitor liver function, adjust in moderate liver disease."
+    },
+    {
+        "id": "acyclovir",
+        "title": "Acyclovir (Zovirax)",
+        "content": "Antiviral for herpes infections. Adult dosage: 200-800mg 5 times daily. Children's dosage: 20mg/kg 4 times daily. Side effects include nephrotoxicity, neurotoxicity, and GI upset. Contraindicated in known hypersensitivity. Important interactions: probenecid, nephrotoxic drugs. Precautions: Maintain hydration, adjust in renal impairment."
+    },
+    {
+        "id": "valacyclovir",
+        "title": "Valacyclovir (Valtrex)",
+        "content": "Antiviral prodrug of acyclovir for herpes infections. Adult dosage: 500-1000mg 2-3 times daily. Side effects include headache, nausea, and renal impairment. Contraindicated in known hypersensitivity to acyclovir. Important interactions: probenecid, cimetidine. Precautions: Maintain hydration, adjust in renal impairment."
+    },
+    {
+        "id": "oseltamivir",
+        "title": "Oseltamivir (Tamiflu)",
+        "content": "Antiviral for influenza. Adult dosage: 75mg twice daily. Children's dosage: weight-based, 30-75mg twice daily. Side effects include nausea, vomiting, and neuropsychiatric events. Contraindicated in known hypersensitivity. Important interactions: probenecid, live attenuated influenza vaccine. Precautions: Start within 48 hours of symptoms."
+    },
+    {
+        "id": "sofosbuvir",
+        "title": "Sofosbuvir (Sovaldi)",
+        "content": "Antiviral for hepatitis C. Adult dosage: 400mg once daily with other antivirals. Side effects include fatigue, headache, and anemia. Contraindicated with certain medications. Important interactions: amiodarone, rifampin. Precautions: Use in combination therapy, monitor for bradycardia."
+    },
+    {
+        "id": "ledipasvir",
+        "title": "Ledipasvir/Sofosbuvir (Harvoni)",
+        "content": "Combination antiviral for hepatitis C. Adult dosage: 90/400mg once daily. Side effects include fatigue, headache, and insomnia. Contraindicated with certain medications. Important interactions: antacids, H2 blockers. Precautions: Take with food, avoid antacids within 4 hours."
+    },
+    {
+        "id": "tenofovir",
+        "title": "Tenofovir (Viread)",
+        "content": "Antiviral for HIV and hepatitis B. Adult dosage: 300mg once daily. Side effects include renal impairment, bone loss, and lactic acidosis. Contraindicated in severe renal impairment. Important interactions: didanosine, acyclovir. Precautions: Monitor renal function, bone density."
+    },
+    {
+        "id": "emtricitabine",
+        "title": "Emtricitabine (Emtriva)",
+        "content": "Antiviral for HIV and hepatitis B. Adult dosage: 200mg once daily. Side effects include hyperpigmentation, lactic acidosis, and liver problems. Contraindicated in known hypersensitivity. Important interactions: lamivudine, zalcitabine. Precautions: Monitor for lactic acidosis, liver function."
+    },
+    {
+        "id": "ritonavir",
+        "title": "Ritonavir (Norvir)",
+        "content": "Protease inhibitor for HIV. Adult dosage: 600mg twice daily. Side effects include GI upset, lipid abnormalities, and liver toxicity. Contraindicated with certain medications. Important interactions: many medications, including statins and sedatives. Precautions: Monitor lipids, liver function, and drug interactions."
+    },
+    {
+        "id": "dolutegravir",
+        "title": "Dolutegravir (Tivicay)",
+        "content": "Integrase inhibitor for HIV. Adult dosage: 50mg once or twice daily. Side effects include insomnia, headache, and hypersensitivity. Contraindicated with certain medications. Important interactions: antacids, iron supplements. Precautions: Take 2 hours before or 6 hours after antacids."
+    },
+    {
+        "id": "bictegravir",
+        "title": "Bictegravir/Emtricitabine/Tenofovir (Biktarvy)",
+        "content": "Combination antiretroviral for HIV. Adult dosage: 50/200/25mg once daily. Side effects include headache, diarrhea, and fatigue. Contraindicated with certain medications. Important interactions: antacids, iron supplements. Precautions: Take with food, monitor renal function."
+    },
+    {
+        "id": "darunavir",
+        "title": "Darunavir (Prezista)",
+        "content": "Protease inhibitor for HIV. Adult dosage: 800mg once daily with ritonavir. Side effects include rash, lipid abnormalities, and liver toxicity. Contraindicated with certain medications. Important interactions: many medications, including statins and sedatives. Precautions: Monitor lipids, liver function, and drug interactions."
+    },
+    {
+        "id": "tacrolimus",
+        "title": "Tacrolimus (Prograf)",
+        "content": "Immunosuppressant for organ transplantation. Adult dosage: 0.1-0.2mg/kg/day divided twice daily. Side effects include nephrotoxicity, neurotoxicity, and diabetes. Contraindicated in hypersensitivity to macrolides. Important interactions: many medications, including cyclosporine and grapefruit juice. Precautions: Monitor blood levels, renal function, and blood glucose."
+    },
+    {
+        "id": "cyclosporine",
+        "title": "Cyclosporine (Sandimmune)",
+        "content": "Immunosuppressant for organ transplantation and autoimmune diseases. Adult dosage: 2-10mg/kg/day divided twice daily. Side effects include nephrotoxicity, hypertension, and hirsutism. Contraindicated in hypersensitivity to cyclosporine. Important interactions: many medications, including statins and grapefruit juice. Precautions: Monitor blood levels, renal function, and blood pressure."
+    },
+    {
+        "id": "mycophenolate",
+        "title": "Mycophenolate (CellCept)",
+        "content": "Immunosuppressant for organ transplantation. Adult dosage: 1000-1500mg twice daily. Side effects include GI upset, bone marrow suppression, and infections. Contraindicated in pregnancy and hypersensitivity. Important interactions: antacids, iron supplements, acyclovir. Precautions: Monitor blood counts, use contraception."
+    },
+    {
+        "id": "sirolimus",
+        "title": "Sirolimus (Rapamune)",
+        "content": "Immunosuppressant for organ transplantation. Adult dosage: 2-5mg once daily. Side effects include hyperlipidemia, wound healing problems, and pneumonitis. Contraindicated in hypersensitivity to sirolimus. Important interactions: many medications, including cyclosporine and grapefruit juice. Precautions: Monitor lipids, wound healing, and blood levels."
+    },
+    {
+        "id": "everolimus",
+        "title": "Everolimus (Afinitor)",
+        "content": "mTOR inhibitor for organ transplantation and cancer. Adult dosage: 0.75-10mg once daily. Side effects include stomatitis, pneumonitis, and hyperlipidemia. Contraindicated in hypersensitivity to everolimus. Important interactions: many medications, including cyclosporine and grapefruit juice. Precautions: Monitor blood levels, lipids, and for pneumonitis."
+    },
+    {
+        "id": "methotrexate",
+        "title": "Methotrexate (Rheumatrex)",
+        "content": "Antimetabolite for cancer and autoimmune diseases. Adult dosage: 7.5-30mg weekly. Side effects include myelosuppression, hepatotoxicity, and pulmonary toxicity. Contraindicated in pregnancy and severe liver disease. Important interactions: NSAIDs, probenecid, trimethoprim. Precautions: Monitor blood counts, liver function, and use folic acid."
+    },
+    {
+        "id": "hydroxychloroquine",
+        "title": "Hydroxychloroquine (Plaquenil)",
+        "content": "Antimalarial for autoimmune diseases. Adult dosage: 200-400mg daily. Side effects include retinopathy, cardiomyopathy, and skin reactions. Contraindicated in known hypersensitivity. Important interactions: digoxin, antacids. Precautions: Regular eye exams, monitor for cardiac effects."
+    },
+    {
+        "id": "sulfasalazine",
+        "title": "Sulfasalazine (Azulfidine)",
+        "content": "Sulfa drug for inflammatory bowel disease and rheumatoid arthritis. Adult dosage: 2-4g daily in divided doses. Side effects include GI upset, rash, and blood disorders. Contraindicated in sulfa allergy and porphyria. Important interactions: digoxin, folic acid. Precautions: Monitor blood counts, maintain hydration."
+    },
+    {
+        "id": "leflunomide",
+        "title": "Leflunomide (Arava)",
+        "content": "DMARD for rheumatoid arthritis. Adult dosage: 20mg once daily. Side effects include hepatotoxicity, diarrhea, and alopecia. Contraindicated in pregnancy and severe liver disease. Important interactions: warfarin, cholestyramine. Precautions: Monitor liver function, use contraception."
+    },
+    {
+        "id": "tofacitinib",
+        "title": "Tofacitinib (Xeljanz)",
+        "content": "JAK inhibitor for rheumatoid arthritis and psoriatic arthritis. Adult dosage: 5-10mg twice daily. Side effects include infections, thrombosis, and malignancies. Contraindicated in active infection and severe liver disease. Important interactions: strong CYP3A4 inhibitors, live vaccines. Precautions: Monitor for infections, blood clots, and malignancies."
+    },
+    {
+        "id": "baricitinib",
+        "title": "Baricitinib (Olumiant)",
+        "content": "JAK inhibitor for rheumatoid arthritis. Adult dosage: 2-4mg once daily. Side effects include infections, thrombosis, and malignancies. Contraindicated in active infection and severe liver disease. Important interactions: strong CYP3A4 inhibitors, live vaccines. Precautions: Monitor for infections, blood clots, and malignancies."
+    },
+    {
+        "id": "upadacitinib",
+        "title": "Upadacitinib (Rinvoq)",
+        "content": "JAK inhibitor for rheumatoid arthritis and atopic dermatitis. Adult dosage: 15-30mg once daily. Side effects include infections, thrombosis, and malignancies. Contraindicated in active infection and severe liver disease. Important interactions: strong CYP3A4 inhibitors, live vaccines. Precautions: Monitor for infections, blood clots, and malignancies."
+    },
+    {
+        "id": "secukinumab",
+        "title": "Secukinumab (Cosentyx)",
+        "content": "IL-17 inhibitor for psoriasis and psoriatic arthritis. Adult dosage: 300mg weekly for 5 weeks, then monthly. Side effects include infections, inflammatory bowel disease, and allergic reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and inflammatory bowel disease."
+    },
+    {
+        "id": "ustekinumab",
+        "title": "Ustekinumab (Stelara)",
+        "content": "IL-12/23 inhibitor for psoriasis and inflammatory bowel disease. Adult dosage: 45-90mg every 12 weeks. Side effects include infections, malignancies, and allergic reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and malignancies."
+    },
+    {
+        "id": "guselkumab",
+        "title": "Guselkumab (Tremfya)",
+        "content": "IL-23 inhibitor for psoriasis. Adult dosage: 100mg at weeks 0, 4, then every 8 weeks. Side effects include infections, allergic reactions, and injection site reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and allergic reactions."
+    },
+    {
+        "id": "risankizumab",
+        "title": "Risankizumab (Skyrizi)",
+        "content": "IL-23 inhibitor for psoriasis and Crohn's disease. Adult dosage: 150mg at weeks 0, 4, then every 12 weeks. Side effects include infections, allergic reactions, and injection site reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and allergic reactions."
+    },
+    {
+        "id": "ixekizumab",
+        "title": "Ixekizumab (Taltz)",
+        "content": "IL-17 inhibitor for psoriasis and psoriatic arthritis. Adult dosage: 160mg at week 0, then 80mg every 2-4 weeks. Side effects include infections, inflammatory bowel disease, and allergic reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and inflammatory bowel disease."
+    },
+    {
+        "id": "brodalumab",
+        "title": "Brodalumab (Siliq)",
+        "content": "IL-17 receptor inhibitor for psoriasis. Adult dosage: 210mg weekly for 3 weeks, then every 2 weeks. Side effects include infections, suicidal ideation, and allergic reactions. Contraindicated in active infection and history of suicidal ideation. Important interactions: live vaccines. Precautions: Monitor for infections and suicidal ideation."
+    },
+    {
+        "id": "tildrakizumab",
+        "title": "Tildrakizumab (Ilumya)",
+        "content": "IL-23 inhibitor for psoriasis. Adult dosage: 100mg at weeks 0, 4, then every 12 weeks. Side effects include infections, allergic reactions, and injection site reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and allergic reactions."
+    },
+    {
+        "id": "mirikizumab",
+        "title": "Mirikizumab (Omvoh)",
+        "content": "IL-23 inhibitor for ulcerative colitis. Adult dosage: 300mg IV at weeks 0, 4, 8, then 200mg SC every 4 weeks. Side effects include infections, allergic reactions, and injection site reactions. Contraindicated in active infection. Important interactions: live vaccines. Precautions: Monitor for infections and allergic reactions."
     }
-] 
+]

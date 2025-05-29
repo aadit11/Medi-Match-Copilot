@@ -13,5 +13,470 @@
         "id": "hypertension",
         "title": "Hypertension (High Blood Pressure)",
         "content": "A condition where the force of blood against artery walls is too high. Usually asymptomatic, but may cause headaches, shortness of breath, and rarely nosebleeds. Blood pressure categories: Normal (less than 120/80 mmHg), Elevated (120-129/<80 mmHg), Stage 1 (130-139/80-89 mmHg), Stage 2 (140 or higher/90 or higher mmHg), Crisis (higher than 180/higher than 120 mmHg). Treatment includes lifestyle changes such as healthy diet (DASH diet), regular exercise, weight management, limiting alcohol, quitting smoking, and reducing sodium intake. Medications may include diuretics, ACE inhibitors, ARBs, calcium channel blockers, and beta blockers. Risk factors include age, family history, obesity, physical inactivity, high sodium diet, excessive alcohol consumption, and stress. Complications can include heart attack, stroke, heart failure, kidney disease, and vision loss."
+    },
+    {
+        "id": "diabetes_mellitus",
+        "title": "Diabetes Mellitus",
+        "content": "A chronic condition characterized by high blood glucose levels due to insufficient insulin production or action. Symptoms include frequent urination, excessive thirst, unexplained weight loss, fatigue, blurred vision, and slow-healing wounds. Management involves lifestyle changes, blood sugar monitoring, and medications such as insulin or oral hypoglycemics. Complications can include cardiovascular disease, neuropathy, nephropathy, retinopathy, and increased infection risk."
+    },
+    {
+        "id": "asthma",
+        "title": "Asthma",
+        "content": "A chronic inflammatory disease of the airways causing episodes of wheezing, breathlessness, chest tightness, and coughing. Triggers include allergens, exercise, cold air, and respiratory infections. Management includes avoiding triggers, using inhaled corticosteroids, bronchodilators, and monitoring lung function. Severe cases may require systemic steroids. Complications can include frequent hospitalizations and reduced quality of life."
+    },
+    {
+        "id": "pneumonia",
+        "title": "Pneumonia",
+        "content": "An infection that inflames the air sacs in one or both lungs, which may fill with fluid or pus. Symptoms include cough with phlegm, fever, chills, and difficulty breathing. Treatment depends on the cause and may include antibiotics, antivirals, or antifungals, along with supportive care. Prevention includes vaccination and good hygiene practices. Complications can include respiratory failure and sepsis."
+    },
+    {
+        "id": "chronic_obstructive_pulmonary_disease",
+        "title": "Chronic Obstructive Pulmonary Disease (COPD)",
+        "content": "A group of progressive lung diseases, including emphysema and chronic bronchitis, characterized by airflow blockage and breathing-related problems. Symptoms include chronic cough, sputum production, and shortness of breath. Management includes smoking cessation, bronchodilators, inhaled steroids, pulmonary rehabilitation, and oxygen therapy. Complications can include frequent respiratory infections and heart problems."
+    },
+    {
+        "id": "coronary_artery_disease",
+        "title": "Coronary Artery Disease (CAD)",
+        "content": "A condition characterized by the narrowing or blockage of coronary arteries due to plaque buildup, leading to reduced blood flow to the heart. Symptoms include chest pain (angina), shortness of breath, and fatigue. Management includes lifestyle changes, medications, and procedures like angioplasty or bypass surgery. Complications can include heart attack and heart failure."
+    },
+    {
+        "id": "stroke",
+        "title": "Stroke",
+        "content": "A medical emergency where blood flow to a part of the brain is interrupted or reduced, causing brain tissue damage. Symptoms include sudden numbness or weakness, confusion, trouble speaking, vision problems, and loss of balance. Immediate treatment is crucial and may involve clot-dissolving medications or surgical interventions. Rehabilitation is often necessary. Complications can include permanent disability and death."
+    },
+    {
+        "id": "tuberculosis",
+        "title": "Tuberculosis (TB)",
+        "content": "A potentially serious infectious disease caused by Mycobacterium tuberculosis, primarily affecting the lungs. Symptoms include a persistent cough, chest pain, weight loss, fever, and night sweats. Treatment involves a long course of multiple antibiotics. Prevention includes vaccination and proper ventilation. Complications can include lung damage and spread to other organs."
+    },
+    {
+        "id": "alzheimer_disease",
+        "title": "Alzheimer's Disease",
+        "content": "A progressive neurodegenerative disorder that causes memory loss, cognitive decline, and behavioral changes. Early symptoms include difficulty remembering recent events and confusion. Management focuses on medications to slow progression and supportive care. Complications can include inability to perform daily activities and increased vulnerability to infections."
+    },
+    {
+        "id": "parkinson_disease",
+        "title": "Parkinson's Disease",
+        "content": "A progressive nervous system disorder affecting movement, causing tremors, stiffness, and difficulty with balance and coordination. Symptoms worsen over time. Management includes medications to manage symptoms, physical therapy, and sometimes surgical interventions. Complications can include cognitive decline and depression."
+    },
+    {
+        "id": "chronic_kidney_disease",
+        "title": "Chronic Kidney Disease (CKD)",
+        "content": "A long-term condition where the kidneys do not function effectively, leading to waste buildup in the body. Symptoms may include fatigue, swelling, and changes in urination. Management includes controlling underlying conditions, dietary changes, and possibly dialysis or kidney transplant. Complications can include cardiovascular disease and kidney failure."
+    },
+    {
+        "id": "obesity",
+        "title": "Obesity",
+        "content": "A condition characterized by excessive body fat accumulation, increasing the risk of health problems. Symptoms include weight gain, breathlessness, and joint pain. Management involves lifestyle changes, dietary modifications, physical activity, and sometimes medications or surgery. Complications can include diabetes, heart disease, and certain cancers."
+    },
+    {
+        "id": "dengue_fever",
+        "title": "Dengue Fever",
+        "content": "A mosquito-borne viral infection causing high fever, severe headaches, joint and muscle pain, skin rash, and bleeding tendencies. Management is supportive, focusing on hydration and pain relief. Severe cases may require hospitalization. Prevention includes mosquito control and protective measures. Complications can include dengue hemorrhagic fever and shock syndrome."
+    },
+    {
+        "id": "prostate_cancer",
+        "title": "Prostate Cancer",
+        "content": "A cancer that occurs in the prostate gland of men, often growing slowly. Symptoms may include difficulty urinating, blood in urine, and pelvic discomfort. Treatment options include active surveillance, surgery, radiation therapy, and hormone therapy. Early detection through screening is crucial. Complications can include metastasis and urinary incontinence."
+    },
+    {
+        "id": "meningitis",
+        "title": "Meningitis",
+        "content": "An inflammation of the protective membranes covering the brain and spinal cord, usually caused by infection. Symptoms include sudden fever, headache, neck stiffness, and sensitivity to light. Treatment depends on the cause and may involve antibiotics or antivirals. Vaccination can prevent some types. Complications can include brain damage and hearing loss."
+    },
+    {
+        "id": "arthritis",
+        "title": "Arthritis",
+        "content": "A group of conditions causing inflammation and stiffness in the joints. Symptoms include joint pain, swelling, and reduced range of motion. Management includes medications, physical therapy, and lifestyle changes. Complications can include chronic pain and joint deformity."
+    },
+    {
+        "id": "depression",
+        "title": "Depression",
+        "content": "A common mental health disorder characterized by persistent sadness, loss of interest, and various physical and emotional problems. Symptoms include fatigue, changes in appetite, and feelings of worthlessness. Treatment includes psychotherapy, medications, and lifestyle modifications. Complications can include substance abuse and suicidal thoughts."
+    },
+    {
+        "id": "anemia",
+        "title": "Anemia",
+        "content": "A condition where there is a deficiency of red blood cells or hemoglobin, leading to fatigue and weakness. Symptoms include pallor, shortness of breath, and dizziness. Treatment depends on the cause and may include dietary supplements, medications, or procedures. Complications can include heart problems and pregnancy complications."
+    },
+    {
+        "id": "gastroesophageal_reflux_disease",
+        "title": "Gastroesophageal Reflux Disease (GERD)",
+        "content": "A digestive disorder where stomach acid frequently flows back into the esophagus, causing irritation. Symptoms include heartburn, regurgitation, and difficulty swallowing. Management includes lifestyle changes, medications, and sometimes surgery. Complications can include esophageal ulcers and Barrett's esophagus."
+    },
+    {
+        "id": "migraine",
+        "title": "Migraine",
+        "content": "A neurological condition characterized by intense, debilitating headaches, often accompanied by nausea, vomiting, and sensitivity to light and sound. Management includes medications to relieve symptoms and prevent attacks, as well as lifestyle modifications. Complications can include chronic migraine and medication overuse headache."
+    },
+    {
+        "id": "eczema",
+        "title": "Eczema (Atopic Dermatitis)",
+        "content": "A condition that makes the skin red, inflamed, and itchy. It is common in children but can occur at any age. Management includes moisturizing, avoiding triggers, and using topical corticosteroids. Complications can include skin infections and sleep disturbances."
+    },
+    {
+        "id": "psoriasis",
+        "title": "Psoriasis",
+        "content": "A chronic autoimmune skin condition that causes rapid skin cell turnover, leading to scaling and inflammation. Symptoms include red patches of skin covered with thick, silvery scales, dry and cracked skin that may bleed, itching, burning, or soreness. Treatment options include topical treatments, phototherapy, and systemic medications. Complications can include psoriatic arthritis and increased risk of cardiovascular disease."
+    },
+    {
+        "id": "multiple_sclerosis",
+        "title": "Multiple Sclerosis (MS)",
+        "content": "A chronic autoimmune disease affecting the central nervous system, leading to demyelination of nerve fibers. Symptoms vary widely and can include fatigue, difficulty walking, numbness or tingling, muscle weakness, vision problems, and cognitive changes. Treatment focuses on slowing disease progression and managing symptoms through disease-modifying therapies and supportive care. Complications can include mobility issues and cognitive impairment."
+    },
+    {
+        "id": "epilepsy",
+        "title": "Epilepsy",
+        "content": "A neurological disorder marked by recurrent, unprovoked seizures due to abnormal electrical activity in the brain. Symptoms include temporary confusion, staring spells, uncontrollable jerking movements, and loss of consciousness. Treatment involves antiepileptic medications, lifestyle modifications, and sometimes surgical interventions. Complications can include injury during seizures and psychological issues."
+    },
+    {
+        "id": "osteoporosis",
+        "title": "Osteoporosis",
+        "content": "A condition characterized by decreased bone density and strength, increasing the risk of fractures. Symptoms are often absent until a fracture occurs. Risk factors include aging, hormonal changes, and nutritional deficiencies. Treatment includes calcium and vitamin D supplementation, weight-bearing exercises, and medications that strengthen bone. Complications can include fractures, particularly of the hip, spine, and wrist."
+    },
+    {
+        "id": "gout",
+        "title": "Gout",
+        "content": "A form of inflammatory arthritis caused by excess uric acid forming crystals in joints. Symptoms include sudden and severe joint pain, redness, swelling, and tenderness, often in the big toe. Treatment includes anti-inflammatory medications, lifestyle changes, and medications to lower uric acid levels. Complications can include joint damage and kidney stones."
+    },
+    {
+        "id": "ulcerative_colitis",
+        "title": "Ulcerative Colitis",
+        "content": "A chronic inflammatory bowel disease causing inflammation and ulcers in the colon and rectum. Symptoms include abdominal pain, diarrhea with blood or pus, weight loss, and fatigue. Treatment involves anti-inflammatory medications, immune system suppressors, and sometimes surgery. Complications can include colon cancer and severe bleeding."
+    },
+    {
+        "id": "crohn_disease",
+        "title": "Crohn's Disease",
+        "content": "A type of inflammatory bowel disease that can affect any part of the gastrointestinal tract, leading to inflammation, ulcers, and other complications. Symptoms include abdominal pain, diarrhea, weight loss, and fatigue. Treatment includes anti-inflammatory medications, immune system suppressors, and sometimes surgery. Complications can include bowel obstruction and malnutrition."
+    },
+    {
+        "id": "celiac_disease",
+        "title": "Celiac Disease",
+        "content": "An autoimmune disorder where ingestion of gluten leads to damage in the small intestine. Symptoms include diarrhea, bloating, weight loss, and fatigue. Treatment involves a strict gluten-free diet. Complications can include malnutrition and increased risk of other autoimmune disorders."
+    },
+    {
+        "id": "anorexia_nervosa",
+        "title": "Anorexia Nervosa",
+        "content": "An eating disorder characterized by weight loss, difficulty maintaining an appropriate body weight, and an intense fear of gaining weight. Symptoms include extreme restriction of food intake, distorted body image, and excessive exercise. Treatment involves psychotherapy, nutritional counseling, and medical monitoring. Complications can include heart problems and bone loss."
+    },
+    {
+        "id": "bulimia_nervosa",
+        "title": "Bulimia Nervosa",
+        "content": "An eating disorder marked by episodes of binge eating followed by compensatory behaviors like vomiting, fasting, or excessive exercise. Symptoms include chronic sore throat, swollen salivary glands, acid reflux, and severe dehydration. Treatment includes psychotherapy, nutritional education, and medication. Complications can include gastrointestinal problems and electrolyte imbalances."
+    },
+    {
+        "id": "schizophrenia",
+        "title": "Schizophrenia",
+        "content": "A chronic mental health disorder characterized by distortions in thinking, perception, emotions, language, sense of self, and behavior. Symptoms include hallucinations, delusions, disorganized speech, and impaired functioning. Treatment involves antipsychotic medications, psychotherapy, and social support. Complications can include social isolation and increased risk of suicide."
+    },
+    {
+        "id": "bipolar_disorder",
+        "title": "Bipolar Disorder",
+        "content": "A mental health condition causing extreme mood swings that include emotional highs (mania or hypomania) and lows (depression). Symptoms include elevated mood, increased activity, and impulsive behavior during manic phases, and sadness, fatigue, and hopelessness during depressive phases. Treatment includes mood stabilizers, psychotherapy, and lifestyle management. Complications can include substance abuse and relationship difficulties."
+    },
+    {
+        "id": "adhd",
+        "title": "Attention-Deficit/Hyperactivity Disorder (ADHD)",
+        "content": "A neurodevelopmental disorder characterized by patterns of inattention, hyperactivity, and impulsivity. Symptoms include difficulty sustaining attention, forgetfulness, fidgeting, and interrupting others. Treatment includes behavioral therapy, medications, and educational support. Complications can include academic difficulties and low self-esteem."
+    },
+    {
+        "id": "ptsd",
+        "title": "Post-Traumatic Stress Disorder (PTSD)",
+        "content": "A mental health condition triggered by experiencing or witnessing a traumatic event. Symptoms include flashbacks, nightmares, severe anxiety, and uncontrollable thoughts about the event. Treatment involves psychotherapy, medications, and support groups. Complications can include depression and substance abuse."
+    },
+    {
+        "id": "anxiety_disorder",
+        "title": "Anxiety Disorder",
+        "content": "A group of mental health disorders characterized by significant feelings of anxiety and fear. Symptoms include restlessness, rapid heartbeat, difficulty concentrating, and sleep disturbances. Treatment includes psychotherapy, medications, and stress management techniques. Complications can include social isolation and depression."
+    },
+    {
+        "id": "obsessive_compulsive_disorder",
+        "title": "Obsessive-Compulsive Disorder (OCD)",
+        "content": "A mental health disorder where individuals have recurring, unwanted thoughts (obsessions) and behaviors (compulsions) they feel compelled to perform. Symptoms include excessive cleaning, checking, counting, and hoarding. Treatment includes cognitive-behavioral therapy and medications. Complications can include significant distress and impairment in daily functioning."
+    },
+    {
+        "id": "lupus",
+        "title": "Systemic Lupus Erythematosus (Lupus)",
+        "content": "An autoimmune disease where the immune system attacks its own tissues, causing widespread inflammation and tissue damage. Symptoms include fatigue, joint pain, skin rashes, and fever. Treatment involves immunosuppressive medications and lifestyle changes. Complications can include kidney damage and cardiovascular disease."
+    },
+    {
+        "id": "fibromyalgia",
+        "title": "Fibromyalgia",
+        "content": "A chronic condition characterized by widespread musculoskeletal pain, fatigue, and tenderness in localized areas. Symptoms include sleep disturbances, memory issues, and mood disorders. Treatment includes medications, physical therapy, and stress management techniques. Complications can include depression and decreased quality of life."
+    },
+    {
+        "id": "interstitial_cystitis",
+        "title": "Interstitial Cystitis (Bladder Pain Syndrome)",
+        "content": "A chronic condition causing bladder pressure, bladder pain, and sometimes pelvic pain. Symptoms include frequent urination, urgency, and discomfort. Treatment includes lifestyle changes, physical therapy, medications, and bladder instillations. Complications can include reduced bladder capacity and emotional distress."
+    },
+    {
+        "id": "migraine",
+        "title": "Migraine",
+        "content": "A neurological condition characterized by intense, debilitating headaches, often accompanied by nausea, vomiting, and sensitivity to light and sound. Management includes medications to relieve symptoms and prevent attacks, as well as lifestyle modifications. Complications can include chronic migraine and medication overuse headache."
+    },
+    {
+        "id": "diabetes_type_1",
+        "title": "Type 1 Diabetes",
+        "content": "An autoimmune condition where the pancreas produces little or no insulin. Symptoms include increased thirst, frequent urination, hunger, fatigue, and blurred vision. Management involves regular insulin therapy, blood sugar monitoring, diet, and exercise. Complications can include heart disease, nerve damage, kidney failure, and eye problems."
+    },
+    {
+        "id": "diabetes_type_2",
+        "title": "Type 2 Diabetes",
+        "content": "A chronic condition affecting the way the body processes blood sugar (glucose), often due to insulin resistance. Symptoms include increased thirst, frequent urination, hunger, fatigue, and blurred vision. Management includes lifestyle changes, oral medications, and sometimes insulin therapy. Complications can include cardiovascular disease, nerve damage, kidney disease, and vision loss."
+    },
+    {
+        "id": "urinary_tract_infection",
+        "title": "Urinary Tract Infection (UTI)",
+        "content": "An infection in any part of the urinary system, commonly the bladder and urethra. Symptoms include a strong urge to urinate, burning sensation during urination, cloudy or strong-smelling urine, and pelvic pain. Treatment typically involves antibiotics and increased fluid intake. Complications can include recurrent infections and kidney damage if left untreated."
+    },
+    {
+        "id": "rheumatoid_arthritis",
+        "title": "Rheumatoid Arthritis (RA)",
+        "content": "An autoimmune disorder that primarily affects joints, causing chronic inflammation. Symptoms include joint pain, stiffness, swelling, and fatigue, typically affecting both sides of the body. Treatment includes disease-modifying antirheumatic drugs (DMARDs), biologic agents, physical therapy, and lifestyle modifications. Complications can include joint deformity, cardiovascular disease, and lung problems."
+    },
+    {
+        "id": "thyroid_disorders",
+        "title": "Thyroid Disorders",
+        "content": "Conditions affecting the thyroid gland's function, including hypothyroidism and hyperthyroidism. Symptoms vary: hypothyroidism causes fatigue, weight gain, and cold intolerance; hyperthyroidism causes weight loss, rapid heartbeat, and heat intolerance. Treatment includes hormone replacement therapy or antithyroid medications. Complications can include heart problems, osteoporosis, and in severe cases, thyroid storm."
+    },
+    {
+        "id": "sleep_apnea",
+        "title": "Sleep Apnea",
+        "content": "A serious sleep disorder where breathing repeatedly stops and starts during sleep. Symptoms include loud snoring, gasping for air during sleep, morning headache, and excessive daytime sleepiness. Treatment includes continuous positive airway pressure (CPAP) therapy, lifestyle changes, and sometimes surgery. Complications can include high blood pressure, heart problems, and type 2 diabetes."
+    },
+    {
+        "id": "chronic_fatigue_syndrome",
+        "title": "Chronic Fatigue Syndrome (CFS)",
+        "content": "A complex disorder characterized by extreme fatigue that cannot be explained by any underlying medical condition. Symptoms include severe fatigue, post-exertional malaise, unrefreshing sleep, and cognitive difficulties. Management includes graded exercise therapy, cognitive behavioral therapy, and symptom management. Complications can include depression, social isolation, and reduced quality of life."
+    },
+    {
+        "id": "endometriosis",
+        "title": "Endometriosis",
+        "content": "A painful disorder where tissue similar to the lining of the uterus grows outside the uterus. Symptoms include pelvic pain, painful periods, pain during intercourse, and infertility. Treatment includes pain medications, hormone therapy, and surgery. Complications can include chronic pelvic pain, fertility problems, and emotional distress."
+    },
+    {
+        "id": "polycystic_ovary_syndrome",
+        "title": "Polycystic Ovary Syndrome (PCOS)",
+        "content": "A hormonal disorder common among women of reproductive age. Symptoms include irregular periods, excess androgen levels, and polycystic ovaries. Treatment includes lifestyle changes, hormonal contraceptives, and medications to manage symptoms. Complications can include infertility, type 2 diabetes, and cardiovascular disease."
+    },
+    {
+        "id": "chronic_pain_syndrome",
+        "title": "Chronic Pain Syndrome",
+        "content": "A complex condition where pain persists beyond the normal healing time. Symptoms include persistent pain, fatigue, sleep disturbances, and mood changes. Management includes multidisciplinary approach with medications, physical therapy, psychological support, and lifestyle modifications. Complications can include depression, anxiety, and reduced quality of life."
+    },
+    {
+        "id": "autoimmune_hepatitis",
+        "title": "Autoimmune Hepatitis",
+        "content": "A chronic disease where the body's immune system attacks the liver, causing inflammation and damage. Symptoms include fatigue, abdominal discomfort, joint pain, and jaundice. Treatment includes immunosuppressive medications and regular monitoring. Complications can include cirrhosis, liver failure, and increased risk of liver cancer."
+    },
+    {
+        "id": "sickle_cell_disease",
+        "title": "Sickle Cell Disease",
+        "content": "A group of inherited red blood cell disorders where red blood cells become rigid and sickle-shaped. Symptoms include pain crises, anemia, frequent infections, and delayed growth. Treatment includes pain management, blood transfusions, and hydroxyurea. Complications can include stroke, organ damage, and increased risk of infections."
+    },
+    {
+        "id": "cystic_fibrosis",
+        "title": "Cystic Fibrosis",
+        "content": "A genetic disorder affecting the lungs and digestive system, causing thick, sticky mucus buildup. Symptoms include persistent cough, frequent lung infections, poor growth, and digestive problems. Treatment includes airway clearance techniques, medications, and nutritional support. Complications can include respiratory failure, diabetes, and liver disease."
+    },
+    {
+        "id": "sjogren_syndrome",
+        "title": "Sjögren's Syndrome",
+        "content": "An autoimmune disorder that primarily affects the glands that produce moisture in the eyes and mouth. Symptoms include dry eyes, dry mouth, joint pain, and fatigue. Treatment includes artificial tears, saliva substitutes, and immunosuppressive medications. Complications can include dental decay, corneal damage, and increased risk of lymphoma."
+    },
+    {
+        "id": "myasthenia_gravis",
+        "title": "Myasthenia Gravis",
+        "content": "A chronic autoimmune neuromuscular disease that causes weakness in the skeletal muscles. Symptoms include drooping eyelids, double vision, difficulty speaking and swallowing, and muscle weakness that worsens with activity. Treatment includes medications to improve nerve-muscle communication, immunosuppressants, and sometimes surgery. Complications can include myasthenic crisis and respiratory failure."
+    },
+    {
+        "id": "huntington_disease",
+        "title": "Huntington's Disease",
+        "content": "A rare, inherited neurodegenerative disorder that causes progressive breakdown of nerve cells in the brain. Symptoms include movement disorders, cognitive decline, and psychiatric problems. Treatment focuses on managing symptoms through medications and supportive care. Complications can include pneumonia, heart disease, and increased risk of suicide."
+    },
+    {
+        "id": "amyotrophic_lateral_sclerosis",
+        "title": "Amyotrophic Lateral Sclerosis (ALS)",
+        "content": "A progressive neurodegenerative disease affecting nerve cells in the brain and spinal cord. Symptoms include muscle weakness, difficulty speaking and swallowing, and eventually paralysis. Treatment includes medications to slow progression and supportive care. Complications can include respiratory failure and malnutrition."
+    },
+    {
+        "id": "marfan_syndrome",
+        "title": "Marfan Syndrome",
+        "content": "A genetic disorder affecting the body's connective tissue. Symptoms include tall stature, long limbs, flexible joints, and heart problems. Treatment includes regular monitoring, medications to manage blood pressure, and sometimes surgery. Complications can include aortic dissection, heart valve problems, and vision issues."
+    },
+    {
+        "id": "hemophilia",
+        "title": "Hemophilia",
+        "content": "A genetic bleeding disorder where blood doesn't clot properly. Symptoms include prolonged bleeding after injuries, spontaneous bleeding into joints and muscles, and easy bruising. Treatment includes replacement therapy with clotting factors and preventive care. Complications can include joint damage, internal bleeding, and inhibitor development."
+    },
+    {
+        "id": "irritable_bowel_syndrome",
+        "title": "Irritable Bowel Syndrome (IBS)",
+        "content": "A common disorder affecting the large intestine. Symptoms include abdominal pain, bloating, and changes in bowel habits. Treatment includes dietary modifications, stress management, and medications to control symptoms. Complications can include reduced quality of life and increased risk of mood disorders."
+    },
+    {
+        "id": "chronic_sinusitis",
+        "title": "Chronic Sinusitis",
+        "content": "Long-term inflammation of the sinuses. Symptoms include nasal congestion, facial pain, reduced sense of smell, and postnasal drip. Treatment includes nasal irrigation, corticosteroids, and sometimes surgery. Complications can include vision problems, meningitis, and bone infections."
+    },
+    {
+        "id": "guillain_barre_syndrome",
+        "title": "Guillain-Barré Syndrome",
+        "content": "A rare disorder where the body's immune system attacks the nerves. Symptoms include weakness and tingling in the extremities, progressing to paralysis. Treatment includes plasma exchange, immunoglobulin therapy, and supportive care. Complications can include respiratory failure and long-term disability."
+    },
+    {
+        "id": "tourette_syndrome",
+        "title": "Tourette Syndrome",
+        "content": "A neurological disorder characterized by repetitive, involuntary movements and vocalizations called tics. Symptoms include motor and vocal tics, which can be simple or complex. Treatment includes behavioral therapy and medications to manage symptoms. Complications can include social difficulties and co-occurring conditions like ADHD and OCD."
+    },
+    {
+        "id": "restless_legs_syndrome",
+        "title": "Restless Legs Syndrome (RLS)",
+        "content": "A neurological disorder causing an irresistible urge to move the legs, especially at night. Symptoms include uncomfortable sensations in the legs and sleep disturbances. Treatment includes lifestyle changes, medications, and iron supplements if deficient. Complications can include insomnia and reduced quality of life."
+    },
+    {
+        "id": "sarcoidosis",
+        "title": "Sarcoidosis",
+        "content": "An inflammatory disease that affects multiple organs, particularly the lungs and lymph nodes. Symptoms include fatigue, shortness of breath, cough, and skin lesions. Treatment includes corticosteroids and immunosuppressants. Complications can include lung fibrosis, heart problems, and eye damage."
+    },
+    {
+        "id": "vasculitis",
+        "title": "Vasculitis",
+        "content": "A group of disorders causing inflammation of blood vessels. Symptoms vary by type but can include fever, fatigue, weight loss, and organ-specific symptoms. Treatment includes corticosteroids and immunosuppressants. Complications can include organ damage and increased risk of infections."
+    },
+    {
+        "id": "ehlers_danlos_syndrome",
+        "title": "Ehlers-Danlos Syndrome",
+        "content": "A group of inherited disorders affecting connective tissue. Symptoms include hypermobile joints, stretchy skin, and tissue fragility. Treatment focuses on managing symptoms and preventing complications. Complications can include joint dislocations, chronic pain, and cardiovascular problems."
+    },
+    {
+        "id": "pulmonary_fibrosis",
+        "title": "Pulmonary Fibrosis",
+        "content": "A lung disease that occurs when lung tissue becomes damaged and scarred. Symptoms include shortness of breath, dry cough, fatigue, and weight loss. Treatment includes medications to slow progression, oxygen therapy, and sometimes lung transplant. Complications can include respiratory failure and pulmonary hypertension."
+    },
+    {
+        "id": "primary_biliary_cholangitis",
+        "title": "Primary Biliary Cholangitis",
+        "content": "A chronic liver disease where the bile ducts are slowly destroyed. Symptoms include fatigue, itching, and jaundice. Treatment includes ursodeoxycholic acid and obeticholic acid. Complications can include cirrhosis, portal hypertension, and liver failure."
+    },
+    {
+        "id": "myelodysplastic_syndrome",
+        "title": "Myelodysplastic Syndrome (MDS)",
+        "content": "A group of disorders caused by poorly formed or dysfunctional blood cells. Symptoms include fatigue, shortness of breath, and increased infections. Treatment includes blood transfusions, medications, and sometimes stem cell transplant. Complications can include progression to acute myeloid leukemia."
+    },
+    {
+        "id": "essential_tremor",
+        "title": "Essential Tremor",
+        "content": "A neurological disorder causing involuntary and rhythmic shaking. Symptoms include tremors in hands, head, voice, and other body parts. Treatment includes medications and sometimes deep brain stimulation. Complications can include difficulty with daily activities and social embarrassment."
+    },
+    {
+        "id": "interstitial_lung_disease",
+        "title": "Interstitial Lung Disease",
+        "content": "A group of disorders causing progressive scarring of lung tissue. Symptoms include shortness of breath, dry cough, and fatigue. Treatment includes medications to reduce inflammation and sometimes lung transplant. Complications can include respiratory failure and pulmonary hypertension."
+    },
+    {
+        "id": "primary_sclerosing_cholangitis",
+        "title": "Primary Sclerosing Cholangitis",
+        "content": "A chronic liver disease causing inflammation and scarring of bile ducts. Symptoms include fatigue, itching, and jaundice. Treatment includes medications to manage symptoms and sometimes liver transplant. Complications can include cirrhosis, bile duct cancer, and liver failure."
+    },
+    {
+        "id": "gaucher_disease",
+        "title": "Gaucher Disease",
+        "content": "A rare genetic disorder where fatty substances accumulate in cells and organs. Symptoms include enlarged liver and spleen, bone pain, anemia, and easy bruising. Treatment includes enzyme replacement therapy and substrate reduction therapy. Complications can include bone fractures, liver problems, and neurological symptoms in some types."
+    },
+    {
+        "id": "fabry_disease",
+        "title": "Fabry Disease",
+        "content": "A rare genetic disorder affecting the breakdown of fatty substances. Symptoms include pain in hands and feet, skin rashes, gastrointestinal problems, and kidney dysfunction. Treatment includes enzyme replacement therapy and chaperone therapy. Complications can include kidney failure, heart disease, and stroke."
+    },
+    {
+        "id": "behcet_disease",
+        "title": "Behçet's Disease",
+        "content": "A rare autoimmune disorder causing blood vessel inflammation. Symptoms include mouth sores, genital ulcers, eye inflammation, and skin lesions. Treatment includes corticosteroids and immunosuppressants. Complications can include vision loss, blood clots, and neurological problems."
+    },
+    {
+        "id": "antiphospholipid_syndrome",
+        "title": "Antiphospholipid Syndrome",
+        "content": "An autoimmune disorder that increases the risk of blood clots. Symptoms include blood clots in veins or arteries, pregnancy complications, and skin rashes. Treatment includes blood thinners and sometimes immunosuppressants. Complications can include stroke, heart attack, and pregnancy loss."
+    },
+    {
+        "id": "progressive_supranuclear_palsy",
+        "title": "Progressive Supranuclear Palsy",
+        "content": "A rare brain disorder affecting movement, balance, and eye movements. Symptoms include difficulty walking, falls, vision problems, and cognitive changes. Treatment focuses on managing symptoms through medications and therapy. Complications can include pneumonia, difficulty swallowing, and injuries from falls."
+    },
+    {
+        "id": "multiple_system_atrophy",
+        "title": "Multiple System Atrophy",
+        "content": "A rare neurodegenerative disorder affecting multiple body systems. Symptoms include movement problems, blood pressure fluctuations, and bladder dysfunction. Treatment includes medications to manage symptoms and supportive care. Complications can include breathing problems, falls, and sleep disorders."
+    },
+    {
+        "id": "porphyria",
+        "title": "Porphyria",
+        "content": "A group of disorders affecting the production of heme, a component of hemoglobin. Symptoms include abdominal pain, skin sensitivity, and neurological problems. Treatment includes avoiding triggers, medications, and sometimes blood transfusions. Complications can include liver damage and neurological damage."
+    },
+    {
+        "id": "wilson_disease",
+        "title": "Wilson's Disease",
+        "content": "A rare genetic disorder causing copper accumulation in the body. Symptoms include liver problems, neurological symptoms, and psychiatric issues. Treatment includes copper-chelating medications and zinc supplements. Complications can include liver failure and permanent neurological damage."
+    },
+    {
+        "id": "addison_disease",
+        "title": "Addison's Disease",
+        "content": "A disorder where the adrenal glands don't produce enough hormones. Symptoms include fatigue, weight loss, low blood pressure, and darkening of the skin. Treatment includes hormone replacement therapy. Complications can include adrenal crisis and cardiovascular problems."
+    },
+    {
+        "id": "cushing_syndrome",
+        "title": "Cushing's Syndrome",
+        "content": "A condition caused by excess cortisol in the body. Symptoms include weight gain, moon face, buffalo hump, and thin skin. Treatment includes surgery, radiation, or medications to reduce cortisol. Complications can include diabetes, osteoporosis, and cardiovascular disease."
+    },
+    {
+        "id": "acromegaly",
+        "title": "Acromegaly",
+        "content": "A hormonal disorder where the pituitary gland produces too much growth hormone. Symptoms include enlarged hands and feet, facial changes, and joint pain. Treatment includes surgery, medications, and radiation therapy. Complications can include heart disease, diabetes, and arthritis."
+    },
+    {
+        "id": "hashimoto_thyroiditis",
+        "title": "Hashimoto's Thyroiditis",
+        "content": "An autoimmune disorder causing inflammation of the thyroid gland. Symptoms include fatigue, weight gain, cold intolerance, and depression. Treatment includes thyroid hormone replacement. Complications can include heart problems and myxedema coma."
+    },
+    {
+        "id": "graves_disease",
+        "title": "Graves' Disease",
+        "content": "An autoimmune disorder causing overproduction of thyroid hormones. Symptoms include weight loss, rapid heartbeat, anxiety, and eye problems. Treatment includes antithyroid medications, radioactive iodine, or surgery. Complications can include heart problems and thyroid storm."
+    },
+    {
+        "id": "primary_hyperparathyroidism",
+        "title": "Primary Hyperparathyroidism",
+        "content": "A disorder where the parathyroid glands produce too much parathyroid hormone. Symptoms include bone pain, kidney stones, and fatigue. Treatment includes surgery to remove overactive glands. Complications can include osteoporosis and kidney damage."
+    },
+    {
+        "id": "pemphigus",
+        "title": "Pemphigus",
+        "content": "A group of rare autoimmune blistering diseases affecting the skin and mucous membranes. Symptoms include painful blisters and sores on the skin and mouth. Treatment includes corticosteroids and immunosuppressants. Complications can include infections and sepsis."
+    },
+    {
+        "id": "bullous_pemphigoid",
+        "title": "Bullous Pemphigoid",
+        "content": "A rare skin condition causing large, fluid-filled blisters. Symptoms include itchy skin and large blisters, typically in older adults. Treatment includes topical and systemic corticosteroids. Complications can include skin infections and sepsis."
+    },
+    {
+        "id": "dermatomyositis",
+        "title": "Dermatomyositis",
+        "content": "An inflammatory disease causing muscle weakness and skin rash. Symptoms include muscle weakness, skin rash, and fatigue. Treatment includes corticosteroids and immunosuppressants. Complications can include lung disease and increased cancer risk."
+    },
+    {
+        "id": "polymyositis",
+        "title": "Polymyositis",
+        "content": "An inflammatory muscle disease causing muscle weakness. Symptoms include progressive muscle weakness, particularly in the shoulders and hips. Treatment includes corticosteroids and immunosuppressants. Complications can include difficulty swallowing and respiratory problems."
+    },
+    {
+        "id": "scleroderma",
+        "title": "Scleroderma",
+        "content": "A group of autoimmune diseases causing hardening and tightening of the skin and connective tissues. Symptoms include skin thickening, Raynaud's phenomenon, and organ involvement. Treatment includes medications to manage symptoms and prevent complications. Complications can include pulmonary hypertension and kidney failure."
+    },
+    {
+        "id": "mixed_connective_tissue_disease",
+        "title": "Mixed Connective Tissue Disease",
+        "content": "An autoimmune disorder with features of multiple connective tissue diseases. Symptoms include Raynaud's phenomenon, joint pain, and muscle weakness. Treatment includes corticosteroids and immunosuppressants. Complications can include pulmonary hypertension and kidney disease."
     }
 ] 
