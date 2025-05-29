@@ -3,8 +3,6 @@ import json
 from typing import List, Dict, Any, Optional, Tuple
 from pathlib import Path
 import re
-
-
 from core.config import (
     MAX_DIAGNOSES,
     MIN_CONFIDENCE_THRESHOLD,
@@ -20,6 +18,13 @@ from models.text_models import TextModelClient
 logger = logging.getLogger(__name__)
 
 class DiagnosisEngine:
+    """A medical diagnosis engine that analyzes symptoms and provides potential diagnoses.
+    
+    This class combines medical knowledge retrieval, symptom analysis, and AI-powered
+    diagnostic assessment to provide comprehensive medical evaluations. It can handle
+    both primary and secondary symptoms, patient information, and medical history to
+    generate detailed diagnostic reports.
+    """
     
     def __init__(
         self,
@@ -29,6 +34,15 @@ class DiagnosisEngine:
         min_confidence: float = MIN_CONFIDENCE_THRESHOLD,
         detailed_explanations: bool = INCLUDE_DETAILED_EXPLANATIONS
     ):
+        """Initialize the DiagnosisEngine with required components.
+        
+        Args:
+            query_engine: Optional QueryEngine instance for medical knowledge retrieval
+            model_client: Optional TextModelClient for AI-powered text generation
+            max_diagnoses: Maximum number of diagnoses to return (default from config)
+            min_confidence: Minimum confidence threshold for diagnoses (default from config)
+            detailed_explanations: Whether to include detailed explanations in results
+        """
         
         self.query_engine = query_engine or create_query_engine()
         self.model_client = model_client or TextModelClient()
@@ -40,6 +54,14 @@ class DiagnosisEngine:
         self.conditions_db = self._load_json_database(CONDITIONS_DB_PATH)
     
     def _load_json_database(self, path: Path) -> Dict[str, Any]:
+        """Load a JSON database file from the specified path.
+        
+        Args:
+            path: Path to the JSON database file
+            
+        Returns:
+            Dict containing the database contents, or empty dict if loading fails
+        """
         if path.exists():
             try:
                 with open(path, 'r', encoding='utf-8') as f:
@@ -57,6 +79,27 @@ class DiagnosisEngine:
         medical_history: Optional[List[str]] = None,
         duration_days: Optional[int] = None
     ) -> Dict[str, Any]:
+        """Analyze symptoms and generate potential diagnoses.
+        
+        This method processes primary and secondary symptoms, validates them,
+        checks for urgent conditions, retrieves relevant medical knowledge,
+        and generates a comprehensive diagnostic assessment.
+        
+        Args:
+            primary_symptom: The main symptom to analyze
+            secondary_symptoms: Optional list of additional symptoms
+            patient_info: Optional dictionary containing patient demographics
+            medical_history: Optional list of previous medical conditions
+            duration_days: Optional number of days the symptoms have persisted
+            
+        Returns:
+            Dict containing:
+                - diagnoses: List of potential diagnoses with confidence levels
+                - is_urgent: Boolean indicating if urgent care is needed
+                - urgent_symptoms: List of urgent symptoms if any
+                - formatted_report: Human-readable diagnostic report
+                - Additional metadata and context
+        """
         
         logger.info(f"Analyzing symptoms. Primary: {primary_symptom}")
         
@@ -149,7 +192,22 @@ class DiagnosisEngine:
         return result
     
     def _extract_diagnoses(self, text: str) -> List[Dict[str, Any]]:
+        """Extract structured diagnoses from the model's assessment text.
         
+        This method parses the AI model's response to extract diagnoses,
+        confidence levels, explanations, and recommendations. It handles
+        both structured JSON responses and unstructured text.
+        
+        Args:
+            text: The assessment text from the AI model
+            
+        Returns:
+            List of dictionaries containing:
+                - name: Diagnosis name
+                - confidence: Confidence level (0-1)
+                - explanation: Reasoning for the diagnosis
+                - recommendations: List of recommended actions
+        """
         
         diagnoses = []
         
@@ -227,6 +285,19 @@ class DiagnosisEngine:
         return diagnoses
     
     def _extract_confidence(self, text: str) -> float:
+        """Extract confidence level from text using various patterns.
+        
+        This method looks for confidence indicators in text including:
+        - Percentage values (e.g., "80%")
+        - Decimal probabilities (e.g., "probability: 0.8")
+        - Confidence terms (e.g., "high", "likely", "possible")
+        
+        Args:
+            text: Text containing confidence indicators
+            
+        Returns:
+            Float between 0 and 1 representing the confidence level
+        """
         
         percent_match = re.search(r"(\d{1,3})%", text)
         if percent_match:
@@ -257,7 +328,21 @@ class DiagnosisEngine:
         return 0.5
     
     def get_condition_details(self, condition_name: str) -> Dict[str, Any]:
+        """Retrieve detailed information about a medical condition.
         
+        This method first checks the local conditions database, then falls back
+        to querying the knowledge base if needed. It provides structured
+        information about symptoms, causes, treatments, and prognosis.
+        
+        Args:
+            condition_name: Name of the medical condition
+            
+        Returns:
+            Dict containing:
+                - name: Condition name
+                - information: Detailed description of the condition
+                - Additional metadata if available
+        """
         
         condition_key = condition_name.lower().strip()
         
@@ -297,7 +382,21 @@ class DiagnosisEngine:
             }
     
     def get_symptom_guidance(self, symptom: str) -> Dict[str, Any]:
+        """Generate guidance for exploring a symptom in detail.
         
+        This method provides structured questions and guidance for
+        healthcare providers to gather more information about a symptom.
+        It helps in symptom exploration and differential diagnosis.
+        
+        Args:
+            symptom: The symptom to generate guidance for
+            
+        Returns:
+            Dict containing:
+                - symptom: The input symptom
+                - exploration_guidance: Structured guidance and questions
+                - Additional metadata if available
+        """
         
         valid_symptoms, _ = validate_symptoms([symptom])
         if not valid_symptoms:
@@ -331,8 +430,16 @@ class DiagnosisEngine:
                 "symptom": symptom,
                 "error": "Failed to generate symptom guidance"
             }
-
 def create_diagnosis_engine() -> DiagnosisEngine:
+    """Create and configure a new DiagnosisEngine instance.
+    
+    This factory function creates a DiagnosisEngine with default
+    configuration from the system settings. It initializes the
+    query engine and model client with standard parameters.
+    
+    Returns:
+        A configured DiagnosisEngine instance
+    """
     
     query_engine = create_query_engine()
     model_client = TextModelClient()
