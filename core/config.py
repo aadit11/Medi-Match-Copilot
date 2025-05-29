@@ -1,3 +1,29 @@
+"""
+Configuration module for MediMatch Copilot.
+
+This module manages all configuration settings for the MediMatch Copilot application,
+including model settings, directory paths, timeouts, and default values for various
+components. It provides a centralized way to access and manage application settings
+through various getter functions.
+
+The configuration is organized into several categories:
+- Base directories and paths
+- Model settings (Ollama, embeddings)
+- Timeout and retry settings
+- Vector database settings
+- Diagnosis engine settings
+- Image analysis settings
+- Logging settings
+- Medical knowledge settings
+- Retrieval settings
+- Output formatting settings
+- Patient data defaults
+- Validation settings
+
+All configuration values can be accessed through the get_config() function or
+individual category-specific getter functions.
+"""
+
 import os
 from pathlib import Path
 from typing import Dict, Any, Optional, List
@@ -41,6 +67,7 @@ IMAGE_ANALYSIS_TIMEOUT = 30
 # Logging settings
 LOG_LEVEL = "INFO"
 LOG_FILE = str(BASE_DIR / "medimatch.log")
+LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 # Medical knowledge settings
 SYMPTOMS_DB_PATH = MEDICAL_KB_DIR / "symptoms_database.json"
@@ -127,7 +154,6 @@ ALLOWED_BLOOD_TYPES = ["A_POSITIVE", "A_NEGATIVE", "B_POSITIVE", "B_NEGATIVE",
                        "AB_POSITIVE", "AB_NEGATIVE", "O_POSITIVE", "O_NEGATIVE"]
 
 # Output Formatting
-LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 ASSESSMENT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 ASSESSMENT_FILENAME_FORMAT = 'assessment_{patient_name}_{timestamp}.txt'
 ASSESSMENT_FILENAME_TIMESTAMP_FORMAT = '%Y%m%d_%H%M%S'
@@ -139,8 +165,9 @@ ASSESSMENT_SECTIONS = {
     "image_analysis": "\nImage Analysis Results:"
 }
 
+# Configuration getter functions
 def get_config() -> Dict[str, Any]:
-    """Return the complete configuration."""
+    """Return the complete configuration dictionary."""
     return {
         "model": get_model_config(),
         "retrieval": get_retrieval_config(),
