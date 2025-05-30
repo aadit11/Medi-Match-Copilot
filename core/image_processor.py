@@ -21,12 +21,35 @@ from utils.prompt_engineering import create_image_analysis_prompt
 logger = logging.getLogger(__name__)
 
 class ImageProcessor:
+    """
+    A class for processing and analyzing medical images using computer vision and AI models.
+    
+    This class handles the complete pipeline of medical image analysis including:
+    - Image validation and preprocessing
+    - Feature extraction
+    - Condition classification
+    - Detailed visual analysis
+    - Integration with symptom data
+    
+    Attributes:
+        vision_model (VisionModelClient): The AI model client for image analysis
+        confidence_threshold (float): Minimum confidence threshold for classifications
+    """
     
     def __init__(
         self,
         vision_model: Optional[VisionModelClient] = None,
         confidence_threshold: float = IMAGE_CONFIDENCE_THRESHOLD
     ):
+        """
+        Initialize the ImageProcessor.
+        
+        Args:
+            vision_model (Optional[VisionModelClient]): The AI model client for image analysis.
+                If None, a new VisionModelClient will be created.
+            confidence_threshold (float): Minimum confidence threshold for classifications.
+                Defaults to IMAGE_CONFIDENCE_THRESHOLD.
+        """
         
         self.vision_model = vision_model or VisionModelClient()
         self.confidence_threshold = confidence_threshold
@@ -38,7 +61,32 @@ class ImageProcessor:
         patient_info: Optional[Dict[str, Any]] = None,
         body_area: Optional[str] = None
     ) -> Dict[str, Any]:
-      
+        """
+        Analyze a medical image and provide comprehensive analysis results.
+        
+        This method performs a complete analysis pipeline including:
+        1. Image validation
+        2. Preprocessing
+        3. Feature extraction
+        4. Condition classification
+        5. Detailed visual analysis
+        
+        Args:
+            image_path (str): Path to the medical image file
+            primary_concern (Optional[str]): The patient's primary medical concern
+            patient_info (Optional[Dict[str, Any]]): Additional patient information
+            body_area (Optional[str]): The body area being examined
+            
+        Returns:
+            Dict[str, Any]: Analysis results containing:
+                - image_path: Path to the analyzed image
+                - patient_info: Patient information provided
+                - primary_concern: Patient's primary concern
+                - body_area: Examined body area
+                - classifications: List of identified conditions with confidence scores
+                - detailed_analysis: Comprehensive visual analysis
+                - error: Error message if analysis failed
+        """
         
         is_valid, error_msg = validate_medical_image(image_path)
         if not is_valid:
@@ -92,7 +140,25 @@ class ImageProcessor:
             }
     
     def _extract_findings_from_analysis(self, analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Internal method to extract findings from image analysis."""
+        """
+        Extract structured medical findings from the analysis text.
+        
+        This internal method parses the detailed analysis text to extract:
+        - Description of findings
+        - Confidence levels
+        - Potential diagnoses
+        - Urgency indicators
+        
+        Args:
+            analysis (Dict[str, Any]): The analysis results containing detailed_analysis text
+            
+        Returns:
+            List[Dict[str, Any]]: List of structured findings, each containing:
+                - finding: Description of the medical finding
+                - confidence: Confidence score (0-1)
+                - potential_diagnosis: Associated diagnosis
+                - urgency_required: Boolean indicating if urgent attention is needed
+        """
         if "error" in analysis:
             return []
         
@@ -152,6 +218,27 @@ class ImageProcessor:
         image_analysis: Dict[str, Any],
         symptom_data: Dict[str, Any]
     ) -> Dict[str, Any]:
+        """
+        Combine image analysis results with symptom data for comprehensive assessment.
+        
+        This method integrates visual findings with symptom-based diagnoses to provide
+        a more complete medical assessment. It considers:
+        - Image-based diagnoses
+        - Symptom-based diagnoses
+        - Urgency indicators from both sources
+        
+        Args:
+            image_analysis (Dict[str, Any]): Results from image analysis
+            symptom_data (Dict[str, Any]): Results from symptom analysis
+            
+        Returns:
+            Dict[str, Any]: Combined assessment containing:
+                - image_diagnoses: List of diagnoses from image analysis
+                - symptom_diagnoses: List of diagnoses from symptom analysis
+                - combined_assessment: Integrated analysis of both sources
+                - is_urgent: Boolean indicating if urgent attention is required
+                - errors: List of errors if any occurred
+        """
         
         if "error" in image_analysis or "error" in symptom_data:
             errors = []
@@ -228,6 +315,16 @@ class ImageProcessor:
             }
 
 def create_image_processor() -> ImageProcessor:
+    """
+    Create a new ImageProcessor instance with default configuration.
+    
+    This factory function creates an ImageProcessor with:
+    - A new VisionModelClient instance
+    - Default confidence threshold from configuration
+    
+    Returns:
+        ImageProcessor: A new instance of ImageProcessor with default settings
+    """
     
     vision_model = VisionModelClient()
     
