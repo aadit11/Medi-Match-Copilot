@@ -11,10 +11,26 @@ from core.config import OLLAMA_VISION_MODEL
 logger = logging.getLogger(__name__)
 
 class VisionModelClient:
+    """A client for interacting with vision models, particularly for medical image analysis.
+    
+    This class provides methods to analyze images using vision models, with specialized
+    functionality for medical image analysis and comparison. It uses the Ollama API
+    for model inference.
+
+    Attributes:
+        vision_model (str): The name of the vision model to use for analysis.
+    """
+
     def __init__(
         self,
         vision_model: str = OLLAMA_VISION_MODEL
     ):
+        """Initialize the VisionModelClient.
+
+        Args:
+            vision_model (str, optional): The name of the vision model to use.
+                Defaults to OLLAMA_VISION_MODEL from config.
+        """
         self.vision_model = vision_model
     
     def analyze_image(
@@ -25,7 +41,25 @@ class VisionModelClient:
         temperature: float = 0.3,
         max_tokens: Optional[int] = None
     ) -> str:
-        """Analyze image using the vision model (llama3.2-vision)."""
+        """Analyze an image using the vision model.
+
+        Args:
+            image_path (Union[str, Path]): Path to the image file to analyze.
+            prompt (str): The prompt to guide the image analysis.
+            system_prompt (Optional[str], optional): System prompt to set context.
+                Defaults to None.
+            temperature (float, optional): Controls randomness in the output.
+                Higher values make output more random. Defaults to 0.3.
+            max_tokens (Optional[int], optional): Maximum number of tokens to generate.
+                Defaults to None.
+
+        Returns:
+            str: The model's analysis of the image.
+
+        Raises:
+            FileNotFoundError: If the image file does not exist.
+            Exception: For other errors during analysis.
+        """
         try:
             if isinstance(image_path, str):
                 image_path = Path(image_path)
@@ -62,15 +96,26 @@ class VisionModelClient:
     ) -> Dict[str, Any]:
         """Analyze a medical image and return structured assessment.
         
+        This method provides a specialized analysis of medical images, returning
+        structured data about findings, their significance, and recommendations.
+
         Args:
-            image_path: Path to the medical image
-            image_type: Type of medical image (e.g., 'X-ray', 'MRI', 'CT scan')
-            context: Additional context about the image or patient
-            system_prompt: Optional custom system prompt
-            temperature: Model temperature for response generation
+            image_path (Union[str, Path]): Path to the medical image.
+            image_type (str): Type of medical image (e.g., 'X-ray', 'MRI', 'CT scan').
+            context (Optional[Dict[str, Any]], optional): Additional context about
+                the image or patient. Defaults to None.
+            system_prompt (Optional[str], optional): Custom system prompt to override
+                the default medical imaging specialist prompt. Defaults to None.
+            temperature (float, optional): Controls randomness in the output.
+                Defaults to 0.3.
             
         Returns:
-            Dict containing structured medical image analysis
+            Dict[str, Any]: A structured dictionary containing:
+                - findings: List of identified medical findings
+                - overall_assessment: Comprehensive assessment
+                - recommendations: List of clinical recommendations
+                - limitations: List of analysis limitations
+                - error: Error message if analysis failed
         """
         try:
             if not system_prompt:
@@ -222,6 +267,29 @@ class VisionModelClient:
         system_prompt: Optional[str] = None,
         temperature: float = 0.3
     ) -> Dict[str, Any]:
+        """Compare multiple medical images and identify changes between them.
+
+        This method analyzes multiple images and provides a structured comparison
+        of findings across the images, highlighting changes and their significance.
+
+        Args:
+            image_paths (List[Union[str, Path]]): List of paths to the images to compare.
+            prompt (Optional[str], optional): Custom prompt for the comparison.
+                Defaults to a standard medical image comparison prompt.
+            system_prompt (Optional[str], optional): Custom system prompt.
+                Defaults to None.
+            temperature (float, optional): Controls randomness in the output.
+                Defaults to 0.3.
+
+        Returns:
+            Dict[str, Any]: A structured dictionary containing:
+                - changes: List of identified changes between images
+                - overall_assessment: Summary of the comparison
+                - recommendations: List of recommendations based on the comparison
+
+        Raises:
+            Exception: If there's an error during the comparison process.
+        """
         try:
             if not prompt:
                 prompt = "Compare these medical images and identify any significant changes or differences."
@@ -269,7 +337,26 @@ class VisionModelClient:
         temperature: float = 0.3,
         max_tokens: Optional[int] = None
     ) -> str:
-        """Generate text using the vision model."""
+        """Generate text using the vision model without image input.
+
+        This method uses the same model as image analysis but for pure text generation.
+        Useful for generating reports or summaries based on previous analyses.
+
+        Args:
+            prompt (str): The prompt to guide text generation.
+            system_prompt (Optional[str], optional): System prompt to set context.
+                Defaults to None.
+            temperature (float, optional): Controls randomness in the output.
+                Higher values make output more random. Defaults to 0.3.
+            max_tokens (Optional[int], optional): Maximum number of tokens to generate.
+                Defaults to None.
+
+        Returns:
+            str: The generated text response.
+
+        Raises:
+            Exception: If there's an error during text generation.
+        """
         try:
             if system_prompt:
                 full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
@@ -291,4 +378,12 @@ class VisionModelClient:
             raise
 
 def create_vision_model_client() -> VisionModelClient:
+    """Create and return a new instance of VisionModelClient.
+
+    This factory function provides a convenient way to create a VisionModelClient
+    instance with default settings.
+
+    Returns:
+        VisionModelClient: A new instance of the VisionModelClient class.
+    """
     return VisionModelClient()

@@ -11,10 +11,26 @@ from core.config import OLLAMA_TEXT_MODEL
 logger = logging.getLogger(__name__)
 
 class TextModelClient:
+    """A client for interacting with text generation models, specifically Ollama models.
+    
+    This class provides a high-level interface for generating text and structured responses
+    using AI language models. It supports various text generation tasks including medical
+    assessments, symptom analysis, and general text generation with configurable parameters.
+    
+    Attributes:
+        text_model (str): The name of the text model to use for generation.
+    """
+    
     def __init__(
         self,
         text_model: str = OLLAMA_TEXT_MODEL
     ):
+        """Initialize the TextModelClient.
+        
+        Args:
+            text_model (str): The name of the text model to use. Defaults to OLLAMA_TEXT_MODEL
+                from core config.
+        """
         self.text_model = text_model
     
     def generate_text(
@@ -25,6 +41,26 @@ class TextModelClient:
         max_tokens: Optional[int] = None,
         stop: Optional[List[str]] = None
     ) -> str:
+        """Generate text using the configured language model.
+        
+        This method handles basic text generation with optional system prompts and
+        configurable generation parameters. It combines the system prompt and user prompt
+        if both are provided.
+        
+        Args:
+            prompt (str): The main prompt/query for text generation.
+            system_prompt (Optional[str]): Optional system-level instructions or context.
+            temperature (float): Controls randomness in generation (0.0 to 1.0). Defaults to 0.7.
+            max_tokens (Optional[int]): Maximum number of tokens to generate. Defaults to None.
+            stop (Optional[List[str]]): List of strings that will stop generation if encountered.
+                Defaults to None.
+                
+        Returns:
+            str: The generated text response.
+            
+        Raises:
+            Exception: If there's an error during text generation.
+        """
         try:
             if system_prompt:
                 full_prompt = f"{system_prompt.strip()}\n\n{prompt.strip()}"
@@ -55,6 +91,26 @@ class TextModelClient:
         max_tokens: Optional[int] = None,
         response_format: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
+        """Generate a structured (JSON) response from the language model.
+        
+        This method is designed to generate responses in a specific JSON format.
+        It can handle both direct JSON responses and responses wrapped in markdown code blocks.
+        
+        Args:
+            prompt (str): The main prompt/query for text generation.
+            system_prompt (Optional[str]): Optional system-level instructions or context.
+            temperature (float): Controls randomness in generation (0.0 to 1.0). Defaults to 0.3.
+            max_tokens (Optional[int]): Maximum number of tokens to generate. Defaults to None.
+            response_format (Optional[Dict[str, Any]]): Optional schema defining the expected
+                JSON response format.
+                
+        Returns:
+            Dict[str, Any]: The structured response as a dictionary. If JSON parsing fails,
+                returns a dictionary with a "text" key containing the raw response.
+                
+        Raises:
+            Exception: If there's an error during response generation or parsing.
+        """
         try:
             if response_format:
                 format_prompt = f"\nPlease provide your response in the following JSON format:\n{json.dumps(response_format, indent=2)}\n"
@@ -88,6 +144,31 @@ class TextModelClient:
         system_prompt: Optional[str] = None,
         temperature: float = 0.3
     ) -> Dict[str, Any]:
+        """Generate a structured medical assessment based on symptoms and patient information.
+        
+        This method creates a comprehensive medical assessment including potential diagnoses,
+        confidence levels, explanations, and recommendations. It formats the input data
+        and uses the language model to generate a structured medical evaluation.
+        
+        Args:
+            symptoms (List[str]): List of reported symptoms.
+            patient_info (Optional[Dict[str, Any]]): Optional dictionary containing patient
+                demographics and information.
+            medical_history (Optional[List[str]]): Optional list of previous medical conditions.
+            system_prompt (Optional[str]): Optional system-level instructions for the assessment.
+            temperature (float): Controls randomness in generation (0.0 to 1.0). Defaults to 0.3.
+                
+        Returns:
+            Dict[str, Any]: A structured assessment containing:
+                - assessment: Overall assessment of the case
+                - likely_diagnoses: List of potential diagnoses with confidence levels
+                - urgency_level: Urgency classification (high/medium/low)
+                - recommended_next_steps: List of recommended actions
+                - additional_notes: Any additional important information
+                
+        Raises:
+            Exception: If there's an error during assessment generation.
+        """
         try:
             prompt_parts = ["Medical assessment for the following symptoms:"]
             for symptom in symptoms:
@@ -132,6 +213,30 @@ class TextModelClient:
         system_prompt: Optional[str] = None,
         temperature: float = 0.5
     ) -> List[Dict[str, Any]]:
+        """Generate relevant follow-up questions for a given symptom.
+        
+        This method creates a structured set of follow-up questions to gather more
+        detailed information about a reported symptom. Questions are categorized and
+        include importance levels and explanations.
+        
+        Args:
+            symptom (str): The symptom to generate questions for.
+            context (Optional[Dict[str, Any]]): Optional additional context about the symptom
+                or patient situation.
+            system_prompt (Optional[str]): Optional system-level instructions for question
+                generation.
+            temperature (float): Controls randomness in generation (0.0 to 1.0). Defaults to 0.5.
+                
+        Returns:
+            List[Dict[str, Any]]: List of question dictionaries, each containing:
+                - question: The follow-up question
+                - category: Question category (timing/severity/characteristics/etc)
+                - importance: Importance level (high/medium/low)
+                - explanation: Why this question is important
+                
+        Raises:
+            Exception: If there's an error during question generation.
+        """
         try:
             prompt = f"Generate relevant follow-up questions for the symptom: {symptom}"
             if context:
@@ -160,4 +265,12 @@ class TextModelClient:
             raise
 
 def create_text_model_client() -> TextModelClient:
+    """Create and return a new TextModelClient instance.
+    
+    This factory function creates a TextModelClient with default configuration
+    from the system settings.
+    
+    Returns:
+        TextModelClient: A configured TextModelClient instance.
+    """
     return TextModelClient()
