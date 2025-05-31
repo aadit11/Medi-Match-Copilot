@@ -10,16 +10,45 @@ from models.text_models import TextModelClient
 logger = logging.getLogger(__name__)
 
 class ConditionClassifier:
+    """
+    A class for classifying medical conditions based on image features using AI models.
+    
+    This classifier analyzes various image characteristics including texture, shape, and color
+    features to identify potential medical conditions. It uses a text model to interpret
+    these features and match them against known medical conditions.
+    
+    Attributes:
+        model_client (TextModelClient): Client for interacting with the text model
+        conditions_db_path (Path): Path to the conditions database JSON file
+        conditions_db (Dict[str, Any]): Loaded conditions database
+    """
+    
     def __init__(
         self,
         model_client: Optional[TextModelClient] = None,
         conditions_db_path: Optional[Path] = None
     ):
+        """
+        Initialize the ConditionClassifier.
+
+        Args:
+            model_client (Optional[TextModelClient]): Client for text model interactions.
+                If None, creates a new TextModelClient instance.
+            conditions_db_path (Optional[Path]): Path to conditions database file.
+                If None, uses default path from MEDICAL_KB_DIR.
+        """
         self.model_client = model_client or TextModelClient()
         self.conditions_db_path = conditions_db_path or MEDICAL_KB_DIR / "conditions_database.json"
         self.conditions_db = self._load_conditions_database()
     
     def _load_conditions_database(self) -> Dict[str, Any]:
+        """
+        Load the medical conditions database from JSON file.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing medical conditions data.
+            Returns empty dict if loading fails.
+        """
         try:
             if self.conditions_db_path.exists():
                 with open(self.conditions_db_path, 'r', encoding='utf-8') as f:
@@ -35,6 +64,22 @@ class ConditionClassifier:
         body_area: Optional[str] = None,
         min_confidence: float = 0.4
     ) -> List[Dict[str, Any]]:
+        """
+        Classify potential medical conditions based on image features.
+
+        Args:
+            image_features (Dict[str, Any]): Dictionary containing image analysis features
+                such as texture, shape, and color characteristics.
+            body_area (Optional[str]): The body area where the image was taken.
+            min_confidence (float): Minimum confidence threshold (0-1) for including
+                conditions in results. Defaults to 0.4.
+
+        Returns:
+            List[Dict[str, Any]]: List of dictionaries containing:
+                - condition: Name of the medical condition
+                - confidence: Confidence score (0-1)
+                - explanation: Brief explanation of the classification
+        """
         
         try:
             if not image_features:
@@ -63,6 +108,16 @@ class ConditionClassifier:
             return []
     
     def _format_features(self, features: Dict[str, Any]) -> str:
+        """
+        Format image features into a human-readable string.
+
+        Args:
+            features (Dict[str, Any]): Dictionary of image features including
+                texture, shape, and color characteristics.
+
+        Returns:
+            str: Formatted string describing the features in a structured way.
+        """
         feature_parts = []
         
         if any(k.startswith('texture_') for k in features):
@@ -94,6 +149,16 @@ class ConditionClassifier:
         feature_desc: str,
         body_area: Optional[str]
     ) -> str:
+        """
+        Create a prompt for the text model to classify conditions.
+
+        Args:
+            feature_desc (str): Formatted description of image features.
+            body_area (Optional[str]): Body area where image was taken.
+
+        Returns:
+            str: Formatted prompt for the text model.
+        """
         prompt = "Based on the following image features, identify possible medical conditions:\n\n"
         prompt += feature_desc
         
@@ -108,6 +173,12 @@ class ConditionClassifier:
         return prompt
     
     def _get_system_prompt(self) -> str:
+        """
+        Get the system prompt for the text model.
+
+        Returns:
+            str: System prompt defining the model's role and behavior.
+        """
         return """
         You are a medical image analysis expert. Analyze the provided image features
         and identify possible medical conditions. Consider both the visual characteristics
@@ -116,6 +187,18 @@ class ConditionClassifier:
         """
     
     def _extract_classifications(self, response: str) -> List[Dict[str, Any]]:
+        """
+        Extract structured classification data from model response.
+
+        Args:
+            response (str): Raw text response from the model.
+
+        Returns:
+            List[Dict[str, Any]]: List of dictionaries containing:
+                - condition: Name of the medical condition
+                - confidence: Confidence score (0-1)
+                - explanation: Explanation for the classification
+        """
         try:
             system_prompt = """
             Extract the medical conditions from the analysis text.
@@ -160,6 +243,12 @@ class ConditionClassifier:
             return []
 
 def create_condition_classifier() -> ConditionClassifier:
+    """
+    Create a new instance of ConditionClassifier.
+
+    Returns:
+        ConditionClassifier: A new instance of the condition classifier.
+    """
     return ConditionClassifier()
 
 def classify_condition(
@@ -170,6 +259,19 @@ def classify_condition(
     """
     Standalone function to classify conditions from image features.
     This is a convenience wrapper around ConditionClassifier.classify_condition.
+
+    Args:
+        image_features (Dict[str, Any]): Dictionary containing image analysis features
+            such as texture, shape, and color characteristics.
+        body_area (Optional[str]): The body area where the image was taken.
+        min_confidence (float): Minimum confidence threshold (0-1) for including
+            conditions in results. Defaults to 0.4.
+
+    Returns:
+        List[Dict[str, Any]]: List of dictionaries containing:
+            - condition: Name of the medical condition
+            - confidence: Confidence score (0-1)
+            - explanation: Brief explanation of the classification
     """
     classifier = create_condition_classifier()
     return classifier.classify_condition(

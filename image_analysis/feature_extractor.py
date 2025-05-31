@@ -12,6 +12,23 @@ def extract_features(
     extract_shape: bool = True,
     extract_color: bool = True
 ) -> Optional[Dict[str, Any]]:
+    """
+    Extract various features from an input image including texture, shape, and color features.
+    
+    Args:
+        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
+        extract_texture (bool, optional): Whether to extract texture features. Defaults to True.
+        extract_shape (bool, optional): Whether to extract shape features. Defaults to True.
+        extract_color (bool, optional): Whether to extract color features. Defaults to True.
+    
+    Returns:
+        Optional[Dict[str, Any]]: Dictionary containing the extracted features. Returns None if extraction fails.
+        The dictionary contains the following keys based on enabled features:
+        - Texture features: 'texture_mean', 'texture_std', 'texture_entropy'
+        - Shape features: 'area', 'perimeter', 'circularity', 'aspect_ratio'
+        - Color features: 'red_mean', 'red_std', 'red_median', 'green_mean', 'green_std', 
+                         'green_median', 'blue_mean', 'blue_std', 'blue_median', 'color_diversity'
+    """
     
     try:
         features = {}
@@ -35,6 +52,19 @@ def extract_features(
         return None
 
 def extract_texture_features(image: np.ndarray) -> Dict[str, float]:
+    """
+    Extract texture features from an image using Local Binary Pattern (LBP).
+    
+    Args:
+        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
+    
+    Returns:
+        Dict[str, float]: Dictionary containing texture features:
+            - 'texture_mean': Mean value of LBP features
+            - 'texture_std': Standard deviation of LBP features
+            - 'texture_entropy': Entropy of LBP histogram
+        Returns empty dictionary if extraction fails.
+    """
     
     try:
         if len(image.shape) == 3:
@@ -60,6 +90,20 @@ def extract_texture_features(image: np.ndarray) -> Dict[str, float]:
         return {}
 
 def extract_shape_features(image: np.ndarray) -> Dict[str, float]:
+    """
+    Extract shape features from an image by analyzing its contours.
+    
+    Args:
+        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
+    
+    Returns:
+        Dict[str, float]: Dictionary containing shape features:
+            - 'area': Area of the largest contour
+            - 'perimeter': Perimeter of the largest contour
+            - 'circularity': Measure of how circular the shape is (4π * area / perimeter²)
+            - 'aspect_ratio': Ratio of width to height of the bounding rectangle
+        Returns empty dictionary if extraction fails or no contours are found.
+    """
     
     try:
         if len(image.shape) == 3:
@@ -93,6 +137,20 @@ def extract_shape_features(image: np.ndarray) -> Dict[str, float]:
         return {}
 
 def extract_color_features(image: np.ndarray) -> Dict[str, float]:
+    """
+    Extract color features from an RGB image.
+    
+    Args:
+        image (np.ndarray): Input image as a numpy array. Must be RGB (3 channels).
+    
+    Returns:
+        Dict[str, float]: Dictionary containing color features for each channel (red, green, blue):
+            - '{color}_mean': Mean value of the channel
+            - '{color}_std': Standard deviation of the channel
+            - '{color}_median': Median value of the channel
+            - 'color_diversity': Entropy-based measure of color diversity
+        Returns empty dictionary if extraction fails or image is not RGB.
+    """
     
     try:
         if len(image.shape) != 3:
@@ -116,6 +174,16 @@ def extract_color_features(image: np.ndarray) -> Dict[str, float]:
         return {}
 
 def calculate_aspect_ratio(contour: np.ndarray) -> float:
+    """
+    Calculate the aspect ratio of a contour using its bounding rectangle.
+    
+    Args:
+        contour (np.ndarray): Contour points as a numpy array.
+    
+    Returns:
+        float: Aspect ratio (width/height) of the bounding rectangle.
+        Returns 0 if calculation fails or height is 0.
+    """
     
     try:
         x, y, w, h = cv2.boundingRect(contour)
@@ -124,6 +192,16 @@ def calculate_aspect_ratio(contour: np.ndarray) -> float:
         return 0
 
 def calculate_color_diversity(image: np.ndarray) -> float:
+    """
+    Calculate color diversity of an image using histogram entropy.
+    
+    Args:
+        image (np.ndarray): Input RGB image as a numpy array.
+    
+    Returns:
+        float: Entropy-based measure of color diversity.
+        Returns 0 if calculation fails.
+    """
     
     try:
         hist = cv2.calcHist([image], [0, 1, 2], None, [8, 8, 8], [0, 1, 0, 1, 0, 1])
