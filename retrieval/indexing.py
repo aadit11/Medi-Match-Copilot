@@ -18,6 +18,13 @@ from retrieval.vector_store import VectorStore
 logger = logging.getLogger(__name__)
 
 class DocumentIndexer:
+    """A class for indexing and managing medical documents in a vector database.
+    
+    This class handles the process of converting medical documents into searchable
+    vector embeddings, including preprocessing, chunking, and storing in a vector database.
+    It provides methods for both single document and batch document indexing.
+    """
+    
     def __init__(
         self,
         embedding_model: str = EMBEDDING_MODEL,
@@ -25,6 +32,14 @@ class DocumentIndexer:
         chunk_size: int = CHUNK_SIZE,
         chunk_overlap: int = CHUNK_OVERLAP
     ):
+        """Initialize the DocumentIndexer with configuration parameters.
+        
+        Args:
+            embedding_model (str): The name/path of the sentence transformer model to use
+            vector_db_path (str): Path to the vector database storage
+            chunk_size (int): Maximum size of document chunks in tokens
+            chunk_overlap (int): Number of tokens to overlap between chunks
+        """
         self.embedding_model = embedding_model
         self.vector_db_path = vector_db_path
         self.chunk_size = chunk_size
@@ -40,7 +55,17 @@ class DocumentIndexer:
         self.vector_store = VectorStore(vector_db_path)
     
     def preprocess_document(self, document: Dict[str, Any]) -> Dict[str, Any]:
-        """Preprocess a document, ensuring it has the required fields."""
+        """Preprocess a document, ensuring it has the required fields and formatting.
+        
+        Args:
+            document (Dict[str, Any]): The document to preprocess, must contain 'id', 'title', and 'content'
+            
+        Returns:
+            Dict[str, Any]: The preprocessed document with added 'text' field
+            
+        Raises:
+            ValueError: If required fields are missing
+        """
         required_fields = ["id", "title", "content"]
         
         if not all(field in document for field in required_fields):
@@ -50,7 +75,17 @@ class DocumentIndexer:
         return document
     
     def embed_chunks(self, chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Generate embeddings for document chunks."""
+        """Generate embeddings for document chunks using the sentence transformer model.
+        
+        Args:
+            chunks (List[Dict[str, Any]]): List of document chunks to embed
+            
+        Returns:
+            List[Dict[str, Any]]: The chunks with added 'embedding' field
+            
+        Raises:
+            Exception: If embedding generation fails
+        """
         texts = [chunk["text"] for chunk in chunks]
         
         try:
@@ -65,7 +100,14 @@ class DocumentIndexer:
             raise
     
     def index_document(self, document: Dict[str, Any]) -> int:
-        """Index a single document."""
+        """Index a single document by chunking and embedding it.
+        
+        Args:
+            document (Dict[str, Any]): The document to index
+            
+        Returns:
+            int: Number of chunks successfully indexed, 0 if indexing failed
+        """
         try:
             processed_doc = self.preprocess_document(document)
             
@@ -96,7 +138,15 @@ class DocumentIndexer:
             return 0
     
     def index_documents(self, documents: List[Dict[str, Any]], batch_size: int = 10) -> Tuple[int, int]:
-        """Index multiple documents in batches."""
+        """Index multiple documents in batches.
+        
+        Args:
+            documents (List[Dict[str, Any]]): List of documents to index
+            batch_size (int): Number of documents to process in each batch
+            
+        Returns:
+            Tuple[int, int]: Number of documents processed and total chunks indexed
+        """
         total_chunks = 0
         processed_docs = 0
         
@@ -115,7 +165,14 @@ class DocumentIndexer:
         return processed_docs, total_chunks
     
     def index_directory(self, directory_path: str) -> Tuple[int, int]:
-        """Index all JSON files in a directory."""
+        """Index all JSON files in a directory.
+        
+        Args:
+            directory_path (str): Path to directory containing JSON files to index
+            
+        Returns:
+            Tuple[int, int]: Number of documents processed and total chunks indexed
+        """
         documents = []
         path = Path(directory_path)
         
@@ -148,19 +205,37 @@ class DocumentIndexer:
         return self.index_documents(documents)
     
     def reindex_all(self, directory_path: str) -> None:
-        """Clear and rebuild the entire index."""
+        """Clear and rebuild the entire index from documents in a directory.
+        
+        Args:
+            directory_path (str): Path to directory containing documents to reindex
+        """
         logger.info("Starting complete reindex")
         self.vector_store.clear()
         docs_indexed, chunks_indexed = self.index_directory(directory_path)
         logger.info(f"Reindex complete: {docs_indexed} documents, {chunks_indexed} chunks")
     
     def get_index_stats(self) -> Dict[str, Any]:
+        """Get statistics about the current index.
+        
+        Returns:
+            Dict[str, Any]: Dictionary containing index statistics
+        """
         return self.vector_store.get_stats()
 
 def create_indexer(
     embedding_model: str = EMBEDDING_MODEL,
     vector_db_path: str = VECTOR_DB_PATH
 ) -> DocumentIndexer:
+    """Create and return a new DocumentIndexer instance.
+    
+    Args:
+        embedding_model (str): The name/path of the sentence transformer model to use
+        vector_db_path (str): Path to the vector database storage
+        
+    Returns:
+        DocumentIndexer: A configured DocumentIndexer instance
+    """
     return DocumentIndexer(
         embedding_model=embedding_model,
         vector_db_path=vector_db_path
@@ -168,11 +243,30 @@ def create_indexer(
 
 def convert_medical_kb_to_documents(kb_dir: Path) -> List[Dict[str, Any]]:
     """Convert medical knowledge base JSON files into indexable documents.
-    Dynamically processes any JSON structure into a standardized document format."""
+    
+    This function processes JSON files in the knowledge base directory and converts them
+    into a standardized document format suitable for indexing. It handles various JSON
+    structures and formats them consistently.
+    
+    Args:
+        kb_dir (Path): Path to the medical knowledge base directory
+        
+    Returns:
+        List[Dict[str, Any]]: List of processed documents ready for indexing
+    """
     documents = []
     
     def process_json_content(content: Dict[str, Any], source_file: str, prefix: str = "") -> List[Dict[str, Any]]:
-        """Recursively process JSON content into documents."""
+        """Recursively process JSON content into standardized documents.
+        
+        Args:
+            content (Dict[str, Any]): The JSON content to process
+            source_file (str): Name of the source file
+            prefix (str): Optional prefix for document IDs
+            
+        Returns:
+            List[Dict[str, Any]]: List of processed documents
+        """
         docs = []
         
         if len(content) == 1 and isinstance(next(iter(content.values())), dict):
@@ -237,7 +331,17 @@ def convert_medical_kb_to_documents(kb_dir: Path) -> List[Dict[str, Any]]:
     return documents
 
 def index_directory(directory_path: str) -> Tuple[int, int]:
-    """Index all documents in the specified directory."""
+    """Index all documents in the specified directory.
+    
+    This is a high-level function that handles the complete indexing process for a directory
+    of medical knowledge base files. It includes document conversion and indexing.
+    
+    Args:
+        directory_path (str): Path to directory containing medical knowledge base files
+        
+    Returns:
+        Tuple[int, int]: Number of documents processed and total chunks indexed
+    """
     kb_dir = Path(directory_path)
     logger.info(f"Looking for documents in: {kb_dir.absolute()}")
     

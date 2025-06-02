@@ -7,7 +7,20 @@ def split_text_by_tokens(
     chunk_size: int = CHUNK_SIZE,
     chunk_overlap: int = CHUNK_OVERLAP
 ) -> List[str]:
-    """Split text into chunks of approximately chunk_size tokens."""
+    """Split text into chunks of approximately chunk_size tokens.
+    
+    This function splits text into chunks while trying to preserve sentence boundaries.
+    It uses a simple token estimation (4 characters per token) and handles overlap
+    between chunks to maintain context.
+    
+    Args:
+        text (str): The input text to be split into chunks
+        chunk_size (int, optional): Target size for each chunk in tokens. Defaults to CHUNK_SIZE.
+        chunk_overlap (int, optional): Number of tokens to overlap between chunks. Defaults to CHUNK_OVERLAP.
+    
+    Returns:
+        List[str]: List of text chunks, each approximately chunk_size tokens long
+    """
     token_estimator = lambda x: len(x) // 4
     
     if token_estimator(text) <= chunk_size:
@@ -44,7 +57,25 @@ def chunk_medical_document(
     chunk_size: int = CHUNK_SIZE,
     chunk_overlap: int = CHUNK_OVERLAP
 ) -> List[Dict[str, Any]]:
-    """Split a document into chunks with metadata."""
+    """Split a medical document into chunks with metadata.
+    
+    This function takes a medical document and splits its text content into chunks
+    while preserving document metadata. Each chunk includes the original document's
+    ID, title, and a unique chunk identifier.
+    
+    Args:
+        document (Dict[str, Any]): Dictionary containing document data with keys:
+            - id: Unique document identifier
+            - title: Document title
+            - text: Document content
+        chunk_size (int, optional): Target size for each chunk in tokens. Defaults to CHUNK_SIZE.
+        chunk_overlap (int, optional): Number of tokens to overlap between chunks. Defaults to CHUNK_OVERLAP.
+    
+    Returns:
+        List[Dict[str, Any]]: List of chunks, each containing:
+            - text: The chunk content
+            - metadata: Dictionary with doc_id, title, and chunk_id
+    """
     chunks = []
     
     doc_id = document["id"]
@@ -66,7 +97,19 @@ def chunk_medical_document(
     return chunks
 
 def preprocess_medical_text(text: str) -> str:
-    """Clean and normalize medical text."""
+    """Clean and normalize medical text for processing.
+    
+    This function performs several text normalization steps:
+    1. Removes extra whitespace
+    2. Expands common medical abbreviations
+    3. Standardizes text format
+    
+    Args:
+        text (str): Raw medical text to be preprocessed
+    
+    Returns:
+        str: Cleaned and normalized medical text
+    """
     text = re.sub(r'\s+', ' ', text)
     
     medical_abbreviations = {
