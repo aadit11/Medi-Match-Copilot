@@ -15,7 +15,7 @@ def split_text_by_tokens(
     
     Args:
         text (str): The input text to be split into chunks
-        chunk_size (int, optional): Target size for each chunk in tokens. Defaults to CHUNK_SIZE.
+        chunk_size (int, optional): Targsset size for each chunk in tokens. Defaults to CHUNK_SIZE.
         chunk_overlap (int, optional): Number of tokens to overlap between chunks. Defaults to CHUNK_OVERLAP.
     
     Returns:

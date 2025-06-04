@@ -10,7 +10,26 @@ def create_diagnosis_prompt(
     context_info: Dict[str, Any] = None,
     relevant_medical_knowledge: List[str] = None
 ) -> Dict[str, str]:
+    """Create a structured prompt for medical diagnosis based on patient information and symptoms.
     
+    This function generates a comprehensive prompt that includes patient information,
+    symptoms (both primary and secondary), medical history, and relevant medical knowledge
+    to help the AI model generate accurate diagnostic assessments.
+    
+    Args:
+        primary_symptom (str): The main symptom reported by the patient
+        secondary_symptoms (List[str], optional): Additional symptoms reported by the patient
+        patient_info (Dict[str, Any], optional): Patient demographic and medical information
+        medical_history (List[str], optional): List of previous medical conditions
+        duration_days (Optional[int], optional): Number of days the symptoms have persisted
+        context_info (Dict[str, Any], optional): Additional contextual information
+        relevant_medical_knowledge (List[str], optional): List of relevant medical facts
+        
+    Returns:
+        Dict[str, str]: A dictionary containing:
+            - system: The system prompt for the AI model
+            - user: The formatted user message with patient case details
+    """
     secondary_symptoms = secondary_symptoms or []
     patient_info = patient_info or {}
     medical_history = medical_history or []
@@ -82,7 +101,21 @@ def create_image_analysis_prompt(
     relevant_context: str = "",
     body_area: str = ""
 ) -> str:
-   
+    """Create a structured prompt for medical image analysis.
+    
+    This function generates a comprehensive prompt for analyzing medical images,
+    including patient information, primary concerns, and specific body areas to focus on.
+    
+    Args:
+        image_path (str): Path to the medical image to be analyzed
+        primary_concern (str, optional): The main medical concern or symptom
+        patient_info (Dict[str, Any], optional): Patient demographic and medical information
+        relevant_context (str, optional): Additional context about the image or patient
+        body_area (str, optional): Specific body area shown in the image
+        
+    Returns:
+        str: A formatted prompt string for medical image analysis
+    """
     patient_info = patient_info or {}
     
     patient_info_text = ""
@@ -112,7 +145,19 @@ Be specific and detailed in your analysis. Indicate if the image quality or angl
     return prompt.strip()
 
 def create_symptom_exploration_prompt(symptom: str) -> Dict[str, str]:
-
+    """Create a structured prompt for exploring and gathering more information about a symptom.
+    
+    This function generates a prompt that helps healthcare providers gather detailed
+    information about a patient's symptom through a series of focused questions.
+    
+    Args:
+        symptom (str): The symptom to explore in detail
+        
+    Returns:
+        Dict[str, str]: A dictionary containing:
+            - system: The system prompt defining the AI's role
+            - user: The formatted user message requesting symptom exploration questions
+    """
     system_message = """
 You are MediMatch, an AI medical assistant. Your task is to help healthcare providers
 gather more detailed information about a patient's symptoms by suggesting relevant
@@ -143,7 +188,20 @@ def format_diagnosis_results(
     patient_info: Dict[str, Any] = None,
     detailed: bool = True
 ) -> str:
+    """Format diagnostic assessment results into a readable report.
     
+    This function takes the raw diagnostic results and formats them into a
+    well-structured, human-readable report that includes patient information,
+    potential diagnoses with confidence levels, explanations, and recommendations.
+    
+    Args:
+        conditions (List[Dict[str, Any]]): List of potential diagnoses with their details
+        patient_info (Dict[str, Any], optional): Patient demographic and medical information
+        detailed (bool, optional): Whether to include detailed explanations for each diagnosis
+        
+    Returns:
+        str: A formatted markdown report of the diagnostic assessment
+    """
     patient_info = patient_info or {}
     
     report = "# Diagnostic Assessment\n\n"
