@@ -95,7 +95,7 @@ DEFAULT_PATIENT_INFO = {
     "gender": "MALE",
     "blood_type": "A_POSITIVE",
     "height": 175.0,
-    "weight": 75.0,
+    "weight": 82.0,  
     "contact_info": {
         "email": "john.smith@example.com",
         "phone": "123-456-7890",
@@ -110,26 +110,29 @@ DEFAULT_PATIENT_INFO = {
 
 DEFAULT_MEDICAL_HISTORY = [
     "Hypertension (diagnosed 2015)",
-    "Type 2 Diabetes (diagnosed 2018)",
+    "Type 2 Diabetes Mellitus (diagnosed 2018)",
+    "Diabetic retinopathy (diagnosed 2023)",
     "Previous appendectomy (2010)"
 ]
 
 DEFAULT_SYMPTOMS = {
-    "primary": "chest pain",
+    "primary": "frequent urination",
     "secondary": [
-        "shortness of breath",
+        "excessive thirst",
         "fatigue",
-        "dizziness"
+        "blurred vision",
+        "slow-healing wound on foot"
     ],
-    "duration_days": 3
+    "duration_days": 14
 }
 
 DEFAULT_IMAGE_INFO = {
-    "image_path": str(DATA_DIR / "xray.png"),  
-    "body_area": "chest",
-    "image_type": "X-ray",
-    "image_description": "Chest X-ray showing anterior-posterior view"
-} 
+    "image_path": str(DATA_DIR / "image.png"),
+    "body_area": "foot",
+    "image_type": "xray scan",
+    "image_description": "Image of diabetic foot ulcer showing tissue damage and poor healing"
+}
+
 
 DEFAULT_ANALYSIS_PARAMS = {
     "include_image_analysis": True,
