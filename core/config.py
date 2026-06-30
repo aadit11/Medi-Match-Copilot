@@ -62,7 +62,17 @@ DIAGNOSIS_TIMEOUT = 45  # seconds
 IMAGE_SIZE = (512, 512)  
 ALLOWED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".bmp"]
 IMAGE_CONFIDENCE_THRESHOLD = 0.4
-IMAGE_ANALYSIS_TIMEOUT = 30  
+IMAGE_ANALYSIS_TIMEOUT = 30
+CLASSIFICATION_MIN_CONFIDENCE = 0.4
+USE_CLAHE_PREPROCESSING = True
+
+BODY_AREA_CONDITION_KEYWORDS = {
+    "foot": ["diabetes", "ulcer", "wound", "infection", "neuropathy", "gangrene"],
+    "skin": ["eczema", "dermatitis", "psoriasis", "melanoma", "rash", "lesion", "blister"],
+    "chest": ["pneumonia", "tuberculosis", "lung", "cardiac", "respiratory"],
+    "hand": ["wound", "infection", "arthritis", "dermatitis"],
+    "eye": ["retinopathy", "glaucoma", "cataract", "vision"],
+}
 
 # Logging settings
 LOG_LEVEL = "INFO"

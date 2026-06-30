@@ -1,125 +1,138 @@
 import logging
+from typing import Dict, Tuple, Union
+
+import cv2
 import numpy as np
 from PIL import Image
-from typing import Tuple, Union
+
+from core.config import USE_CLAHE_PREPROCESSING
 
 logger = logging.getLogger(__name__)
+
+
+def to_uint8_rgb(image: Union[Image.Image, np.ndarray]) -> np.ndarray:
+    """Convert a PIL image or array to uint8 RGB."""
+    if isinstance(image, Image.Image):
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+        return np.array(image, dtype=np.uint8)
+
+    array = np.asarray(image)
+    if array.dtype != np.uint8:
+        if array.max() <= 1.0:
+            array = (array * 255.0).clip(0, 255)
+        else:
+            array = array.clip(0, 255)
+        array = array.astype(np.uint8)
+
+    if array.ndim == 2:
+        return cv2.cvtColor(array, cv2.COLOR_GRAY2RGB)
+    if array.shape[2] == 4:
+        return cv2.cvtColor(array, cv2.COLOR_RGBA2RGB)
+    return array
+
+
+def apply_clahe(rgb_uint8: np.ndarray, clip_limit: float = 2.0) -> np.ndarray:
+    """Apply CLAHE on the L channel in LAB color space for medical images."""
+    lab = cv2.cvtColor(rgb_uint8, cv2.COLOR_RGB2LAB)
+    l_channel, a_channel, b_channel = cv2.split(lab)
+    clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(8, 8))
+    enhanced_l = clahe.apply(l_channel)
+    enhanced_lab = cv2.merge((enhanced_l, a_channel, b_channel))
+    return cv2.cvtColor(enhanced_lab, cv2.COLOR_LAB2RGB)
+
+
+def enhance_image_contrast(img_array: np.ndarray) -> np.ndarray:
+    """Enhance contrast using CLAHE when enabled, otherwise min-max normalization."""
+    try:
+        rgb_uint8 = to_uint8_rgb(img_array)
+        if USE_CLAHE_PREPROCESSING:
+            return apply_clahe(rgb_uint8)
+        img_float = rgb_uint8.astype(np.float32)
+        min_val = np.min(img_float)
+        max_val = np.max(img_float)
+        img_norm = (img_float - min_val) / (max_val - min_val + 1e-8)
+        return np.clip(img_norm * 255, 0, 255).astype(np.uint8)
+    except Exception as e:
+        logger.error(f"Error enhancing image contrast: {e}")
+        return to_uint8_rgb(img_array)
+
 
 def preprocess_image(
     image: Image.Image,
     target_size: Tuple[int, int] = (512, 512),
-    normalize: bool = True,
-    enhance_contrast: bool = True
+    normalize: bool = False,
+    enhance_contrast: bool = True,
 ) -> np.ndarray:
-    """Preprocess an image for medical image analysis.
-    
-    This function performs a series of preprocessing steps on an input image:
-    1. Converts the image to RGB mode if it isn't already
-    2. Resizes the image to the target dimensions using Lanczos resampling
-    3. Optionally enhances the image contrast
-    4. Optionally normalizes pixel values to [0, 1] range
-    
-    Args:
-        image (Image.Image): Input PIL Image to preprocess
-        target_size (Tuple[int, int], optional): Target dimensions (width, height). Defaults to (512, 512).
-        normalize (bool, optional): Whether to normalize pixel values to [0, 1]. Defaults to True.
-        enhance_contrast (bool, optional): Whether to enhance image contrast. Defaults to True.
-    
-    Returns:
-        np.ndarray: Preprocessed image as a numpy array
-        
-    Raises:
-        Exception: If any preprocessing step fails
+    """
+    Preprocess an image for classical CV feature extraction.
+
+    Returns uint8 RGB by default so OpenCV/skimage pipelines receive valid pixel data.
     """
     try:
-        if image.mode != 'RGB':
-            image = image.convert('RGB')
-        
-        image = image.resize(target_size, Image.Resampling.LANCZOS)
-        
-        img_array = np.array(image)
-        
+        rgb_uint8 = to_uint8_rgb(image)
+        rgb_uint8 = np.array(
+            Image.fromarray(rgb_uint8).resize(target_size, Image.Resampling.LANCZOS),
+            dtype=np.uint8,
+        )
+
         if enhance_contrast:
-            img_array = enhance_image_contrast(img_array)
-        
+            rgb_uint8 = enhance_image_contrast(rgb_uint8)
+
         if normalize:
-            img_array = img_array.astype(np.float32) / 255.0
-        
-        return img_array
-    
+            return rgb_uint8.astype(np.float32) / 255.0
+        return rgb_uint8
+
     except Exception as e:
         logger.error(f"Error preprocessing image: {e}")
         raise
 
-def enhance_image_contrast(img_array: np.ndarray) -> np.ndarray:
-    """Enhance the contrast of an image using min-max normalization.
-    
-    This function enhances image contrast by:
-    1. Converting the image to float32
-    2. Finding the minimum and maximum pixel values
-    3. Normalizing the pixel values to [0, 255] range
-    4. Clipping values to ensure they stay within valid range
-    
-    Args:
-        img_array (np.ndarray): Input image as a numpy array
-        
-    Returns:
-        np.ndarray: Contrast-enhanced image as a numpy array of type uint8.
-                   If enhancement fails, returns the original image.
+
+def preprocess_for_analysis(
+    image: Image.Image,
+    target_size: Tuple[int, int] = (512, 512),
+    enhance_contrast: bool = True,
+) -> Dict[str, np.ndarray]:
     """
-    try:
-        img_float = img_array.astype(np.float32)
-        
-        min_val = np.min(img_float)
-        max_val = np.max(img_float)
-        
-        img_norm = (img_float - min_val) / (max_val - min_val + 1e-8)
-        
-        img_eq = np.clip(img_norm * 255, 0, 255).astype(np.uint8)
-        
-        return img_eq
-    
-    except Exception as e:
-        logger.error(f"Error enhancing image contrast: {e}")
-        return img_array
+    Single-pass preprocessing that produces arrays reused by the feature pipeline.
+
+    Returns:
+        rgb_uint8: Contrast-enhanced RGB image for color/shape analysis
+        grayscale: Grayscale copy for texture/shape analysis
+    """
+    rgb_uint8 = preprocess_image(
+        image,
+        target_size=target_size,
+        normalize=False,
+        enhance_contrast=enhance_contrast,
+    )
+    grayscale = cv2.cvtColor(rgb_uint8, cv2.COLOR_RGB2GRAY)
+    return {
+        "rgb_uint8": rgb_uint8,
+        "grayscale": grayscale,
+    }
+
 
 def validate_image(image: Union[str, Image.Image, np.ndarray]) -> Tuple[bool, str]:
-    """Validate an image for medical image analysis.
-    
-    This function performs several validation checks on the input image:
-    1. Verifies the image format is valid (string path, PIL Image, or numpy array)
-    2. Checks if image dimensions are at least 100x100 pixels
-    3. Verifies the image is not empty or corrupted
-    
-    Args:
-        image (Union[str, Image.Image, np.ndarray]): Input image as either:
-            - A string path to an image file
-            - A PIL Image object
-            - A numpy array
-    
-    Returns:
-        Tuple[bool, str]: A tuple containing:
-            - bool: True if image is valid, False otherwise
-            - str: Empty string if valid, error message if invalid
-    """
+    """Validate an image for medical image analysis."""
     try:
         if isinstance(image, str):
             img = Image.open(image)
         elif isinstance(image, Image.Image):
             img = image
         elif isinstance(image, np.ndarray):
-            img = Image.fromarray(image)
+            img = Image.fromarray(to_uint8_rgb(image))
         else:
             return False, "Invalid image format"
-        
+
         width, height = img.size
         if width < 100 or height < 100:
             return False, "Image dimensions too small"
-        
+
         if img.getbbox() is None:
             return False, "Image appears to be empty or corrupted"
-        
+
         return True, ""
-    
+
     except Exception as e:
         return False, f"Error validating image: {str(e)}"

@@ -1,214 +1,177 @@
 import logging
-import numpy as np
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
+
 import cv2
-from skimage import feature, measure
+import numpy as np
+from skimage import feature
+
+from image_analysis.preprocessor import to_uint8_rgb
 
 logger = logging.getLogger(__name__)
 
+BODY_AREA_FEATURE_FOCUS = {
+    "foot": {"texture": True, "shape": True, "color": True},
+    "skin": {"texture": True, "shape": True, "color": True},
+    "chest": {"texture": True, "shape": True, "color": False},
+    "hand": {"texture": True, "shape": True, "color": True},
+    "eye": {"texture": True, "shape": True, "color": True},
+}
+
+
+def _resolve_feature_flags(body_area: Optional[str]) -> Dict[str, bool]:
+    if not body_area:
+        return {"texture": True, "shape": True, "color": True}
+    return BODY_AREA_FEATURE_FOCUS.get(body_area.lower(), {
+        "texture": True,
+        "shape": True,
+        "color": True,
+    })
+
+
 def extract_features(
     image: np.ndarray,
-    extract_texture: bool = True,
-    extract_shape: bool = True,
-    extract_color: bool = True
+    body_area: Optional[str] = None,
+    grayscale: Optional[np.ndarray] = None,
+    extract_texture: Optional[bool] = None,
+    extract_shape: Optional[bool] = None,
+    extract_color: Optional[bool] = None,
 ) -> Optional[Dict[str, Any]]:
-    """
-    Extract various features from an input image including texture, shape, and color features.
-    
-    Args:
-        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
-        extract_texture (bool, optional): Whether to extract texture features. Defaults to True.
-        extract_shape (bool, optional): Whether to extract shape features. Defaults to True.
-        extract_color (bool, optional): Whether to extract color features. Defaults to True.
-    
-    Returns:
-        Optional[Dict[str, Any]]: Dictionary containing the extracted features. Returns None if extraction fails.
-        The dictionary contains the following keys based on enabled features:
-        - Texture features: 'texture_mean', 'texture_std', 'texture_entropy'
-        - Shape features: 'area', 'perimeter', 'circularity', 'aspect_ratio'
-        - Color features: 'red_mean', 'red_std', 'red_median', 'green_mean', 'green_std', 
-                         'green_median', 'blue_mean', 'blue_std', 'blue_median', 'color_diversity'
-    """
-    
+    """Extract texture, shape, and color features from a preprocessed image."""
     try:
-        features = {}
-        
-        if extract_texture:
-            texture_features = extract_texture_features(image)
-            features.update(texture_features)
-        
-        if extract_shape:
-            shape_features = extract_shape_features(image)
-            features.update(shape_features)
-        
-        if extract_color:
-            color_features = extract_color_features(image)
-            features.update(color_features)
-        
+        rgb_uint8 = to_uint8_rgb(image)
+        gray = grayscale if grayscale is not None else cv2.cvtColor(rgb_uint8, cv2.COLOR_RGB2GRAY)
+
+        flags = _resolve_feature_flags(body_area)
+        use_texture = extract_texture if extract_texture is not None else flags["texture"]
+        use_shape = extract_shape if extract_shape is not None else flags["shape"]
+        use_color = extract_color if extract_color is not None else flags["color"]
+
+        features: Dict[str, Any] = {"body_area": body_area or "unspecified"}
+
+        if use_texture:
+            features.update(extract_texture_features(gray))
+        if use_shape:
+            features.update(extract_shape_features(gray))
+        if use_color and rgb_uint8.ndim == 3:
+            features.update(extract_color_features(rgb_uint8))
+
+        features["feature_summary"] = summarize_features(features)
         return features
-    
+
     except Exception as e:
         logger.error(f"Error extracting features: {e}")
         return None
 
-def extract_texture_features(image: np.ndarray) -> Dict[str, float]:
-    """
-    Extract texture features from an image using Local Binary Pattern (LBP).
-    
-    Args:
-        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
-    
-    Returns:
-        Dict[str, float]: Dictionary containing texture features:
-            - 'texture_mean': Mean value of LBP features
-            - 'texture_std': Standard deviation of LBP features
-            - 'texture_entropy': Entropy of LBP histogram
-        Returns empty dictionary if extraction fails.
-    """
-    
+
+def summarize_features(features: Dict[str, Any]) -> str:
+    """Create a concise, human-readable summary for downstream classification."""
+    parts: List[str] = []
+
+    texture_std = features.get("texture_std")
+    texture_entropy = features.get("texture_entropy")
+    if texture_std is not None:
+        texture_level = "high" if texture_std > 30 else "moderate" if texture_std > 15 else "low"
+        parts.append(f"Texture variation is {texture_level}")
+    if texture_entropy is not None:
+        parts.append(f"texture entropy {texture_entropy:.2f}")
+
+    circularity = features.get("circularity")
+    aspect_ratio = features.get("aspect_ratio")
+    if circularity is not None:
+        shape_desc = "rounded" if circularity > 0.7 else "irregular" if circularity < 0.4 else "moderately irregular"
+        parts.append(f"Lesion shape appears {shape_desc}")
+    if aspect_ratio is not None:
+        parts.append(f"aspect ratio {aspect_ratio:.2f}")
+
+    color_diversity = features.get("color_diversity")
+    if color_diversity is not None:
+        color_desc = "high" if color_diversity > 4.0 else "moderate" if color_diversity > 2.5 else "low"
+        parts.append(f"Color diversity is {color_desc}")
+
+    red_mean = features.get("red_mean")
+    if red_mean is not None:
+        if red_mean > 150:
+            parts.append("pronounced redness in tissue")
+        elif red_mean < 80:
+            parts.append("relatively pale tissue tones")
+
+    return "; ".join(parts) if parts else "Limited visual feature signal detected"
+
+
+def extract_texture_features(gray: np.ndarray) -> Dict[str, float]:
     try:
-        if len(image.shape) == 3:
-            gray = cv2.cvtColor(image.astype(np.uint8), cv2.COLOR_RGB2GRAY)
-        else:
-            gray = image.astype(np.uint8)
-        
-        lbp = feature.local_binary_pattern(gray, P=8, R=1, method='uniform')
-        
+        gray_uint8 = gray.astype(np.uint8) if gray.dtype != np.uint8 else gray
+        lbp = feature.local_binary_pattern(gray_uint8, P=8, R=1, method="uniform")
         hist, _ = np.histogram(lbp.ravel(), bins=10, range=(0, 10))
-        hist = hist.astype(float) / hist.sum()
-        
-        texture_features = {
-            'texture_mean': np.mean(lbp),
-            'texture_std': np.std(lbp),
-            'texture_entropy': -np.sum(hist * np.log2(hist + 1e-10))
+        hist = hist.astype(float) / (hist.sum() + 1e-10)
+
+        return {
+            "texture_mean": float(np.mean(lbp)),
+            "texture_std": float(np.std(lbp)),
+            "texture_entropy": float(-np.sum(hist * np.log2(hist + 1e-10))),
         }
-        
-        return texture_features
-    
     except Exception as e:
         logger.error(f"Error extracting texture features: {e}")
         return {}
 
-def extract_shape_features(image: np.ndarray) -> Dict[str, float]:
-    """
-    Extract shape features from an image by analyzing its contours.
-    
-    Args:
-        image (np.ndarray): Input image as a numpy array. Can be grayscale or RGB.
-    
-    Returns:
-        Dict[str, float]: Dictionary containing shape features:
-            - 'area': Area of the largest contour
-            - 'perimeter': Perimeter of the largest contour
-            - 'circularity': Measure of how circular the shape is (4π * area / perimeter²)
-            - 'aspect_ratio': Ratio of width to height of the bounding rectangle
-        Returns empty dictionary if extraction fails or no contours are found.
-    """
-    
+
+def extract_shape_features(gray: np.ndarray) -> Dict[str, float]:
     try:
-        if len(image.shape) == 3:
-            gray = cv2.cvtColor(image.astype(np.uint8), cv2.COLOR_RGB2GRAY)
-        else:
-            gray = image.astype(np.uint8)
-        
-        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        
+        gray_uint8 = gray.astype(np.uint8) if gray.dtype != np.uint8 else gray
+        _, binary = cv2.threshold(gray_uint8, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        
         if not contours:
             return {}
-        
+
         largest_contour = max(contours, key=cv2.contourArea)
-        
         area = cv2.contourArea(largest_contour)
         perimeter = cv2.arcLength(largest_contour, True)
-        
-        shape_features = {
-            'area': area,
-            'perimeter': perimeter,
-            'circularity': 4 * np.pi * area / (perimeter * perimeter) if perimeter > 0 else 0,
-            'aspect_ratio': calculate_aspect_ratio(largest_contour)
+
+        return {
+            "area": float(area),
+            "perimeter": float(perimeter),
+            "circularity": float(4 * np.pi * area / (perimeter * perimeter)) if perimeter > 0 else 0.0,
+            "aspect_ratio": calculate_aspect_ratio(largest_contour),
         }
-        
-        return shape_features
-    
     except Exception as e:
         logger.error(f"Error extracting shape features: {e}")
         return {}
 
-def extract_color_features(image: np.ndarray) -> Dict[str, float]:
-    """
-    Extract color features from an RGB image.
-    
-    Args:
-        image (np.ndarray): Input image as a numpy array. Must be RGB (3 channels).
-    
-    Returns:
-        Dict[str, float]: Dictionary containing color features for each channel (red, green, blue):
-            - '{color}_mean': Mean value of the channel
-            - '{color}_std': Standard deviation of the channel
-            - '{color}_median': Median value of the channel
-            - 'color_diversity': Entropy-based measure of color diversity
-        Returns empty dictionary if extraction fails or image is not RGB.
-    """
-    
+
+def extract_color_features(rgb_uint8: np.ndarray) -> Dict[str, float]:
     try:
-        if len(image.shape) != 3:
+        if rgb_uint8.ndim != 3:
             return {}
-        
-        color_features = {}
-        for i, color in enumerate(['red', 'green', 'blue']):
-            channel = image[:, :, i]
+
+        color_features: Dict[str, float] = {}
+        for i, color in enumerate(["red", "green", "blue"]):
+            channel = rgb_uint8[:, :, i]
             color_features.update({
-                f'{color}_mean': np.mean(channel),
-                f'{color}_std': np.std(channel),
-                f'{color}_median': np.median(channel)
+                f"{color}_mean": float(np.mean(channel)),
+                f"{color}_std": float(np.std(channel)),
+                f"{color}_median": float(np.median(channel)),
             })
-        
-        color_features['color_diversity'] = calculate_color_diversity(image)
-        
+
+        color_features["color_diversity"] = calculate_color_diversity(rgb_uint8)
         return color_features
-    
+
     except Exception as e:
         logger.error(f"Error extracting color features: {e}")
         return {}
 
-def calculate_aspect_ratio(contour: np.ndarray) -> float:
-    """
-    Calculate the aspect ratio of a contour using its bounding rectangle.
-    
-    Args:
-        contour (np.ndarray): Contour points as a numpy array.
-    
-    Returns:
-        float: Aspect ratio (width/height) of the bounding rectangle.
-        Returns 0 if calculation fails or height is 0.
-    """
-    
-    try:
-        x, y, w, h = cv2.boundingRect(contour)
-        return float(w) / h if h > 0 else 0
-    except Exception:
-        return 0
 
-def calculate_color_diversity(image: np.ndarray) -> float:
-    """
-    Calculate color diversity of an image using histogram entropy.
-    
-    Args:
-        image (np.ndarray): Input RGB image as a numpy array.
-    
-    Returns:
-        float: Entropy-based measure of color diversity.
-        Returns 0 if calculation fails.
-    """
-    
+def calculate_aspect_ratio(contour: np.ndarray) -> float:
     try:
-        hist = cv2.calcHist([image], [0, 1, 2], None, [8, 8, 8], [0, 1, 0, 1, 0, 1])
-        hist = hist.flatten() / hist.sum()
-        
-        entropy = -np.sum(hist * np.log2(hist + 1e-10))
-        return entropy
-    
+        _, _, w, h = cv2.boundingRect(contour)
+        return float(w) / h if h > 0 else 0.0
     except Exception:
-        return 0
+        return 0.0
+
+
+def calculate_color_diversity(rgb_uint8: np.ndarray) -> float:
+    try:
+        hist = cv2.calcHist([rgb_uint8], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
+        hist = hist.flatten() / (hist.sum() + 1e-10)
+        return float(-np.sum(hist * np.log2(hist + 1e-10)))
+    except Exception:
+        return 0.0

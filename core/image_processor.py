@@ -10,7 +10,7 @@ from core.config import (
 )
 from models.vision_models import VisionModelClient
 from models.text_models import TextModelClient
-from image_analysis.preprocessor import preprocess_image
+from image_analysis.preprocessor import preprocess_for_analysis
 from image_analysis.feature_extractor import extract_features
 from image_analysis.condition_classifier import classify_condition
 from utils.medical_validators import validate_medical_image
@@ -49,14 +49,18 @@ class ImageProcessor:
 
         try:
             image = Image.open(image_path)
-            preprocessed_image = preprocess_image(image, target_size=IMAGE_SIZE)
-            image_features = extract_features(preprocessed_image)
+            processed = preprocess_for_analysis(image, target_size=IMAGE_SIZE)
+            image_features = extract_features(
+                processed["rgb_uint8"],
+                body_area=body_area,
+                grayscale=processed["grayscale"],
+            )
 
             classification_results = []
             if image_features is not None:
                 classification_results = classify_condition(
                     image_features,
-                    body_area=body_area
+                    body_area=body_area,
                 )
                 classification_results = [
                     result for result in classification_results
@@ -72,6 +76,8 @@ class ImageProcessor:
                 context["symptom_context"] = relevant_context
             if classification_results:
                 context["preliminary_classifications"] = classification_results
+            if image_features and image_features.get("feature_summary"):
+                context["visual_feature_summary"] = image_features["feature_summary"]
             if body_area:
                 context["body_area"] = body_area
             if primary_concern:
