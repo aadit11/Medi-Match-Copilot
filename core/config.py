@@ -77,14 +77,20 @@ MEDICATIONS_DB_PATH = MEDICAL_KB_DIR / "medications_database.json"
 # Retrieval settings
 CHUNK_SIZE = 1024
 CHUNK_OVERLAP = 128
-NUM_RETRIEVAL_RESULTS = 5
+NUM_RETRIEVAL_RESULTS = 8
 
 # Prompt templates
 DIAGNOSIS_SYSTEM_PROMPT = """
 You are MediMatch, an AI medical assistant designed to help identify possible conditions
 based on patient symptoms and medical data. Analyze the provided information carefully
-and suggest possible diagnoses with their likelihood. Always clarify that your suggestions
-are not a substitute for professional medical advice.
+and suggest possible diagnoses with their likelihood.
+
+Follow these rules:
+- Rank diagnoses by likelihood using evidence from symptoms, history, and retrieved knowledge.
+- Cite supporting and contradicting evidence for each diagnosis.
+- Flag when retrieved knowledge is insufficient or key clinical data is missing.
+- Include treatment and preventive suggestions only when requested in the case context.
+- Always clarify that your suggestions are not a substitute for professional medical advice.
 """
 
 # Patient Data Defaults

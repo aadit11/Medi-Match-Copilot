@@ -103,6 +103,29 @@ class QueryEngine:
         except Exception as e:
             logger.error(f"Error searching for query: {e}")
             return []
+
+    def _get_patient_demographics(
+        self, patient_info: Optional[Dict[str, Any]]
+    ) -> Tuple[Optional[int], Optional[str]]:
+        if not patient_info:
+            return None, None
+        age = patient_info.get("age")
+        gender = patient_info.get("gender") or patient_info.get("sex")
+        return age, gender
+
+    def _merge_search_results(
+        self, result_lists: List[List[Dict[str, Any]]], max_results: int
+    ) -> List[Dict[str, Any]]:
+        seen: set = set()
+        merged: List[Dict[str, Any]] = []
+        for results in result_lists:
+            for result in results:
+                text_key = result.get("text", "")[:120]
+                if text_key and text_key not in seen:
+                    seen.add(text_key)
+                    merged.append(result)
+        merged.sort(key=lambda x: x.get("score", 0), reverse=True)
+        return merged[:max_results]
     
     def retrieve_for_symptoms(
         self, 
@@ -127,15 +150,11 @@ class QueryEngine:
         query_parts = ["Medical information about symptoms:"]
         query_parts.extend([f"- {symptom}" for symptom in symptoms])
         
-        if patient_info:
-            age = patient_info.get("age")
-            sex = patient_info.get("sex")
-            
-            if age is not None:
-                query_parts.append(f"For {age} year old patient")
-            
-            if sex:
-                query_parts.append(f"Patient gender: {sex}")
+        age, gender = self._get_patient_demographics(patient_info)
+        if age is not None:
+            query_parts.append(f"For {age} year old patient")
+        if gender:
+            query_parts.append(f"Patient gender: {gender}")
         
         query = "\n".join(query_parts)
         return self.search(query, num_results)
@@ -145,6 +164,7 @@ class QueryEngine:
         primary_symptom: str,
         secondary_symptoms: Optional[List[str]] = None,
         patient_info: Optional[Dict[str, Any]] = None,
+        medical_history: Optional[List[str]] = None,
         num_results: int = NUM_RETRIEVAL_RESULTS
     ) -> List[Dict[str, Any]]:
         """Search for diagnostic information based on symptoms.
@@ -159,29 +179,38 @@ class QueryEngine:
             List of dictionaries containing diagnostic information
         """
         secondary_symptoms = secondary_symptoms or []
-        
+        medical_history = medical_history or []
+        age, gender = self._get_patient_demographics(patient_info)
+
         query_parts = [f"Diagnosis for primary symptom: {primary_symptom}"]
-        
         if secondary_symptoms:
             query_parts.append("Additional symptoms:")
             query_parts.extend([f"- {symptom}" for symptom in secondary_symptoms])
-        
-        if patient_info:
-            age = patient_info.get("age")
-            sex = patient_info.get("sex")
-            
-            patient_desc = []
-            if age is not None:
-                patient_desc.append(f"{age} year old")
-            
-            if sex:
-                patient_desc.append(sex)
-            
-            if patient_desc:
-                query_parts.append(f"Patient: {' '.join(patient_desc)}")
-        
-        query = "\n".join(query_parts)
-        return self.search(query, num_results)
+        patient_desc = []
+        if age is not None:
+            patient_desc.append(f"{age} year old")
+        if gender:
+            patient_desc.append(str(gender))
+        if patient_desc:
+            query_parts.append(f"Patient: {' '.join(patient_desc)}")
+        if medical_history:
+            query_parts.append(f"Medical history: {', '.join(medical_history)}")
+
+        all_results = [self.search("\n".join(query_parts), num_results)]
+
+        for symptom in secondary_symptoms[:3]:
+            all_results.append(
+                self.search(f"Diagnosis for symptom: {symptom}", max(2, num_results // 3))
+            )
+
+        if medical_history:
+            history_query = (
+                f"Differential diagnosis for patient with {', '.join(medical_history)} "
+                f"presenting with {primary_symptom}"
+            )
+            all_results.append(self.search(history_query, max(2, num_results // 3)))
+
+        return self._merge_search_results(all_results, num_results)
     
     def retrieve_for_condition(
         self,

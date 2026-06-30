@@ -71,13 +71,28 @@ class DiagnosisEngine:
         
         return {}
     
+    def _lookup_symptom_knowledge(self, symptoms: List[str]) -> List[str]:
+        """Look up structured knowledge from the local symptoms database."""
+        items = []
+        for symptom in symptoms:
+            key = symptom.lower().strip()
+            if key in self.symptoms_db:
+                entry = self.symptoms_db[key]
+                if isinstance(entry, dict):
+                    items.append(json.dumps(entry, ensure_ascii=False))
+                else:
+                    items.append(str(entry))
+        return items
+
     def analyze_symptoms(
         self, 
         primary_symptom: str,
         secondary_symptoms: Optional[List[str]] = None,
         patient_info: Optional[Dict[str, Any]] = None,
         medical_history: Optional[List[str]] = None,
-        duration_days: Optional[int] = None
+        duration_days: Optional[int] = None,
+        additional_notes: Optional[str] = None,
+        analysis_params: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Analyze symptoms and generate potential diagnoses.
         
@@ -128,15 +143,17 @@ class DiagnosisEngine:
             results = self.query_engine.retrieve_for_diagnosis(
                 primary_symptom=primary_symptom,
                 secondary_symptoms=secondary_symptoms,
-                patient_info=patient_info
+                patient_info=patient_info,
+                medical_history=medical_history
             )
             
-            knowledge_items = self.query_engine.extract_relevant_knowledge(results)
+            local_knowledge = self._lookup_symptom_knowledge(all_symptoms)
+            knowledge_items = local_knowledge + self.query_engine.extract_relevant_knowledge(results)
             context_text = self.query_engine.format_for_diagnosis(results)
             
         except Exception as e:
             logger.error(f"Error retrieving medical knowledge: {e}")
-            knowledge_items = []
+            knowledge_items = self._lookup_symptom_knowledge(all_symptoms)
             context_text = ""
         
         prompt_data = create_diagnosis_prompt(
@@ -145,13 +162,31 @@ class DiagnosisEngine:
             patient_info=patient_info,
             medical_history=medical_history,
             duration_days=duration_days,
-            relevant_medical_knowledge=knowledge_items
+            relevant_medical_knowledge=knowledge_items,
+            additional_notes=additional_notes,
+            analysis_params=analysis_params
         )
         
+        response_format = {
+            "diagnoses": [
+                {
+                    "name": "Condition name",
+                    "confidence": 0.8,
+                    "explanation": "Reasoning citing symptoms and history",
+                    "recommendations": ["Recommendation 1", "Recommendation 2"]
+                }
+            ],
+            "overall_assessment": "Summary of the differential diagnosis",
+            "urgent_warning_signs": ["Warning sign if any"],
+            "missing_information": ["Missing data that would improve accuracy"]
+        }
+        
         try:
-            response = self.model_client.generate_text(
+            structured = self.model_client.generate_structured_response(
                 system_prompt=prompt_data["system"],
-                prompt=prompt_data["user"]
+                prompt=prompt_data["user"],
+                temperature=0.25,
+                response_format=response_format
             )
         except Exception as e:
             logger.error(f"Error generating diagnostic assessment: {e}")
@@ -160,7 +195,11 @@ class DiagnosisEngine:
                 "details": str(e)
             }
         
-        diagnoses = self._extract_diagnoses(response)
+        diagnoses = structured.get("diagnoses", [])
+        if not diagnoses and isinstance(structured.get("text"), str):
+            diagnoses = self._extract_diagnoses(structured["text"])
+        
+        response = structured.get("overall_assessment") or json.dumps(structured, ensure_ascii=False)
         
         filtered_diagnoses = [
             d for d in diagnoses 
@@ -177,7 +216,9 @@ class DiagnosisEngine:
             "urgent_symptoms": urgent_symptoms if is_urgent else [],
             "raw_assessment": response if self.detailed_explanations else "",
             "context": context_text if self.detailed_explanations else "",
-            "duration_days": duration_days
+            "duration_days": duration_days,
+            "urgent_warning_signs": structured.get("urgent_warning_signs", []),
+            "missing_information": structured.get("missing_information", []),
         }
         
         if patient_info:
@@ -233,7 +274,8 @@ class DiagnosisEngine:
             
             extraction_result = self.model_client.generate_text(
                 system_prompt=system_prompt,
-                prompt=f"Extract diagnoses from this assessment:\n\n{text}"
+                prompt=f"Extract diagnoses from this assessment:\n\n{text}",
+                temperature=0.2
             )
             
             import re

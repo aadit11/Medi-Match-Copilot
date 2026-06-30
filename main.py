@@ -228,6 +228,21 @@ def format_assessment_result(result: Dict[str, Any]) -> str:
             output.append("Urgent symptoms detected:")
             for symptom in symptom_analysis["urgent_symptoms"]:
                 output.append(f"- {symptom}")
+        if symptom_analysis.get("urgent_warning_signs"):
+            output.append("Urgent warning signs:")
+            for warning in symptom_analysis["urgent_warning_signs"]:
+                output.append(f"- {warning}")
+        output.append("")
+
+    if symptom_analysis.get("missing_information"):
+        output.append("Missing Information:")
+        for item in symptom_analysis["missing_information"]:
+            output.append(f"- {item}")
+        output.append("")
+
+    if result.get("additional_notes"):
+        output.append("\nClinical Notes:")
+        output.append(result["additional_notes"].strip())
         output.append("")
     
     if "image_analysis" in result:
@@ -237,15 +252,49 @@ def format_assessment_result(result: Dict[str, Any]) -> str:
         if "error" in image_analysis:
             output.append(f"Error during image analysis: {image_analysis['error']}")
         else:
-            if image_analysis.get("findings"):
+            findings = image_analysis.get("findings", [])
+            if findings:
                 output.append("Image Findings:")
-                for finding in image_analysis["findings"]:
-                    output.append(f"- {finding}")
-            if image_analysis.get("confidence"):
-                output.append(f"Analysis Confidence: {image_analysis['confidence']*100:.1f}%")
-            if image_analysis.get("detailed_analysis"):
+                for finding in findings:
+                    if isinstance(finding, dict):
+                        desc = finding.get("description", "Unknown finding")
+                        location = finding.get("location", "")
+                        confidence = finding.get("confidence")
+                        line = f"- {desc}"
+                        if location:
+                            line += f" (Location: {location})"
+                        if confidence is not None:
+                            line += f" — Confidence: {float(confidence) * 100:.1f}%"
+                        output.append(line)
+                    else:
+                        output.append(f"- {finding}")
+
+            classifications = image_analysis.get("classifications", [])
+            if classifications:
+                output.append("\nPreliminary Classifications:")
+                for item in classifications:
+                    output.append(
+                        f"- {item.get('condition', 'Unknown')} "
+                        f"({item.get('confidence', 0) * 100:.1f}%)"
+                    )
+
+            assessment_text = (
+                image_analysis.get("overall_assessment")
+                or image_analysis.get("detailed_analysis")
+            )
+            if assessment_text:
                 output.append("\nDetailed Analysis:")
-                output.append(image_analysis["detailed_analysis"])
+                output.append(assessment_text)
+
+            if image_analysis.get("recommendations"):
+                output.append("\nImage-Based Recommendations:")
+                for rec in image_analysis["recommendations"]:
+                    output.append(f"- {rec}")
+
+            if image_analysis.get("limitations"):
+                output.append("\nAnalysis Limitations:")
+                for limitation in image_analysis["limitations"]:
+                    output.append(f"- {limitation}")
         output.append("")
     
     if "combined_analysis" in result:
@@ -292,7 +341,10 @@ def main():
                 medical_history=patient_data["medical_history"],
                 duration_days=patient_data["symptoms"]["duration_days"],
                 image_path=patient_data["image_info"]["image_path"] if patient_data["image_info"] else None,
-                body_area=patient_data["image_info"]["body_area"] if patient_data["image_info"] else None
+                body_area=patient_data["image_info"]["body_area"] if patient_data["image_info"] else None,
+                image_type=patient_data["image_info"].get("image_type") if patient_data["image_info"] else None,
+                additional_notes=patient_data["additional_notes"],
+                analysis_params=patient_data["analysis_params"]
             )
         except Exception as e:
             logger.error(f"Error during case analysis: {e}")
