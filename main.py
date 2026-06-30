@@ -128,7 +128,7 @@ def initialize_system():
         
         start_time = time.time()
         try:
-            doc_count, chunk_count = indexer.index_directory(medical_kb_dir)
+            doc_count, chunk_count = indexer.index_directory_if_needed(medical_kb_dir)
             if time.time() - start_time > VECTOR_DB_INIT_TIMEOUT:
                 logger.warning("Vector DB initialization took longer than expected")
             

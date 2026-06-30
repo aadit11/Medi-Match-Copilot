@@ -12,6 +12,7 @@ from core.config import (
 )
 from retrieval.vector_store import VectorStore
 from retrieval.chunking import preprocess_medical_text
+from retrieval.debug_instrumentation import agent_log
 
 logger = logging.getLogger(__name__)
 
@@ -47,25 +48,44 @@ class QueryEngine:
         self.vector_store = VectorStore(vector_db_path)
     
     def embed_query(self, query: str) -> List[float]:
-        """Generate an embedding vector for a query string.
-        
-        Args:
-            query: The text query to embed
-            
-        Returns:
-            List of floats representing the query embedding
-            
-        Raises:
-            Exception: If embedding generation fails
-        """
+        """Generate an embedding vector for a query string."""
+        return self.embed_queries([query])[0]
+
+    def embed_queries(self, queries: List[str]) -> List[List[float]]:
+        """Batch-embed multiple queries in a single model call."""
+        if not queries:
+            return []
         try:
-            processed_query = preprocess_medical_text(query)
-            embedding = self.model.encode(processed_query)
-            return embedding.tolist()
+            processed_queries = [preprocess_medical_text(q) for q in queries]
+            embeddings = self.model.encode(processed_queries)
+            return [embedding.tolist() for embedding in embeddings]
         except Exception as e:
-            logger.error(f"Error generating query embedding: {e}")
+            logger.error(f"Error generating query embeddings: {e}")
             raise
-    
+
+    def search_with_embedding(
+        self,
+        query_embedding: List[float],
+        num_results: int = NUM_RETRIEVAL_RESULTS,
+        filters: Optional[Dict[str, Any]] = None,
+    ) -> List[Dict[str, Any]]:
+        """Search using a precomputed query embedding."""
+        try:
+            filter_fn = None
+            if filters:
+                def filter_fn(result: Dict[str, Any]) -> bool:
+                    metadata = result.get("metadata", {})
+                    return all(metadata.get(k) == v for k, v in filters.items())
+
+            return self.vector_store.search(
+                query_embedding=query_embedding,
+                k=num_results,
+                filter_fn=filter_fn,
+            )
+        except Exception as e:
+            logger.error(f"Error searching with embedding: {e}")
+            return []
+
     def search(
         self, 
         query: str, 
@@ -84,18 +104,25 @@ class QueryEngine:
         """
         try:
             query_embedding = self.embed_query(query)
-            
-            filter_fn = None
-            if filters:
-                def filter_fn(result: Dict[str, Any]) -> bool:
-                    metadata = result.get("metadata", {})
-                    return all(metadata.get(k) == v for k, v in filters.items())
-            
-            results = self.vector_store.search(
+            results = self.search_with_embedding(
                 query_embedding=query_embedding,
-                k=num_results,
-                filter_fn=filter_fn
+                num_results=num_results,
+                filters=filters,
             )
+            
+            # region agent log
+            agent_log(
+                "query_engine.py:search",
+                "search completed",
+                {
+                    "query_preview": query[:80],
+                    "num_results": len(results),
+                    "top_score": results[0].get("score") if results else None,
+                    "store_chunks": len(self.vector_store.metadata),
+                },
+                "C",
+            )
+            # endregion
             
             logger.info(f"Found {len(results)} results for query: {query[:50]}...")
             return results
@@ -120,9 +147,10 @@ class QueryEngine:
         merged: List[Dict[str, Any]] = []
         for results in result_lists:
             for result in results:
-                text_key = result.get("text", "")[:120]
-                if text_key and text_key not in seen:
-                    seen.add(text_key)
+                metadata = result.get("metadata", {})
+                dedupe_key = metadata.get("chunk_id") or result.get("text", "")[:120]
+                if dedupe_key and dedupe_key not in seen:
+                    seen.add(dedupe_key)
                     merged.append(result)
         merged.sort(key=lambda x: x.get("score", 0), reverse=True)
         return merged[:max_results]
@@ -196,21 +224,49 @@ class QueryEngine:
         if medical_history:
             query_parts.append(f"Medical history: {', '.join(medical_history)}")
 
-        all_results = [self.search("\n".join(query_parts), num_results)]
-
+        query_specs: List[Tuple[str, int]] = [
+            ("\n".join(query_parts), num_results),
+        ]
         for symptom in secondary_symptoms[:3]:
-            all_results.append(
-                self.search(f"Diagnosis for symptom: {symptom}", max(2, num_results // 3))
+            query_specs.append(
+                (f"Diagnosis for symptom: {symptom}", max(2, num_results // 3))
             )
-
         if medical_history:
             history_query = (
                 f"Differential diagnosis for patient with {', '.join(medical_history)} "
                 f"presenting with {primary_symptom}"
             )
-            all_results.append(self.search(history_query, max(2, num_results // 3)))
+            query_specs.append((history_query, max(2, num_results // 3)))
 
-        return self._merge_search_results(all_results, num_results)
+        queries = [spec[0] for spec in query_specs]
+        k_values = [spec[1] for spec in query_specs]
+        embeddings = self.embed_queries(queries)
+
+        all_results = [
+            self.search_with_embedding(embedding, num_results=k)
+            for embedding, k in zip(embeddings, k_values)
+        ]
+
+        merged = self._merge_search_results(all_results, num_results)
+
+        # region agent log
+        agent_log(
+            "query_engine.py:retrieve_for_diagnosis",
+            "diagnosis retrieval summary",
+            {
+                "num_search_calls": len(all_results),
+                "raw_result_counts": [len(r) for r in all_results],
+                "merged_count": len(merged),
+                "top_merged_scores": [r.get("score") for r in merged[:3]],
+                "has_patient_age": age is not None,
+                "has_patient_gender": bool(gender),
+                "secondary_symptom_count": len(secondary_symptoms),
+            },
+            "A",
+        )
+        # endregion
+
+        return merged
     
     def retrieve_for_condition(
         self,
@@ -238,7 +294,7 @@ class QueryEngine:
     def extract_relevant_knowledge(
         self,
         results: List[Dict[str, Any]],
-        max_items: int = 5
+        max_items: int = NUM_RETRIEVAL_RESULTS
     ) -> List[str]:
         """Extract and format the most relevant knowledge from search results.
         
@@ -259,7 +315,7 @@ class QueryEngine:
             text = result.get("text", "").strip()
             metadata = result.get("metadata", {})
             
-            if len(text) < 50:
+            if len(text) < 30:
                 continue
             
             section = metadata.get("section", "")
@@ -272,7 +328,7 @@ class QueryEngine:
         
         return knowledge_items
     
-    def format_for_diagnosis(self, results: List[Dict[str, Any]], max_items: int = 3) -> str:
+    def format_for_diagnosis(self, results: List[Dict[str, Any]], max_items: int = NUM_RETRIEVAL_RESULTS) -> str:
         """Format search results into a structured diagnostic report.
         
         Args:
@@ -308,16 +364,18 @@ class QueryEngine:
             context_parts.append("")  
         return "\n".join(context_parts)
 
+_default_query_engine: Optional["QueryEngine"] = None
+
+
 def create_query_engine() -> QueryEngine:
-    """Create and configure a new QueryEngine instance with default settings.
-    
-    Returns:
-        A configured QueryEngine instance
-    """
-    return QueryEngine(
-        embedding_model=EMBEDDING_MODEL,
-        vector_db_path=VECTOR_DB_PATH
-    )
+    """Create or reuse a configured QueryEngine instance."""
+    global _default_query_engine
+    if _default_query_engine is None:
+        _default_query_engine = QueryEngine(
+            embedding_model=EMBEDDING_MODEL,
+            vector_db_path=VECTOR_DB_PATH,
+        )
+    return _default_query_engine
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

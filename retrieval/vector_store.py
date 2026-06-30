@@ -169,12 +169,11 @@ class VectorStore:
         
         try:
             query_vector = np.array(query_embedding, dtype=np.float32)
-            
-            norm_query = np.linalg.norm(query_vector)
-            norm_docs = np.linalg.norm(self.embeddings, axis=1)
-            dot_product = np.dot(self.embeddings, query_vector)
-            
-            similarities = dot_product / (norm_query * norm_docs + 1e-8)
+            norm_query = query_vector / (np.linalg.norm(query_vector) + 1e-8)
+            norm_docs = self.embeddings / (
+                np.linalg.norm(self.embeddings, axis=1, keepdims=True) + 1e-8
+            )
+            similarities = np.dot(norm_docs, norm_query)
             
             top_indices = np.argsort(similarities)[::-1][:k].tolist()
             
