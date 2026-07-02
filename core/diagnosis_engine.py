@@ -12,7 +12,11 @@ from core.config import (
 )
 from retrieval.query_engine import QueryEngine, create_query_engine
 from utils.medical_validators import validate_symptoms, is_urgent_symptom
-from utils.prompt_engineering import create_diagnosis_prompt, format_diagnosis_results
+from utils.prompt_engineering import (
+    create_diagnosis_prompt,
+    format_diagnosis_results,
+    get_diagnosis_response_schema,
+)
 from models.text_models import TextModelClient
 
 logger = logging.getLogger(__name__)
@@ -164,22 +168,12 @@ class DiagnosisEngine:
             duration_days=duration_days,
             relevant_medical_knowledge=knowledge_items,
             additional_notes=additional_notes,
-            analysis_params=analysis_params
+            analysis_params=analysis_params,
+            is_urgent=is_urgent,
+            urgent_symptoms=urgent_symptoms if is_urgent else [],
         )
-        
-        response_format = {
-            "diagnoses": [
-                {
-                    "name": "Condition name",
-                    "confidence": 0.8,
-                    "explanation": "Reasoning citing symptoms and history",
-                    "recommendations": ["Recommendation 1", "Recommendation 2"]
-                }
-            ],
-            "overall_assessment": "Summary of the differential diagnosis",
-            "urgent_warning_signs": ["Warning sign if any"],
-            "missing_information": ["Missing data that would improve accuracy"]
-        }
+
+        response_format = get_diagnosis_response_schema()
         
         try:
             structured = self.model_client.generate_structured_response(

@@ -9,7 +9,6 @@ from typing import Dict, Any, Optional
 
 from core.system_analyzer import SystemAnalyzer, create_system_analyzer
 from core.image_processor import ImageProcessor, create_image_processor
-from utils.medical_validators import sanitize_patient_data
 from retrieval.indexing import create_indexer
 from core.config import (
     OLLAMA_BASE_URL,
@@ -324,20 +323,13 @@ def main():
         except Exception as e:
             logger.error(f"Error getting patient data: {e}")
             sys.exit(1)
-        
-        logger.info("Sanitizing patient information...")
-        try:
-            sanitized_patient_info = sanitize_patient_data(patient_data["patient_info"])
-        except Exception as e:
-            logger.error(f"Error sanitizing patient data: {e}")
-            sys.exit(1)
-        
+
         logger.info("Starting case analysis...")
         try:
             result = analyzer.analyze_case(
                 primary_symptom=patient_data["symptoms"]["primary"],
                 secondary_symptoms=patient_data["symptoms"]["secondary"],
-                patient_info=sanitized_patient_info,
+                patient_info=patient_data["patient_info"],
                 medical_history=patient_data["medical_history"],
                 duration_days=patient_data["symptoms"]["duration_days"],
                 image_path=patient_data["image_info"]["image_path"] if patient_data["image_info"] else None,
@@ -350,13 +342,16 @@ def main():
             logger.error(f"Error during case analysis: {e}")
             sys.exit(1)
         
-        result["patient_info"] = sanitized_patient_info
+        result["patient_info"] = result.get("patient_info", patient_data["patient_info"])
         result["additional_notes"] = patient_data["additional_notes"]
         
         logger.info("Formatting assessment results...")
         try:
             assessment_text = format_assessment_result(result)
-            patient_name = f"{sanitized_patient_info['first_name']}_{sanitized_patient_info['last_name']}"
+            patient_name = (
+                f"{result['patient_info'].get('first_name', 'Patient')}_"
+                f"{result['patient_info'].get('last_name', 'Unknown')}"
+            )
             output_file = save_assessment_to_file(assessment_text, patient_name)
         except Exception as e:
             logger.error(f"Error formatting or saving assessment: {e}")

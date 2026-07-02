@@ -1,7 +1,28 @@
 from typing import Dict, List, Any, Optional
-from core.config import DIAGNOSIS_SYSTEM_PROMPT
+from core.config import DIAGNOSIS_SYSTEM_PROMPT, MAX_DIAGNOSES, NUM_RETRIEVAL_RESULTS
 
 CLINICAL_PATIENT_FIELDS = ("age", "gender", "blood_type", "height", "weight")
+MAX_KNOWLEDGE_ITEM_CHARS = 600
+MAX_KNOWLEDGE_ITEMS = NUM_RETRIEVAL_RESULTS
+
+DIAGNOSIS_RESPONSE_SCHEMA = {
+    "diagnoses": [
+        {
+            "name": "Condition name",
+            "confidence": 0.8,
+            "explanation": "Reasoning citing symptoms, history, and retrieved knowledge",
+            "recommendations": ["Recommendation 1", "Recommendation 2"],
+        }
+    ],
+    "overall_assessment": "Summary of the differential diagnosis",
+    "urgent_warning_signs": ["Warning sign if any"],
+    "missing_information": ["Missing data that would improve accuracy"],
+}
+
+
+def get_diagnosis_response_schema() -> Dict[str, Any]:
+    """Return the structured JSON schema expected from the diagnosis model."""
+    return DIAGNOSIS_RESPONSE_SCHEMA
 
 
 def _format_clinical_patient_info(patient_info: Dict[str, Any]) -> str:
@@ -14,6 +35,18 @@ def _format_clinical_patient_info(patient_info: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _truncate_knowledge_items(items: List[str], max_items: int = MAX_KNOWLEDGE_ITEMS) -> List[str]:
+    """Limit knowledge context size to reduce prompt bloat and improve focus."""
+    truncated = []
+    for item in items[:max_items]:
+        text = item.strip()
+        if len(text) > MAX_KNOWLEDGE_ITEM_CHARS:
+            text = text[:MAX_KNOWLEDGE_ITEM_CHARS].rstrip() + "..."
+        if text:
+            truncated.append(text)
+    return truncated
+
+
 def create_diagnosis_prompt(
     primary_symptom: str,
     secondary_symptoms: List[str] = None,
@@ -23,15 +56,21 @@ def create_diagnosis_prompt(
     context_info: Dict[str, Any] = None,
     relevant_medical_knowledge: List[str] = None,
     additional_notes: Optional[str] = None,
-    analysis_params: Optional[Dict[str, Any]] = None
+    analysis_params: Optional[Dict[str, Any]] = None,
+    is_urgent: bool = False,
+    urgent_symptoms: Optional[List[str]] = None,
 ) -> Dict[str, str]:
     """Create a structured prompt for medical diagnosis based on patient information and symptoms."""
     secondary_symptoms = secondary_symptoms or []
     patient_info = patient_info or {}
     medical_history = medical_history or []
-    context_info = context_info or {}
-    relevant_medical_knowledge = relevant_medical_knowledge or []
+    context_info = dict(context_info or {})
+    relevant_medical_knowledge = _truncate_knowledge_items(relevant_medical_knowledge or [])
     analysis_params = analysis_params or {}
+    urgent_symptoms = urgent_symptoms or []
+
+    if is_urgent:
+        context_info["pre_screened_urgent_symptoms"] = urgent_symptoms
 
     patient_section = ""
     clinical_info = _format_clinical_patient_info(patient_info)
@@ -55,6 +94,9 @@ def create_diagnosis_prompt(
     if duration_days is not None:
         symptoms_section += f"- Duration: {duration_days} days\n"
 
+    if is_urgent:
+        symptoms_section += "- Pre-screened as potentially urgent\n"
+
     context_section = ""
     if context_info:
         context_section = "## Additional Context\n"
@@ -72,7 +114,7 @@ def create_diagnosis_prompt(
             knowledge_section += f"{i}. {knowledge}\n\n"
 
     output_requirements = [
-        "1. Up to 5 most likely diagnoses with confidence levels (0.0-1.0)",
+        f"1. Up to {MAX_DIAGNOSES} most likely diagnoses with confidence levels (0.0-1.0)",
         "2. Brief explanation for each potential diagnosis citing the evidence",
         "3. Recommended next steps (tests, specialist referrals)",
         "4. Any urgent warning signs to be aware of",
@@ -95,13 +137,14 @@ def create_diagnosis_prompt(
 Based on the above information, provide a differential diagnosis assessment covering:
 {chr(10).join(output_requirements)}
 
+Prioritize diagnoses supported by symptoms, medical history, and retrieved knowledge.
 Note any important information that might be missing from the assessment.
 Return your response as structured JSON matching the requested schema.
 """
 
     return {
         "system": DIAGNOSIS_SYSTEM_PROMPT,
-        "user": user_message.strip()
+        "user": user_message.strip(),
     }
 
 
@@ -111,7 +154,7 @@ def create_image_analysis_prompt(
     patient_info: Dict[str, Any] = None,
     relevant_context: str = "",
     body_area: str = "",
-    medical_history: Optional[List[str]] = None
+    medical_history: Optional[List[str]] = None,
 ) -> str:
     """Create a structured prompt for medical image analysis."""
     patient_info = patient_info or {}
@@ -124,15 +167,21 @@ def create_image_analysis_prompt(
     if medical_history:
         history_text = "Medical history:\n" + "\n".join(f"- {item}" for item in medical_history) + "\n"
 
-    prompt = f"""
-You are a medical image analysis expert. Analyze this medical image carefully and provide your assessment.
+    context_text = ""
+    if relevant_context:
+        context = relevant_context.strip()
+        if len(context) > MAX_KNOWLEDGE_ITEM_CHARS:
+            context = context[:MAX_KNOWLEDGE_ITEM_CHARS].rstrip() + "..."
+        context_text = f"Symptom and diagnostic context: {context}"
 
-{patient_info_text}
-{history_text}
-{"Primary concern: " + primary_concern if primary_concern else ""}
-{"Body area: " + body_area if body_area else ""}
-{"Symptom and diagnostic context: " + relevant_context if relevant_context else ""}
-
+    prompt_parts = [
+        "You are a medical image analysis expert. Analyze this medical image carefully and provide your assessment.",
+        patient_info_text,
+        history_text,
+        f"Primary concern: {primary_concern}" if primary_concern else "",
+        f"Body area: {body_area}" if body_area else "",
+        context_text,
+        """
 Please provide:
 1. Description of what you see in the image
 2. Possible diagnoses based on visual characteristics
@@ -142,9 +191,10 @@ Please provide:
 
 Be specific and detailed in your analysis. Indicate if the image quality or angle limits your assessment.
 Relate findings to the patient's symptoms and medical history when provided.
-"""
+""".strip(),
+    ]
 
-    return prompt.strip()
+    return "\n\n".join(part for part in prompt_parts if part).strip()
 
 
 def create_symptom_exploration_prompt(symptom: str) -> Dict[str, str]:
@@ -171,14 +221,14 @@ Organize the questions in a logical order, starting with the most important ones
 
     return {
         "system": system_message,
-        "user": user_message
+        "user": user_message,
     }
 
 
 def format_diagnosis_results(
     conditions: List[Dict[str, Any]],
     patient_info: Dict[str, Any] = None,
-    detailed: bool = True
+    detailed: bool = True,
 ) -> str:
     """Format diagnostic assessment results into a readable report."""
     patient_info = patient_info or {}
@@ -193,15 +243,17 @@ def format_diagnosis_results(
     report += "## Potential Diagnoses\n\n"
 
     for i, condition in enumerate(conditions, 1):
+        name = condition.get("name", "Unknown")
         confidence = condition.get("confidence", 0) * 100
-        report += f"### {i}. {condition['name']} (Confidence: {confidence:.1f}%)\n\n"
+        report += f"### {i}. {name} (Confidence: {confidence:.1f}%)\n\n"
 
-        if detailed and "explanation" in condition:
+        if detailed and condition.get("explanation"):
             report += f"{condition['explanation']}\n\n"
 
-        if "recommendations" in condition:
+        recommendations = condition.get("recommendations") or []
+        if recommendations:
             report += "**Recommendations:**\n"
-            for rec in condition["recommendations"]:
+            for rec in recommendations:
                 report += f"- {rec}\n"
             report += "\n"
 

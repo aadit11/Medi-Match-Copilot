@@ -14,7 +14,6 @@ from core.config import (
 )
 from retrieval.chunking import chunk_medical_document, preprocess_medical_text
 from retrieval.vector_store import VectorStore
-from retrieval.debug_instrumentation import agent_log
 
 logger = logging.getLogger(__name__)
 
@@ -120,10 +119,8 @@ class DocumentIndexer:
             
             embedded_chunks = self.embed_chunks(chunks)
             
-            chunk_ids_written = []
             for i, chunk in enumerate(embedded_chunks):
                 chunk_id = chunk.get("metadata", {}).get("chunk_id", f"{document['id']}_chunk_{i}")
-                chunk_ids_written.append(chunk_id)
                 self.vector_store.add_document(
                     text=chunk["text"],
                     metadata={
@@ -134,20 +131,6 @@ class DocumentIndexer:
                     embedding=chunk["embedding"],
                 )
 
-            # region agent log
-            agent_log(
-                "indexing.py:index_document",
-                "document indexed",
-                {
-                    "doc_id": document.get("id"),
-                    "chunks_indexed": len(chunks),
-                    "chunk_ids_sample": chunk_ids_written[:5],
-                    "duplicate_chunk_ids": len(chunk_ids_written) != len(set(chunk_ids_written)),
-                },
-                "B",
-            )
-            # endregion
-            
             logger.info(f"Indexed document {document['id']} with {len(chunks)} chunks")
             return len(chunks)
         
@@ -220,31 +203,7 @@ class DocumentIndexer:
                 logger.error(f"Error processing file {file_path}: {e}")
         
         logger.info(f"Found {len(documents)} documents in {directory_path}")
-        result = self.index_documents(documents)
-
-        # region agent log
-        stats = self.vector_store.get_stats()
-        chunk_ids = [
-            d.get("metadata", {}).get("chunk_id")
-            for d in self.vector_store.metadata[-20:]
-        ]
-        agent_log(
-            "indexing.py:index_directory",
-            "directory indexing complete",
-            {
-                "documents_found": len(documents),
-                "docs_indexed": result[0],
-                "chunks_indexed_this_run": result[1],
-                "total_store_chunks": stats.get("chunk_count"),
-                "unique_doc_ids": stats.get("document_count"),
-                "recent_chunk_ids": chunk_ids,
-                "skipped_reindex": False,
-            },
-            "E",
-        )
-        # endregion
-
-        return result
+        return self.index_documents(documents)
 
     def index_directory_if_needed(self, directory_path: str) -> Tuple[int, int]:
         """Index the directory when empty, or rebuild if the index looks duplicated."""
@@ -260,19 +219,6 @@ class DocumentIndexer:
                     existing_chunks,
                     existing_docs,
                 )
-                # region agent log
-                agent_log(
-                    "indexing.py:index_directory_if_needed",
-                    "skipped duplicate indexing",
-                    {
-                        "total_store_chunks": existing_chunks,
-                        "unique_doc_ids": existing_docs,
-                        "chunks_per_doc": round(chunks_per_doc, 2),
-                        "skipped_reindex": True,
-                    },
-                    "E",
-                )
-                # endregion
                 return existing_docs, existing_chunks
 
             logger.warning(
@@ -282,18 +228,6 @@ class DocumentIndexer:
             )
             self.reindex_all(directory_path)
             stats = self.vector_store.get_stats()
-            # region agent log
-            agent_log(
-                "indexing.py:index_directory_if_needed",
-                "rebuilt duplicated index",
-                {
-                    "total_store_chunks": stats.get("chunk_count"),
-                    "unique_doc_ids": stats.get("document_count"),
-                    "skipped_reindex": False,
-                },
-                "E",
-            )
-            # endregion
             return stats.get("document_count", 0), stats.get("chunk_count", 0)
 
         return self.index_directory(directory_path)

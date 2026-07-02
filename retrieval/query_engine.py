@@ -12,7 +12,6 @@ from core.config import (
 )
 from retrieval.vector_store import VectorStore
 from retrieval.chunking import preprocess_medical_text
-from retrieval.debug_instrumentation import agent_log
 
 logger = logging.getLogger(__name__)
 
@@ -109,21 +108,7 @@ class QueryEngine:
                 num_results=num_results,
                 filters=filters,
             )
-            
-            # region agent log
-            agent_log(
-                "query_engine.py:search",
-                "search completed",
-                {
-                    "query_preview": query[:80],
-                    "num_results": len(results),
-                    "top_score": results[0].get("score") if results else None,
-                    "store_chunks": len(self.vector_store.metadata),
-                },
-                "C",
-            )
-            # endregion
-            
+
             logger.info(f"Found {len(results)} results for query: {query[:50]}...")
             return results
         
@@ -247,26 +232,7 @@ class QueryEngine:
             for embedding, k in zip(embeddings, k_values)
         ]
 
-        merged = self._merge_search_results(all_results, num_results)
-
-        # region agent log
-        agent_log(
-            "query_engine.py:retrieve_for_diagnosis",
-            "diagnosis retrieval summary",
-            {
-                "num_search_calls": len(all_results),
-                "raw_result_counts": [len(r) for r in all_results],
-                "merged_count": len(merged),
-                "top_merged_scores": [r.get("score") for r in merged[:3]],
-                "has_patient_age": age is not None,
-                "has_patient_gender": bool(gender),
-                "secondary_symptom_count": len(secondary_symptoms),
-            },
-            "A",
-        )
-        # endregion
-
-        return merged
+        return self._merge_search_results(all_results, num_results)
     
     def retrieve_for_condition(
         self,
