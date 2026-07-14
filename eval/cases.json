@@ -1,0 +1,202 @@
+[
+  {
+    "id": "case_01",
+    "gold_id": "diabetes_mellitus",
+    "gold_aliases": ["diabetes", "diabetes mellitus", "type 2 diabetes", "type ii diabetes", "dm"],
+    "primary_symptom": "frequent urination",
+    "secondary_symptoms": ["excessive thirst", "unexplained weight loss", "fatigue", "blurred vision"],
+    "patient_info": {"age": 52, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 45
+  },
+  {
+    "id": "case_02",
+    "gold_id": "influenza",
+    "gold_aliases": ["influenza", "flu", "influenza (flu)"],
+    "primary_symptom": "high fever",
+    "secondary_symptoms": ["severe body aches", "fatigue", "dry cough", "chills", "sore throat"],
+    "patient_info": {"age": 34, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 3
+  },
+  {
+    "id": "case_03",
+    "gold_id": "asthma",
+    "gold_aliases": ["asthma"],
+    "primary_symptom": "wheezing",
+    "secondary_symptoms": ["shortness of breath", "chest tightness", "coughing at night"],
+    "patient_info": {"age": 28, "gender": "FEMALE"},
+    "medical_history": ["seasonal allergies"],
+    "duration_days": 14
+  },
+  {
+    "id": "case_04",
+    "gold_id": "pneumonia",
+    "gold_aliases": ["pneumonia"],
+    "primary_symptom": "cough with phlegm",
+    "secondary_symptoms": ["fever", "chills", "difficulty breathing", "chest pain when breathing"],
+    "patient_info": {"age": 67, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 5
+  },
+  {
+    "id": "case_05",
+    "gold_id": "migraine",
+    "gold_aliases": ["migraine", "migraine headache"],
+    "primary_symptom": "intense throbbing headache",
+    "secondary_symptoms": ["nausea", "sensitivity to light", "sensitivity to sound", "visual aura"],
+    "patient_info": {"age": 31, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 1
+  },
+  {
+    "id": "case_06",
+    "gold_id": "gout",
+    "gold_aliases": ["gout", "gouty arthritis"],
+    "primary_symptom": "sudden severe big toe pain",
+    "secondary_symptoms": ["joint redness", "joint swelling", "joint tenderness", "warmth over joint"],
+    "patient_info": {"age": 58, "gender": "MALE"},
+    "medical_history": ["high uric acid"],
+    "duration_days": 2
+  },
+  {
+    "id": "case_07",
+    "gold_id": "tuberculosis",
+    "gold_aliases": ["tuberculosis", "tb", "tuberculosis (tb)", "pulmonary tuberculosis"],
+    "primary_symptom": "persistent cough lasting weeks",
+    "secondary_symptoms": ["night sweats", "weight loss", "low grade fever", "chest pain"],
+    "patient_info": {"age": 44, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 45
+  },
+  {
+    "id": "case_08",
+    "gold_id": "gastroesophageal_reflux_disease",
+    "gold_aliases": ["gerd", "gastroesophageal reflux disease", "acid reflux", "reflux"],
+    "primary_symptom": "heartburn after meals",
+    "secondary_symptoms": ["regurgitation", "sour taste in mouth", "difficulty swallowing"],
+    "patient_info": {"age": 40, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 60
+  },
+  {
+    "id": "case_09",
+    "gold_id": "depression",
+    "gold_aliases": ["depression", "major depressive disorder", "major depression", "clinical depression"],
+    "primary_symptom": "persistent sadness",
+    "secondary_symptoms": ["loss of interest", "fatigue", "feelings of worthlessness", "sleep disturbance"],
+    "patient_info": {"age": 36, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 90
+  },
+  {
+    "id": "case_10",
+    "gold_id": "eczema",
+    "gold_aliases": ["eczema", "atopic dermatitis", "eczema (atopic dermatitis)"],
+    "primary_symptom": "intensely itchy skin",
+    "secondary_symptoms": ["red inflamed patches", "dry cracked skin", "skin thickening"],
+    "patient_info": {"age": 12, "gender": "MALE"},
+    "medical_history": ["seasonal allergies"],
+    "duration_days": 120
+  },
+  {
+    "id": "case_11",
+    "gold_id": "parkinson_disease",
+    "gold_aliases": ["parkinson", "parkinson's disease", "parkinson disease", "parkinsons"],
+    "primary_symptom": "hand tremor at rest",
+    "secondary_symptoms": ["muscle stiffness", "slow movement", "balance difficulty"],
+    "patient_info": {"age": 68, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 365
+  },
+  {
+    "id": "case_12",
+    "gold_id": "meningitis",
+    "gold_aliases": ["meningitis", "bacterial meningitis", "viral meningitis"],
+    "primary_symptom": "sudden severe headache",
+    "secondary_symptoms": ["neck stiffness", "fever", "sensitivity to light", "confusion"],
+    "patient_info": {"age": 22, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 1
+  },
+  {
+    "id": "case_13",
+    "gold_id": "celiac_disease",
+    "gold_aliases": ["celiac", "celiac disease", "coeliac disease", "gluten sensitivity"],
+    "primary_symptom": "chronic diarrhea after eating bread",
+    "secondary_symptoms": ["bloating", "weight loss", "fatigue", "abdominal pain"],
+    "patient_info": {"age": 29, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 180
+  },
+  {
+    "id": "case_14",
+    "gold_id": "chronic_obstructive_pulmonary_disease",
+    "gold_aliases": ["copd", "chronic obstructive pulmonary disease", "emphysema", "chronic bronchitis"],
+    "primary_symptom": "chronic cough with sputum",
+    "secondary_symptoms": ["shortness of breath on exertion", "wheezing", "frequent respiratory infections"],
+    "patient_info": {"age": 62, "gender": "MALE"},
+    "medical_history": ["long-term smoking"],
+    "duration_days": 730
+  },
+  {
+    "id": "case_15",
+    "gold_id": "hashimoto_thyroiditis",
+    "gold_aliases": ["hashimoto", "hashimoto's thyroiditis", "hashimoto thyroiditis", "hypothyroidism", "underactive thyroid"],
+    "primary_symptom": "unexplained weight gain",
+    "secondary_symptoms": ["fatigue", "cold intolerance", "dry skin", "constipation", "hair loss"],
+    "patient_info": {"age": 45, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 120
+  },
+  {
+    "id": "case_16",
+    "gold_id": "epilepsy",
+    "gold_aliases": ["epilepsy", "seizure disorder", "epileptic seizures"],
+    "primary_symptom": "recurrent unprovoked seizures",
+    "secondary_symptoms": ["temporary confusion", "staring spells", "uncontrollable jerking movements", "loss of consciousness"],
+    "patient_info": {"age": 24, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 365
+  },
+  {
+    "id": "case_17",
+    "gold_id": "urinary_tract_infection",
+    "gold_aliases": ["uti", "urinary tract infection", "bladder infection", "cystitis"],
+    "primary_symptom": "burning during urination",
+    "secondary_symptoms": ["frequent urination", "urgency to urinate", "cloudy urine", "lower abdominal pain"],
+    "patient_info": {"age": 27, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 3
+  },
+  {
+    "id": "case_18",
+    "gold_id": "rheumatoid_arthritis",
+    "gold_aliases": ["rheumatoid arthritis", "ra"],
+    "primary_symptom": "symmetric joint pain in hands",
+    "secondary_symptoms": ["morning stiffness lasting over an hour", "joint swelling", "fatigue", "warm joints"],
+    "patient_info": {"age": 48, "gender": "FEMALE"},
+    "medical_history": [],
+    "duration_days": 90
+  },
+  {
+    "id": "case_19",
+    "gold_id": "ulcerative_colitis",
+    "gold_aliases": ["ulcerative colitis", "uc", "inflammatory bowel disease"],
+    "primary_symptom": "bloody diarrhea",
+    "secondary_symptoms": ["abdominal pain", "urgency to defecate", "weight loss", "fatigue"],
+    "patient_info": {"age": 32, "gender": "MALE"},
+    "medical_history": [],
+    "duration_days": 60
+  },
+  {
+    "id": "case_20",
+    "gold_id": "anemia",
+    "gold_aliases": ["anemia", "iron deficiency anemia", "anaemia"],
+    "primary_symptom": "persistent fatigue",
+    "secondary_symptoms": ["pallor", "shortness of breath", "dizziness", "cold hands"],
+    "patient_info": {"age": 33, "gender": "FEMALE"},
+    "medical_history": ["heavy menstrual periods"],
+    "duration_days": 60
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "metrics": {
+    "n_cases": 1,
+    "n_errors": 0,
+    "top1_accuracy": 100.0,
+    "top3_hit_rate": 100.0,
+    "top5_hit_rate": 100.0,
+    "mrr": 1.0,
+    "avg_latency_sec": 362.9,
+    "top1_count": 1,
+    "top3_count": 1,
+    "top5_count": 1
+  },
+  "results": [
+    {
+      "id": "case_01",
+      "gold_id": "diabetes_mellitus",
+      "elapsed_sec": 362.91,
+      "predictions": [
+        "Type 2 Diabetes Mellitus",
+        "Diabetic Ketoacidosis",
+        "Chronic Kidney Disease"
+      ],
+      "confidences": [
+        0.85,
+        0.6,
+        0.4
+      ],
+      "rank": 1,
+      "top1": true,
+      "top3": true,
+      "top5": true
+    }
+  ]
+}
